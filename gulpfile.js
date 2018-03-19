@@ -21,7 +21,7 @@ gulp.task("build-js", function () {
         .pipe(sourcemaps.init())
         .pipe(concat("main.js"))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest("src/ripe_retail/static/dist/"));
+        .pipe(gulp.dest("static/dist/"));
 });
 
 gulp.task("build-css", function () {
