@@ -26,24 +26,24 @@ gulp.task("build-js", function () {
 
 gulp.task("build-css", function () {
     gulp
-        .src("src/ripe_retail/static/css/**/*.css")
+        .src("static/css/**/*.css")
         .pipe(
             order(["base.css"], {
-                base: "src/ripe_retail/static/css/"
+                base: "static/css/"
             })
         )
         .pipe(sourcemaps.init())
         .pipe(concat("layout.css"))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest("src/ripe_retail/static/dist/"));
+        .pipe(gulp.dest("static/dist/"));
 });
 
 gulp.task("watch-js", function () {
-    gulp.watch("src/ripe_retail/static/js/**/*.js", ["build-js"]);
+    gulp.watch("static/js/**/*.js", ["build-js"]);
 });
 
 gulp.task("watch-css", function () {
-    gulp.watch("src/ripe_retail/static/css/**/*.css", ["build-css"]);
+    gulp.watch("static/css/**/*.css", ["build-css"]);
 });
 
 gulp.task("build", ["build-js", "build-css"]);
