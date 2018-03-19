@@ -5,11 +5,17 @@ setTimeout(function () {
         el: "#app",
         data: {
             message: "Hello Vue!",
-            details: ""
+            details: "",
+            stores: [
+                { id: 0, name: "Store 1" },
+                { id: 1, name: "Store 2" },
+                { id: 2, name: "Store 3" }
+            ]
         }
     });
 });
 
+/*
 setTimeout(function () {
     app.message = "Loading...";
     app.$http.get("https://cameria.bemisc.com/api/cameras.json",
@@ -25,3 +31,4 @@ setTimeout(function () {
             app.details = JSON.stringify(response);
         });
 }, 2000);
+*/

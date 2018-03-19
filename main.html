@@ -12,6 +12,11 @@
         <div id="app">
             <h1>{{ message }}</h1>
             <div class="details">{{ details }}</div>
+            <store
+                v-for="store in stores"
+                v-bind:store="store"
+                v-bind:key="store.id">
+            </store>
             <store></store>
         </div>
     </body>
