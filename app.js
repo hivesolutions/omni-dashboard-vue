@@ -14,7 +14,11 @@ app.set("views", __dirname + "/views");
 app.use("/static", express.static(__dirname + "/static"))
 
 app.get("/", (req, res, next) => {
-    res.sendfile("main.html")
+    res.sendfile("main.html");
+});
+
+app.get("/demo", (req, res, next) => {
+    res.render("demo.html.mustache");
 });
 
 app.listen(port, hostname, () => {
