@@ -51,10 +51,6 @@
     cursor: pointer;
 }
 
-.store .refresh > img:hover {
-    filter: saturate(50);
-}
-
 .store .results {
     border-radius: 2px 2px 2px 2px;
     -o-border-radius: 2px 2px 2px 2px;
