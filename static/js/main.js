@@ -5,7 +5,7 @@ setTimeout(() => {
         el: "#app",
         data: {
             message: "Vue Users",
-            details: "Simple user demo",
+            details: "This is just a simple remote user retrieval demo",
             users: []
         },
         methods: {
@@ -27,5 +27,4 @@ setTimeout(() => {
             }
         }
     });
-    app.retryRemote();
 });
