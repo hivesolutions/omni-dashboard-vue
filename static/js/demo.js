@@ -1,7 +1,5 @@
-var app = null;
-
-setTimeout(() => {
-    app = new Vue({
+const demo = function() {
+    new Vue({
         el: "#app",
         data: {
             message: "Vue Users",
@@ -27,4 +25,4 @@ setTimeout(() => {
             }
         }
     });
-});
+};

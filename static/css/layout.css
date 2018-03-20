@@ -382,8 +382,8 @@ body.cool .container {
 }
 
 body.cool .container.dynamic {
-    width: 100%;
     padding: 24px 24px 24px 24px;
+    width: 100%;
 }
 
 body.cool.cool-color .container {

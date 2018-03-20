@@ -4,7 +4,7 @@ Vue.component("store", {
             <h1 class="title">{{ store ? store.name : name }}</h1>
             <div class="results results-main">
                 <div class="left">
-                    <div>{{ store.mainSales.day }}</div>
+                    <div class="day">{{ store.mainSales.day }}</div>
                     <div class="weekday">{{ store.mainSales.weekday }}</div>
                 </div>
                 <div class="right">
@@ -13,7 +13,7 @@ Vue.component("store", {
             </div>
             <div class="results" v-for="sale in store.sales">
                 <div class="left">
-                    <div>{{ sale.day }}</div>
+                    <div class="day">{{ sale.day }}</div>
                     <div class="weekday">{{ sale.weekday }}</div>
                 </div>
                 <div class="right">
@@ -33,28 +33,23 @@ Vue.component("store", {
                     weekday: "Today's Sales",
                     ammount: "14,000 EUR"
                 },
-                sales: [
-                    {
-                        day: "18/03",
-                        weekday: "Tuesday",
-                        ammount: "12,000 EUR"
-                    },
-                    {
-                        day: "18/03",
-                        weekday: "Monday",
-                        ammount: "12,000 EUR"
-                    },
-                    {
-                        day: "18/03",
-                        weekday: "Tuesday",
-                        ammount: "12,000 EUR"
-                    },
-                    {
-                        day: "18/03",
-                        weekday: "Tuesday",
-                        ammount: "12,000 EUR"
-                    }
-                ],
+                sales: [{
+                    day: "18/03",
+                    weekday: "Tuesday",
+                    ammount: "12,000 EUR"
+                }, {
+                    day: "18/03",
+                    weekday: "Monday",
+                    ammount: "12,000 EUR"
+                }, {
+                    day: "18/03",
+                    weekday: "Tuesday",
+                    ammount: "12,000 EUR"
+                }, {
+                    day: "18/03",
+                    weekday: "Tuesday",
+                    ammount: "12,000 EUR"
+                }],
                 isMain: false
             }
         }

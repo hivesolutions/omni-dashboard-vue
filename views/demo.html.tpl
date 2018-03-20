@@ -2,7 +2,7 @@
 {% block title %}Simple Demo{% endblock %}
 {% block content %}
     {% raw %}
-        <div id="app" class="app container">
+        <div id="app" class="app demo container">
             <h1>{{message}}</h1>
             <h2 class="details">{{details}}</h2>
             <div class="users">

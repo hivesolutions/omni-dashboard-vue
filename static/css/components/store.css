@@ -1,9 +1,14 @@
 .store .results {
-    margin: 12px 0px 12px 0px;
-    font-weight: 500;
-    padding: 6px 16px 6px 16px;
-    border-radius: 2px;
+    border-radius: 2px 2px 2px 2px;
+    -o-border-radius: 2px 2px 2px 2px;
+    -ms-border-radius: 2px 2px 2px 2px;
+    -moz-border-radius: 2px 2px 2px 2px;
+    -khtml-border-radius: 2px 2px 2px 2px;
+    -webkit-border-radius: 2px 2px 2px 2px;
     font-size: 0px;
+    font-weight: 500;
+    margin: 12px 0px 12px 0px;
+    padding: 6px 16px 6px 16px;
 }
 
 .store .results:after {
@@ -13,9 +18,9 @@
 }
 .store .results > * {
     display: inline-block;
-    width: 50%;
     font-size: 14px;
     vertical-align: middle;
+    width: 50%;
 }
 
 .store .results > .left {
@@ -27,7 +32,7 @@
 }
 
 .store .results .weekday {
-    font-style: oblique;
+    font-size: 15px;
 }
 
 .store .results .money {
