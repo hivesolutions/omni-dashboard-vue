@@ -4,6 +4,9 @@ Vue.component("store", {
             <div class="trend">
                 <img src="/static/images/arrow_up.svg" class="up" />
             </div>
+            <div class="refresh">
+                <img src="/static/images/refresh.svg" />
+            </div>
             <div class="results results-main">
                 <div class="left">
                     <div class="day">{{ store ? store.name : name }}</div>
