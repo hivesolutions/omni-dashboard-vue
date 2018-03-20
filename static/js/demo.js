@@ -9,10 +9,10 @@ setTimeout(() => {
             users: []
         },
         methods: {
-            retryRemote: function () {
+            retryRemote: function() {
                 this.remote();
             },
-            remote: function () {
+            remote: function() {
                 this.message = "Loading...";
                 this.$http.get("https://jsonplaceholder.typicode.com/users")
                     .then(response => {

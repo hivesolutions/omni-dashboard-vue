@@ -18,7 +18,7 @@ app.get("/", (req, res, next) => {
 });
 
 app.get("/demo", (req, res, next) => {
-    res.render("demo.html.mustache");
+    res.render("demo.mustache");
 });
 
 app.listen(port, hostname, () => {
