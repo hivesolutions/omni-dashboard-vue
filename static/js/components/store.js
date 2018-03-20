@@ -1,48 +1,24 @@
 Vue.component("store", {
     template: `
         <div class=\"store\">
-            <h2 class="title">{{ store ? store.name : name }}</h2>
+            <h1 class="title">{{ store ? store.name : name }}</h1>
             <div class="results results-main">
                 <div class="left">
-                    <div>Global</div>
-                    <div>Today's Sales</div>
+                    <div>{{ store.mainSales.day }}</div>
+                    <div class="weekday">{{ store.mainSales.weekday }}</div>
                 </div>
-                <div class="right">4348.94 EUR</div>
+                <div class="right">
+                    <div class="money">{{ store.mainSales.ammount }}</div>
+                </div>
             </div>
-            <div class="results">
+            <div class="results" v-for="sale in store.sales">
                 <div class="left">
-                    <div>19/03</div>
-                    <div>Monday</div>
+                    <div>{{ sale.day }}</div>
+                    <div class="weekday">{{ sale.weekday }}</div>
                 </div>
-                <div class="right">12348.94 EUR</div>
-            </div>
-            <div class="results">
-                <div class="left">
-                    <div>18/03</div>
-                    <div>Tuesday</div>
+                <div class="right">
+                    <div class="money">{{ sale.ammount }}</div>
                 </div>
-                <div class="right">10348.94 EUR</div>
-            </div>
-            <div class="results">
-                <div class="left">
-                    <div>18/03</div>
-                    <div>Tuesday</div>
-                </div>
-                <div class="right">10348.94 EUR</div>
-            </div>
-            <div class="results">
-                <div class="left">
-                    <div>18/03</div>
-                    <div>Tuesday</div>
-                </div>
-                <div class="right">10348.94 EUR</div>
-            </div>
-            <div class="results">
-                <div class="left">
-                    <div>18/03</div>
-                    <div>Tuesday</div>
-                </div>
-                <div class="right">10348.94 EUR</div>
             </div>
         </div>
     `,
@@ -52,7 +28,33 @@ Vue.component("store", {
             default: {
                 name: "Example Store",
                 email: "example@store.com",
-                sales: "12,000 EUR",
+                mainSales: {
+                    day: "Global",
+                    weekday: "Today's Sales",
+                    ammount: "14,000 EUR"
+                },
+                sales: [
+                    {
+                        day: "18/03",
+                        weekday: "Tuesday",
+                        ammount: "12,000 EUR"
+                    },
+                    {
+                        day: "18/03",
+                        weekday: "Monday",
+                        ammount: "12,000 EUR"
+                    },
+                    {
+                        day: "18/03",
+                        weekday: "Tuesday",
+                        ammount: "12,000 EUR"
+                    },
+                    {
+                        day: "18/03",
+                        weekday: "Tuesday",
+                        ammount: "12,000 EUR"
+                    }
+                ],
                 isMain: false
             }
         }

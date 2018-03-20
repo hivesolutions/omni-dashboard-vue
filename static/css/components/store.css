@@ -1,16 +1,18 @@
-.store {
-    min-width: 320px;
-}
-
 .store .results {
     margin: 12px 0px 12px 0px;
     font-weight: 500;
+    background-color: #f6f6f6;
+    padding: 6px 16px 6px 16px;
+    border-radius: 2px;
 }
 
 .store .results:after {
     clear: both;
     content: "";
     display: block;
+}
+.store .results > * {
+    height: 44px;
 }
 
 .store .results > .left {
@@ -21,4 +23,8 @@
 .store .results > .right {
     float: right;
     text-align: right;
+}
+
+.store .results .weekday {
+    font-style: oblique;
 }

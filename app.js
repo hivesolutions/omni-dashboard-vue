@@ -7,6 +7,10 @@ const app = express();
 const port = 8080;
 const hostname = "0.0.0.0";
 
+swig.setDefaults({
+    cache: false
+});
+
 app.engine("tpl", swig.renderFile);
 
 app.set("view engine", "tpl");
