@@ -12,6 +12,7 @@ ENV NODE_ENV production
 ADD app.js /app/
 ADD package.json /app/
 ADD static /app/static
+ADD views /app/views
 
 WORKDIR /app
 

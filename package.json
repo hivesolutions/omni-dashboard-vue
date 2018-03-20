@@ -27,7 +27,8 @@
     "files": [
         "app.js",
         "static/**/*.css",
-        "static/**/*.js"
+        "static/**/*.js",
+        "views/**/*.mustache"
     ],
     "dependencies": {
         "express": "^4.16.3",
