@@ -13,6 +13,9 @@
             <div class="container">
                 <h1>{{ message }}</h1>
                 <div class="details">{{ details }}</div>
+                <div class="buttons">
+                    <span class="button">Tobias</span>
+                </div>
                 <store v-for="store in stores"
                        v-bind:store="store"
                        v-bind:key="store.id">

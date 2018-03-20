@@ -164,6 +164,14 @@ body.cool.cool-gradient-violet {
     background-image: linear-gradient(to right bottom, #008181, #5497a7, #8eadc2, #bfc6d3, #e2e2e2);
 }
 
+body.cool.cool-gradient-greenish {
+    background-image: linear-gradient(to right top, #6d327c, #485DA6, #00a1ba, #00BF98, #36C486);
+}
+
+body.cool.cool-gradient-crazy {
+    background-image: linear-gradient(to right top, #38438b, #944b94, #d75a88, #ff7e71, #ffb25f, #ffeb68);
+}
+
 body.center {
     align-items: center;
     display: flex;
@@ -238,6 +246,18 @@ span.button {
     margin: 0px 0px 0px 0px;
     min-width: 120px;
     text-transform: uppercase;
+    cursor: pointer;
+    transition: color 0.10s linear, background-color 0.10s linear;
+    -o-transition: color 0.10s linear, background-color 0.10s linear;
+    -ms-transition: color 0.10s linear, background-color 0.10s linear;
+    -moz-transition: color 0.10s linear, background-color 0.10s linear;
+    -khtml-transition: color 0.10s linear, background-color 0.10s linear;
+    -webkit-transition: color 0.10s linear, background-color 0.10s linear;
+}
+
+a.button:hover,
+span.button:hover {
+    background-color: #31acd4;
 }
 
 a.button.button-green,
