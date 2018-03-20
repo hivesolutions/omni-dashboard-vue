@@ -1,0 +1,14 @@
+.stores .footer {
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.stores .selectors {
+    font-size: 44px;
+    color: #8d8d8d;
+}
+
+.stores .selectors > .selected {
+    color: #2d2d2d;
+}
