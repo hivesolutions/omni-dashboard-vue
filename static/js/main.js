@@ -1,6 +1,6 @@
 var app = null;
 
-setTimeout(function() {
+setTimeout(() => {
     app = new Vue({
         el: "#app",
         data: {
@@ -21,7 +21,7 @@ setTimeout(function() {
 });
 
 /*
-setTimeout(function () {
+setTimeout(() => {
     app.message = "Loading...";
     app.$http.get("https://cameria.bemisc.com/api/cameras.json",
         {
