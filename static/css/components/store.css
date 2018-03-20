@@ -85,8 +85,8 @@
 }
 
 .store .results .day {
+    color: #6d6d6d;
     font-size: 10px;
-    font-weight: bold;
     text-transform: uppercase;
 }
 
