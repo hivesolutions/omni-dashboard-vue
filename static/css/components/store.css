@@ -1,0 +1,24 @@
+.store {
+    min-width: 320px;
+}
+
+.store .results {
+    margin: 12px 0px 12px 0px;
+    font-weight: 500;
+}
+
+.store .results:after {
+    clear: both;
+    content: "";
+    display: block;
+}
+
+.store .results > .left {
+    float: left;
+    text-align: left;
+}
+
+.store .results > .right {
+    float: right;
+    text-align: right;
+}

@@ -15,6 +15,7 @@
                 <div class="buttons">
                     <span class="button" v-on:click="retryRemote">Re-load</span>
                 </div>
+                <store></store>
             </div>
         </div>
     {% endraw %}
