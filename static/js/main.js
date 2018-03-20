@@ -4,36 +4,28 @@ setTimeout(() => {
     app = new Vue({
         el: "#app",
         data: {
-            message: "Hello Vue!",
-            details: "",
-            stores: [{
-                id: 0,
-                name: "Store 1"
-            }, {
-                id: 1,
-                name: "Store 2"
-            }, {
-                id: 2,
-                name: "Store 3"
-            }]
+            message: "Vue Users",
+            details: "Simple user demo",
+            users: []
+        },
+        methods: {
+            retryRemote: function () {
+                this.remote();
+            },
+            remote: function () {
+                this.message = "Loading...";
+                this.$http.get("https://jsonplaceholder.typicode.com/users")
+                    .then(response => {
+                        this.message = "Success";
+                        this.details = "Users loaded from remote data source";
+                        this.users = response.data;
+                    }, response => {
+                        this.message = "Error";
+                        this.details = JSON.stringify(response);
+                        this.users = [];
+                    });
+            }
         }
     });
+    app.retryRemote();
 });
-
-/*
-setTimeout(() => {
-    app.message = "Loading...";
-    app.$http.get("https://cameria.bemisc.com/api/cameras.json",
-        {
-            params: {
-                sid: "20212af06cecc"
-            }
-        }).then(response => {
-            app.message = "Success";
-            app.details = JSON.stringify(response);
-        }, response => {
-            app.message = "Error";
-            app.details = JSON.stringify(response);
-        });
-}, 2000);
-*/

@@ -188,6 +188,13 @@ h1 {
     margin: 16px 0px 16px 0px;
 }
 
+h2 {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 18px;
+    margin: 12px 0px 12px 0px;
+}
+
 body.cool h1 {
     color: #2d2d2d;
 }
@@ -253,6 +260,7 @@ span.button {
     -moz-transition: color 0.10s linear, background-color 0.10s linear;
     -khtml-transition: color 0.10s linear, background-color 0.10s linear;
     -webkit-transition: color 0.10s linear, background-color 0.10s linear;
+    user-select: none;
 }
 
 a.button:hover,
@@ -264,6 +272,12 @@ span.button:hover {
 a.button.button-green,
 span.button.button-green {
     background-color: #64a280;
+}
+
+a.button:hover,
+span.button:hover {
+    background-color: #31acd4;
+    text-decoration: none;
 }
 
 a.button.button-grey,
@@ -304,6 +318,10 @@ table td > svg {
     color: #6d6d6d;
     fill: currentColor;
     margin-right: 6px;
+}
+
+.buttons {
+    margin: 12px 0px 12px 0px;
 }
 
 .highlight {

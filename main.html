@@ -12,15 +12,16 @@
         <div id="app" class="app">
             <div class="container">
                 <h1>{{ message }}</h1>
-                <div class="details">{{ details }}</div>
-                <div class="buttons">
-                    <span class="button">Tobias</span>
+                <h2 class="details">{{ details }}</h2>
+                <div class="users">
+                    <user v-for="user in users"
+                          v-bind:user="user"
+                          v-bind:key="user.id">
+                    </user>
                 </div>
-                <store v-for="store in stores"
-                       v-bind:store="store"
-                       v-bind:key="store.id">
-                </store>
-                <store></store>
+                <div class="buttons">
+                    <span class="button" v-on:click="retryRemote">Re-load</span>
+                </div>
             </div>
         </div>
     </body>
