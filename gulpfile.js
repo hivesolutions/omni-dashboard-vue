@@ -4,7 +4,7 @@ var order = require("gulp-order");
 var sourcemaps = require("gulp-sourcemaps");
 var watch = require("gulp-watch");
 
-gulp.task("build-js", function () {
+gulp.task("build-js", function() {
     gulp
         .src("static/js/**/*.js")
         .pipe(
@@ -12,8 +12,7 @@ gulp.task("build-js", function () {
                 [
                     "components/*.js",
                     "app.js"
-                ],
-                {
+                ], {
                     base: "static/js/"
                 }
             )
@@ -24,7 +23,7 @@ gulp.task("build-js", function () {
         .pipe(gulp.dest("static/dist/"));
 });
 
-gulp.task("build-css", function () {
+gulp.task("build-css", function() {
     gulp
         .src("static/css/**/*.css")
         .pipe(
@@ -38,11 +37,11 @@ gulp.task("build-css", function () {
         .pipe(gulp.dest("static/dist/"));
 });
 
-gulp.task("watch-js", function () {
+gulp.task("watch-js", function() {
     gulp.watch("static/js/**/*.js", ["build-js"]);
 });
 
-gulp.task("watch-css", function () {
+gulp.task("watch-css", function() {
     gulp.watch("static/css/**/*.css", ["build-css"]);
 });
 

@@ -165,7 +165,7 @@ body.cool.cool-gradient-violet {
 }
 
 body.cool.cool-gradient-greenish {
-    background-image: linear-gradient(to right top, #6d327c, #485DA6, #00a1ba, #00BF98, #36C486);
+    background-image: linear-gradient(to right top, #6d327c, #485da6, #00a1ba, #00bf98, #36c486);
 }
 
 body.cool.cool-gradient-crazy {
@@ -237,6 +237,7 @@ span.button {
     -khtml-border-radius: 4px 4px 4px 4px;
     -webkit-border-radius: 4px 4px 4px 4px;
     color: #ffffff;
+    cursor: pointer;
     display: inline-block;
     font-size: 11px;
     font-weight: 500;
@@ -246,7 +247,6 @@ span.button {
     margin: 0px 0px 0px 0px;
     min-width: 120px;
     text-transform: uppercase;
-    cursor: pointer;
     transition: color 0.10s linear, background-color 0.10s linear;
     -o-transition: color 0.10s linear, background-color 0.10s linear;
     -ms-transition: color 0.10s linear, background-color 0.10s linear;
@@ -258,6 +258,7 @@ span.button {
 a.button:hover,
 span.button:hover {
     background-color: #31acd4;
+    text-decoration: none;
 }
 
 a.button.button-green,
@@ -369,8 +370,8 @@ body.cool.cool-color .container {
 }
 
 .container img {
-    max-width: 128px;
     max-height: 128px;
+    max-width: 128px;
 }
 
 @media screen and (max-width: 760px) {

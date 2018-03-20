@@ -1,16 +1,21 @@
 var app = null;
 
-setTimeout(function () {
+setTimeout(function() {
     app = new Vue({
         el: "#app",
         data: {
             message: "Hello Vue!",
             details: "",
-            stores: [
-                { id: 0, name: "Store 1" },
-                { id: 1, name: "Store 2" },
-                { id: 2, name: "Store 3" }
-            ]
+            stores: [{
+                id: 0,
+                name: "Store 1"
+            }, {
+                id: 1,
+                name: "Store 2"
+            }, {
+                id: 2,
+                name: "Store 3"
+            }]
         }
     });
 });
