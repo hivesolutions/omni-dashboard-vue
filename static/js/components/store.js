@@ -10,7 +10,7 @@ Vue.component("store", {
                 </div>
                 <div class="column right">
                     <div class="refresh">
-                        <img src="/static/images/refresh.svg" />
+                        <img src="/static/images/refresh.svg" v-on:click="refresh()" />
                     </div>
                 </div>
             </div>
@@ -71,7 +71,12 @@ Vue.component("store", {
                     ammount: "12,000 EUR"
                 }],
                 isMain: false
-            }
+            },
+        }
+    },
+    methods: {
+        refresh: function() {
+            this.$parent.refresh();
         }
     }
 });
