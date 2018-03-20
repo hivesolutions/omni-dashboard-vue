@@ -1,5 +1,5 @@
 const express = require("express");
-const consolidate = require("consolidate");
+const swig = require("swig");
 
 // builds the initial application object to be used
 // by the application for serving
@@ -7,7 +7,7 @@ const app = express();
 const port = 8080;
 const hostname = "0.0.0.0";
 
-app.engine("tpl", consolidate.swig);
+app.engine("tpl", swig.renderFile);
 
 app.set("view engine", "tpl");
 app.set("views", __dirname + '/views');
