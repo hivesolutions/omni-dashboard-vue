@@ -8,16 +8,17 @@
         <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.0"></script>
         <script src="static/dist/main.js"></script>
     </head>
-    <body>
-        <div id="app">
-            <h1>{{ message }}</h1>
-            <div class="details">{{ details }}</div>
-            <store
-                v-for="store in stores"
-                v-bind:store="store"
-                v-bind:key="store.id">
-            </store>
-            <store></store>
+    <body class="center">
+        <div id="app" class="app">
+            <div class="container">
+                <h1>{{ message }}</h1>
+                <div class="details">{{ details }}</div>
+                <store v-for="store in stores"
+                       v-bind:store="store"
+                       v-bind:key="store.id">
+                </store>
+                <store></store>
+            </div>
         </div>
     </body>
 </html>

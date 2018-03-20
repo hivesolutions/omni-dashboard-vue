@@ -1,5 +1,368 @@
-@charset "utf-8";
+@import "https://fonts.googleapis.com/css?family=Open+Sans";
+
+@-webkit-keyframes fade-into {
+    from {
+        opacity: 0;
+        -o-opacity: 0;
+        -ms-opacity: 0;
+        -moz-opacity: 0;
+        -khtml-opacity: 0;
+        -webkit-opacity: 0;
+        transform: translateY(30px);
+        -o-transform: translateY(30px);
+        -ms-transform: translateY(30px);
+        -moz-transform: translateY(30px);
+        -khtml-transform: translateY(30px);
+        -webkit-transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        -o-opacity: 1;
+        -ms-opacity: 1;
+        -moz-opacity: 1;
+        -khtml-opacity: 1;
+        -webkit-opacity: 1;
+        transform: translateY(0px);
+        -o-transform: translateY(0px);
+        -ms-transform: translateY(0px);
+        -moz-transform: translateY(0px);
+        -khtml-transform: translateY(0px);
+        -webkit-transform: translateY(0px);
+    }
+}
+
+@keyframes fade-into {
+    from {
+        opacity: 0;
+        -o-opacity: 0;
+        -ms-opacity: 0;
+        -moz-opacity: 0;
+        -khtml-opacity: 0;
+        -webkit-opacity: 0;
+        transform: translateY(30px);
+        -o-transform: translateY(30px);
+        -ms-transform: translateY(30px);
+        -moz-transform: translateY(30px);
+        -khtml-transform: translateY(30px);
+        -webkit-transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        -o-opacity: 1;
+        -ms-opacity: 1;
+        -moz-opacity: 1;
+        -khtml-opacity: 1;
+        -webkit-opacity: 1;
+        transform: translateY(0px);
+        -o-transform: translateY(0px);
+        -ms-transform: translateY(0px);
+        -moz-transform: translateY(0px);
+        -khtml-transform: translateY(0px);
+        -webkit-transform: translateY(0px);
+    }
+}
+
+@-webkit-keyframes fade-grow {
+    from {
+        opacity: 0;
+        -o-opacity: 0;
+        -ms-opacity: 0;
+        -moz-opacity: 0;
+        -khtml-opacity: 0;
+        -webkit-opacity: 0;
+        transform: scale(0.96);
+        -o-transform: scale(0.96);
+        -ms-transform: scale(0.96);
+        -moz-transform: scale(0.96);
+        -khtml-transform: scale(0.96);
+        -webkit-transform: scale(0.96);
+    }
+    to {
+        opacity: 1;
+        -o-opacity: 1;
+        -ms-opacity: 1;
+        -moz-opacity: 1;
+        -khtml-opacity: 1;
+        -webkit-opacity: 1;
+        transform: scale(1);
+        -o-transform: scale(1);
+        -ms-transform: scale(1);
+        -moz-transform: scale(1);
+        -khtml-transform: scale(1);
+        -webkit-transform: scale(1);
+    }
+}
+
+@keyframes fade-grow {
+    from {
+        opacity: 0;
+        -o-opacity: 0;
+        -ms-opacity: 0;
+        -moz-opacity: 0;
+        -khtml-opacity: 0;
+        -webkit-opacity: 0;
+        transform: scale(0.96);
+        -o-transform: scale(0.96);
+        -ms-transform: scale(0.96);
+        -moz-transform: scale(0.96);
+        -khtml-transform: scale(0.96);
+        -webkit-transform: scale(0.96);
+    }
+    to {
+        opacity: 1;
+        -o-opacity: 1;
+        -ms-opacity: 1;
+        -moz-opacity: 1;
+        -khtml-opacity: 1;
+        -webkit-opacity: 1;
+        transform: scale(1);
+        -o-transform: scale(1);
+        -ms-transform: scale(1);
+        -moz-transform: scale(1);
+        -khtml-transform: scale(1);
+        -webkit-transform: scale(1);
+    }
+}
 
 body {
+    color: #2d2d2d;
+    font-family: -apple-system, "BlinkMacSystemFont", "Segoe UI", "Roboto", "Open Sans", "Helvetica", "Arial", sans-serif;
+    font-size: 14px;
+    line-height: 22px;
+}
+
+body.cool {
+    background-color: #f2f2f2;
+}
+
+body.cool.cool-yellow {
+    background-color: #fbdb62;
+}
+
+body.cool.cool-blue {
+    background-color: #2d9fc4;
+}
+
+body.cool.cool-green {
+    background-color: #8dbab5;
+}
+
+body.cool.cool-grey {
+    background-color: #5d5d5d;
+}
+
+body.cool.cool-gradient,
+body.cool.cool-gradient-green {
+    background-image: linear-gradient(to right bottom, rgba(0,128,128,1) 20%, #8dbab5 80%);
+}
+
+body.cool.cool-gradient-blue {
+    background-image: linear-gradient(to right bottom, #1c7591 20%, #2d9fc4 80%);
+}
+
+body.cool.cool-gradient-violet {
+    background-image: linear-gradient(to right bottom, #008181, #5497a7, #8eadc2, #bfc6d3, #e2e2e2);
+}
+
+body.center {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    margin: 0px 16px 0px 16px;
     text-align: center;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: normal;
+    line-height: 28px;
+    margin: 16px 0px 16px 0px;
+}
+
+body.cool h1 {
+    color: #2d2d2d;
+}
+
+p {
+    margin: 8px 0px 8px 0px;
+}
+
+p.extra {
+    margin-top: 16px;
+}
+
+p.footer {
+    bottom: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    position: absolute;
+}
+
+body.cool.cool-color p.footer {
+    color: #ffffff;
+}
+
+a {
+    color: #4769cc;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a.strong,
+span.strong {
+    background-color: #dbe9f4;
+    padding: 2px 4px 2px 4px;
+}
+
+a.button,
+span.button {
+    background-color: #2d9fc4;
+    border-radius: 4px 4px 4px 4px;
+    -o-border-radius: 4px 4px 4px 4px;
+    -ms-border-radius: 4px 4px 4px 4px;
+    -moz-border-radius: 4px 4px 4px 4px;
+    -khtml-border-radius: 4px 4px 4px 4px;
+    -webkit-border-radius: 4px 4px 4px 4px;
+    color: #ffffff;
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    height: 34px;
+    letter-spacing: 1px;
+    line-height: 34px;
+    margin: 0px 0px 0px 0px;
+    min-width: 120px;
+    text-transform: uppercase;
+}
+
+a.button.button-green,
+span.button.button-green {
+    background-color: #64a280;
+}
+
+a.button.button-grey,
+span.button.button-grey {
+    background-color: #2d2d2d;
+}
+
+hr {
+    margin: 3px 0px 3px 0px;
+}
+
+table {
+    font-size: 13px;
+    line-height: 20px;
+    max-width: 760px;
+    table-layout: fixed;
+    word-break: break-all;
+}
+
+table th {
+    font-weight: 500;
+}
+
+table th > *, table td > * {
+    vertical-align: middle;
+}
+
+table th > a {
+    color: #2d2d2d;
+}
+
+table th > a.selected {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+table td > svg {
+    color: #6d6d6d;
+    fill: currentColor;
+    margin-right: 6px;
+}
+
+.highlight {
+    font-size: 16px;
+    font-weight: 500;
+    margin: 12px 0px 12px 0px;
+}
+
+.highlight > a {
+    background: #f4f4f4;
+    display: inline-block;
+    padding: 8px 16px 8px 16px;
+}
+
+.traceback {
+    line-height: 26px;
+    margin: 8px 0px 8px 0px;
+}
+
+.container {
+    animation: fade-into 0.75s ease-in-out;
+    -o-animation: fade-into 0.75s ease-in-out;
+    -ms-animation: fade-into 0.75s ease-in-out;
+    -moz-animation: fade-into 0.75s ease-in-out;
+    -khtml-animation: fade-into 0.75s ease-in-out;
+    -webkit-animation: fade-into 0.75s ease-in-out;
+    width: 100%;
+}
+
+body.cool .container {
+    animation: fade-grow 0.5s ease-in-out;
+    -o-animation: fade-grow 0.5s ease-in-out;
+    -ms-animation: fade-grow 0.5s ease-in-out;
+    -moz-animation: fade-grow 0.5s ease-in-out;
+    -khtml-animation: fade-grow 0.5s ease-in-out;
+    -webkit-animation: fade-grow 0.5s ease-in-out;
+    background-color: #ffffff;
+    border: 1px solid #d4d4d4;
+    border-radius: 4px 4px 4px 4px;
+    -o-border-radius: 4px 4px 4px 4px;
+    -ms-border-radius: 4px 4px 4px 4px;
+    -moz-border-radius: 4px 4px 4px 4px;
+    -khtml-border-radius: 4px 4px 4px 4px;
+    -webkit-border-radius: 4px 4px 4px 4px;
+    box-shadow: 0px 0px 3px #e4e4e4;
+    -o-box-shadow: 0px 0px 3px #e4e4e4;
+    -ms-box-shadow: 0px 0px 3px #e4e4e4;
+    -moz-box-shadow: 0px 0px 3px #e4e4e4;
+    -khtml-box-shadow: 0px 0px 3px #e4e4e4;
+    -webkit-box-shadow: 0px 0px 3px #e4e4e4;
+    padding: 24px 42px 24px 42px;
+    width: auto;
+}
+
+body.cool.cool-color .container {
+    background-color: #fefefe;
+    border: none;
+    box-shadow: 0px 0px 24px rgba(10, 10, 10, 0.4);
+    -o-box-shadow: 0px 0px 24px rgba(10, 10, 10, 0.4);
+    -ms-box-shadow: 0px 0px 24px rgba(10, 10, 10, 0.4);
+    -moz-box-shadow: 0px 0px 24px rgba(10, 10, 10, 0.4);
+    -khtml-box-shadow: 0px 0px 24px rgba(10, 10, 10, 0.4);
+    -webkit-box-shadow: 0px 0px 24px rgba(10, 10, 10, 0.4);
+}
+
+.container img {
+    max-width: 128px;
+    max-height: 128px;
+}
+
+@media screen and (max-width: 760px) {
+    table th, table td {
+        display: none;
+    }
+
+    table td:nth-child(1) {
+        display: initial;
+    }
+
+    body.cool .container {
+        padding: 12px 12px 12px 12px;
+    }
 }
