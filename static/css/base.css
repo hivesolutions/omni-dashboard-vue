@@ -1,0 +1,17 @@
+.line {
+    font-size: 0px;
+}
+
+.line > .column {
+    width: 33.33%;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.line > .column.left {
+    text-align: left;
+}
+
+.line > .column.right {
+    text-align: right;
+}

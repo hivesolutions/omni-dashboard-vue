@@ -7,8 +7,8 @@
             <h2 class="details">{{details}}</h2>
             <div class="users">
                 <user v-for="user in users"
-                        v-bind:user="user"
-                        v-bind:key="user.id">
+                      v-bind:user="user"
+                      v-bind:key="user.id">
                 </user>
             </div>
             <div class="buttons">

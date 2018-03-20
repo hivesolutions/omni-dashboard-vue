@@ -14,7 +14,7 @@
     -webkit-box-shadow: 0px 0px 8px rgba(180, 180, 180, 0.4);
     display: inline-block;
     height: 64px;
-    margin: 8px 0px 8px 0px;
+    margin: 12px 0px 12px 0px;
     width: 64px;
 }
 
@@ -47,6 +47,14 @@
     -webkit-filter: invert(0.5) sepia(1) saturate(50) hue-rotate(12deg);
 }
 
+.store .refresh > img {
+    cursor: pointer;
+}
+
+.store .refresh > img:hover {
+    filter: saturate(50);
+}
+
 .store .results {
     border-radius: 2px 2px 2px 2px;
     -o-border-radius: 2px 2px 2px 2px;
@@ -56,8 +64,8 @@
     -webkit-border-radius: 2px 2px 2px 2px;
     font-size: 0px;
     font-weight: 500;
-    margin: 12px 0px 12px 0px;
-    padding: 6px 16px 6px 16px;
+    margin: 8px 0px 8px 0px;
+    padding: 6px 0px 6px 0px;
 }
 
 .store .results:after {
@@ -68,7 +76,7 @@
 .store .results > * {
     display: inline-block;
     font-size: 14px;
-    vertical-align: middle;
+    vertical-align: bottom;
     width: 50%;
 }
 
@@ -78,6 +86,11 @@
 
 .store .results > .right {
     text-align: right;
+}
+
+.store .results .day {
+    font-size: 11px;
+    text-transform: uppercase;
 }
 
 .store .results .weekday {

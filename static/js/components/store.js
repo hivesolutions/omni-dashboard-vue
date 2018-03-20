@@ -1,11 +1,18 @@
 Vue.component("store", {
     template: `
         <div class=\"store\">
-            <div class="trend">
-                <img src="/static/images/arrow_up.svg" class="up" />
-            </div>
-            <div class="refresh">
-                <img src="/static/images/refresh.svg" />
+            <div class="line">
+                <div class="column"></div>
+                <div class="column">
+                    <div class="trend">
+                        <img src="/static/images/arrow_up.svg" class="up" />
+                    </div>
+                </div>
+                <div class="column right">
+                    <div class="refresh">
+                        <img src="/static/images/refresh.svg" />
+                    </div>
+                </div>
             </div>
             <div class="results results-main">
                 <div class="left">
@@ -45,6 +52,14 @@ Vue.component("store", {
                 }, {
                     day: "18/03",
                     weekday: "Monday",
+                    ammount: "12,000 EUR"
+                }, {
+                    day: "18/03",
+                    weekday: "Tuesday",
+                    ammount: "12,000 EUR"
+                }, {
+                    day: "18/03",
+                    weekday: "Tuesday",
                     ammount: "12,000 EUR"
                 }, {
                     day: "18/03",
