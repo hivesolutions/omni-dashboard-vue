@@ -1,10 +1,12 @@
 Vue.component("store", {
     template: `
         <div class=\"store\">
-            <h1 class="title">{{ store ? store.name : name }}</h1>
+            <div class="trend">
+                <img src="/static/images/arrow_up.svg" class="up" />
+            </div>
             <div class="results results-main">
                 <div class="left">
-                    <div class="day">{{ store.mainSales.day }}</div>
+                    <div class="day">{{ store ? store.name : name }}</div>
                     <div class="weekday">{{ store.mainSales.weekday }}</div>
                 </div>
                 <div class="right">

@@ -28,6 +28,8 @@
         "app.js",
         "static/**/*.css",
         "static/**/*.js",
+        "static/**/*.svg",
+        "static/**/*.png",
         "views/**/*.tpl"
     ],
     "dependencies": {

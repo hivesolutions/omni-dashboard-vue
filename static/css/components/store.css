@@ -1,3 +1,27 @@
+.store .trend {
+    width: 64px;
+    height: 64px;
+    display: inline-block;
+    border: 1px solid #e2e2e2;
+    border-radius: 32px;
+    box-shadow: 0px 0px 8px rgba(180, 180, 180, 0.4);
+    margin: 8px 0px 8px 0px;
+}
+
+.store .trend > img {
+    width: 32px;
+    filter: invert(0.5) sepia(1) saturate(50) hue-rotate(67deg);
+    height: 64px;
+}
+
+.store .trend > img.up {
+    filter: invert(0.5) sepia(1) saturate(50) hue-rotate(67deg);
+}
+
+.store .trend > img.down {
+    filter: invert(0.5) sepia(1) saturate(50) hue-rotate(12deg);
+}
+
 .store .results {
     border-radius: 2px 2px 2px 2px;
     -o-border-radius: 2px 2px 2px 2px;

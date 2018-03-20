@@ -1,7 +1,10 @@
-const stores = function() {
+const stores = function () {
     new Vue({
         el: "#app",
         data: {},
-        methods: {}
+        methods: {
+            remote: function () {
+            }
+        }
     });
 };
