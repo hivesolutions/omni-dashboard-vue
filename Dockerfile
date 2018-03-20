@@ -11,6 +11,7 @@ ENV NODE_ENV production
 
 ADD app.js /app/
 ADD package.json /app/
+ADD gulpfile.js /app/
 ADD static /app/static
 ADD views /app/views
 
