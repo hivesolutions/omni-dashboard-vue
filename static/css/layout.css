@@ -345,6 +345,12 @@ table td > svg {
 
 .highlight > a {
     background: #f4f4f4;
+    box-shadow: 1px 1px 4px rgba(80, 80, 80, 0.35);
+    -o-box-shadow: 1px 1px 4px rgba(80, 80, 80, 0.35);
+    -ms-box-shadow: 1px 1px 4px rgba(80, 80, 80, 0.35);
+    -moz-box-shadow: 1px 1px 4px rgba(80, 80, 80, 0.35);
+    -khtml-box-shadow: 1px 1px 4px rgba(80, 80, 80, 0.35);
+    -webkit-box-shadow: 1px 1px 4px rgba(80, 80, 80, 0.35);
     display: inline-block;
     padding: 8px 16px 8px 16px;
 }
