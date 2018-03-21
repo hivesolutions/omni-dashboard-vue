@@ -41,7 +41,7 @@ Vue.component("store", {
                 name: "Example Store",
                 email: "example@store.com",
                 mainSales: {
-                    day: "Global",
+                    day: "16/03",
                     weekday: "Today's Sales",
                     ammount: "14,023.42 EUR"
                 },
@@ -76,7 +76,7 @@ Vue.component("store", {
     },
     methods: {
         refresh: function() {
-            this.$parent.refresh();
+            this.$root.refresh();
         }
     }
 });

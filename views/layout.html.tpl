@@ -7,8 +7,7 @@
             <link rel="stylesheet" type="text/css" href="/static/dist/layout.css" />
         {% endblock %}
         {% block javascript %}
-            <script src="//cdn.jsdelivr.net/npm/vue"></script>
-            <script src="//cdn.jsdelivr.net/npm/vue-resource"></script>
+            <script src="/static/dist/libs.js"></script>
             <script src="/static/dist/main.js"></script>
         {% endblock %}
     </head>
