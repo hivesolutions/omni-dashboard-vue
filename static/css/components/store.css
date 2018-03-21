@@ -1,4 +1,14 @@
+.store {
+    user-select: none;
+    -o-user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+}
+
 .store .trend {
+    align-items: center;
     border: 1px solid #e2e2e2;
     border-radius: 32px 32px 32px 32px;
     -o-border-radius: 32px 32px 32px 32px;
@@ -13,9 +23,8 @@
     -khtml-box-shadow: 0px 0px 8px rgba(180, 180, 180, 0.4);
     -webkit-box-shadow: 0px 0px 8px rgba(180, 180, 180, 0.4);
     display: flex;
-    align-items: center;
-    justify-content: center;
     height: 64px;
+    justify-content: center;
     margin: 12px auto 12px auto;
     width: 64px;
 }
