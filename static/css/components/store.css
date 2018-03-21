@@ -12,9 +12,11 @@
     -moz-box-shadow: 0px 0px 8px rgba(180, 180, 180, 0.4);
     -khtml-box-shadow: 0px 0px 8px rgba(180, 180, 180, 0.4);
     -webkit-box-shadow: 0px 0px 8px rgba(180, 180, 180, 0.4);
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 64px;
-    margin: 12px 0px 12px 0px;
+    margin: 12px auto 12px auto;
     width: 64px;
 }
 
@@ -25,8 +27,7 @@
     -moz-filter: invert(0.5) sepia(1) saturate(50) hue-rotate(67deg);
     -khtml-filter: invert(0.5) sepia(1) saturate(50) hue-rotate(67deg);
     -webkit-filter: invert(0.5) sepia(1) saturate(50) hue-rotate(67deg);
-    height: 64px;
-    width: 32px;
+    width: 38px;
 }
 
 .store .trend > img.up {
