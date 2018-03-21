@@ -215,6 +215,12 @@ p.footer {
     position: absolute;
 }
 
+p.footer.upper {
+    font-size: 9px;
+    letter-spacing: 0.1px;
+    text-transform: uppercase;
+}
+
 body.cool.cool-color p.footer {
     color: #ffffff;
 }
