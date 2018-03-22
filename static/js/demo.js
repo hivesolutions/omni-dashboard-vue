@@ -2,7 +2,7 @@ import Vue from "vue";
 
 import User from "./components/user"
 
-const demo = function() {
+export default demo = function() {
     const app = new Vue({
         el: "#app",
         components: {
@@ -35,8 +35,4 @@ const demo = function() {
         }
     });
     return app;
-};
-
-module.exports = {
-    demo: demo
 };

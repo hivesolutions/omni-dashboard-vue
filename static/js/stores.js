@@ -3,7 +3,7 @@ import VueCarousel from "vue-carousel"
 
 import Store from "./components/store"
 
-const stores = function() {
+export default stores = function() {
     Vue.use(VueCarousel);
 
     const app = new Vue({
@@ -85,8 +85,4 @@ const stores = function() {
     app.refresh();
 
     return app;
-};
-
-module.exports = {
-    stores: stores
 };
