@@ -1,8 +1,13 @@
 import Vue from "vue";
 
+import User from "./components/user"
+
 const demo = function() {
     const app = new Vue({
         el: "#app",
+        components: {
+            "user": User
+        },
         data: {
             message: "Vue Users",
             details: "This is just a simple remote user retrieval demo",

@@ -1,16 +1,20 @@
 import Vue from "vue";
+import VueCarousel from "vue-carousel"
+
+import Store from "./components/store"
 
 const stores = function() {
     Vue.use(VueCarousel);
 
     const app = new Vue({
         el: "#app",
-        data: {
-            stores: []
-        },
         components: {
             "carousel": VueCarousel.Carousel,
-            "slide": VueCarousel.Slide
+            "slide": VueCarousel.Slide,
+            "store": Store
+        },
+        data: {
+            stores: []
         },
         methods: {
             refresh: function() {
