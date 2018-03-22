@@ -21,5 +21,6 @@ RUN apt-get update && apt-get install -y nodejs
 RUN npm install
 RUN npm install --only=dev
 RUN npm run build
+RUN npm install -g http-server
 
-CMD ["/usr/bin/npm", "run"]
+CMD ["/usr/bin/http-server", "./dist", "-p", "$PORT", "-h", "$HOST"]
