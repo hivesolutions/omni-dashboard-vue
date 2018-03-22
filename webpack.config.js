@@ -1,3 +1,7 @@
+const webpack = require("webpack");
+
+const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
+
 module.exports = {
     entry: "./static/js/app.js",
     output: {
@@ -36,3 +40,16 @@ module.exports = {
     },
     devtool: "inline-source-map"
 };
+
+if (process.env.NODE_ENV === "production") {
+    module.exports.devtool = "source-map";
+    module.exports.plugins = (module.exports.plugins || []).concat([
+        new webpack.DefinePlugin({
+            "process.env.NODE_ENV": JSON.stringify("production")
+        }),
+        new UglifyJSPlugin({
+            sourceMap: true,
+            extractComments: true
+        })
+    ]);
+}
