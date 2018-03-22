@@ -1,7 +1,11 @@
-{% extends "layout.html.tpl" %}
-{% block title %}Omni Dashboard{% endblock %}
-{% block content %}
-    {% raw %}
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+        <title>Omni Dashboard</title>
+        <script src="dist/bundle.js"></script>
+    </head>
+    <body class="center cool cool-color cool-gradient-crazy" onload="OmniDashboard.start();">
         <div id="app" class="app stores container dynamic" style="max-width: 320px;">
             <carousel>
                 <slide v-for="store in stores" :key="store.name">
@@ -13,5 +17,5 @@
                 <span v-for="store in stores">&middot;</span>
             </div>
         </div>
-    {% endraw %}
-{% endblock %}
+    </body>
+</html>

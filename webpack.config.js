@@ -3,9 +3,9 @@ const webpack = require("webpack");
 const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
 
 module.exports = {
-    entry: "./static/js/app.js",
+    entry: "./src/app.js",
     output: {
-        path: __dirname + "/static/dist",
+        path: __dirname + "/dist",
         filename: "bundle.js",
         library: "OmniDashboard"
     },

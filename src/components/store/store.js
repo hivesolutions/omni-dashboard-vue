@@ -1,6 +1,6 @@
 import Vue from "vue";
 
-import "../../css/components/store.css";
+import "./store.css";
 
 export const Store = Vue.component("store", {
     template: `

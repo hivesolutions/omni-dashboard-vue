@@ -1,9 +1,9 @@
 import demo from "./demo";
 import stores from "./stores";
 
-import "../css/base.css";
-import "../css/layout.css";
-import "../css/stores.css";
+import "./assets/css/base.css";
+import "./assets/css/layout.css";
+import "./assets/css/stores.css";
 
 export const globals = {};
 
