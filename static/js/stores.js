@@ -1,6 +1,6 @@
 import Vue from "vue";
 
-const stores = function () {
+const stores = function() {
     Vue.use(VueCarousel);
 
     const app = new Vue({
@@ -13,10 +13,10 @@ const stores = function () {
             "slide": VueCarousel.Slide
         },
         methods: {
-            refresh: function () {
+            refresh: function() {
                 this.remote();
             },
-            remote: function () {
+            remote: function() {
                 const timestamp = parseInt(Date.parse(new Date().toUTCString()) / 1000)
                 this.$http.get("https://ldj.frontdoorhd.com/api/sale_snapshots/stats.json", {
                     params: {
@@ -39,7 +39,8 @@ const stores = function () {
                             mainSales: {
                                 day: "16/03",
                                 weekday: "Today's Sales",
-                                ammount: String(net_price_vat[net_price_vat.length - 1]) + " EUR"
+                                ammount: String(net_price_vat[net_price_vat.length - 1]) +
+                                    " EUR"
                             },
                             sales: [{
                                 day: "18/03",
