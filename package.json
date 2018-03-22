@@ -5,9 +5,9 @@
     "main": "app.js",
     "scripts": {
         "start": "node app.js",
-        "test": "mocha",
+        "gulp": "gulp build",
         "build": "gulp build",
-        "watch": "gulp"
+        "watch": "gulp watch"
     },
     "repository": {
         "type": "git",

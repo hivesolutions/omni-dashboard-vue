@@ -62,4 +62,6 @@ gulp.task("watch-css", function() {
 
 gulp.task("build", ["build-js", "build-css", "build-libs"]);
 
-gulp.task("default", ["build", "watch-js", "watch-css"]);
+gulp.task("watch", ["build", "watch-js", "watch-css"]);
+
+gulp.task("default", ["build"]);
