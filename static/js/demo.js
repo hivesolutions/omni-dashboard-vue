@@ -1,5 +1,7 @@
+import Vue from "vue";
+
 const demo = function() {
-    new Vue({
+    const app = new Vue({
         el: "#app",
         data: {
             message: "Vue Users",
@@ -25,4 +27,9 @@ const demo = function() {
             }
         }
     });
+    return app;
+};
+
+module.exports = {
+    demo: demo
 };

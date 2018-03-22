@@ -1,4 +1,6 @@
-Vue.component("user", {
+import Vue from "vue";
+
+const User = Vue.component("user", {
     template: "<div class=\"user\">{{ user.name }} <{{ user.email }}></div>",
     props: {
         user: {
@@ -10,3 +12,7 @@ Vue.component("user", {
         }
     }
 });
+
+module.exports = {
+    User: User
+};

@@ -1,4 +1,6 @@
-Vue.component("store", {
+import Vue from "vue";
+
+const Store = Vue.component("store", {
     template: `
         <div class=\"store\">
             <div class="line">
@@ -60,3 +62,7 @@ Vue.component("store", {
         }
     }
 });
+
+module.exports = {
+    Store: Store
+};
