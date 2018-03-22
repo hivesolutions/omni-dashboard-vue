@@ -1,6 +1,6 @@
 import Vue from "vue";
 
-import User from "./components/user"
+import User from "./components/user";
 
 export const demo = function() {
     const app = new Vue({
