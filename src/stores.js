@@ -6,6 +6,7 @@ import {
 } from "vue-carousel";
 
 import Store from "./components/store";
+import daysOfWeek from "./util"
 
 export const stores = function() {
     Vue.use(VueResource);
@@ -37,46 +38,57 @@ export const stores = function() {
                         unit: "day"
                     }
                 }).then(response => {
-                    console.info(response.data);
                     this.stores = [];
-                    for (const key in response.data) {
-                        const value = response.data[key];
-                        const net_price_vat = value.net_price_vat;
+                   
+                    // converts the received object into a sequence of tuples
+                    // containing both the object id and the name of the store
+                    let stores = Object.keys(response.data).map(k => [k, response.data[k]]);
+
+                    // sotes the complete set of stores according to their object
+                    // identifier and then runs the reverse mapping
+                    stores = stores.sort((a, b) => parseInt(a[0]) > parseInt(b[0]) ? 1 : -1);
+                    stores = stores.map(v => v[1]);
+
+                    // iteates over the complete set of stores
+                    stores.forEach(store => {
+                        // creates the initial date value to be used
+                        let date = new Date();
+
+                        // retrieves the value for the current store and the target
+                        // price values to be used in this function
+                        const net_price_vat = store.net_price_vat;
+
+                        // builds the value of the main sale of the current store
+                        // this is considered to be a "special value"
+                        const mainSales = {
+                            day: "19/03",
+                            weekday: "Today's Sales",
+                            ammount: String(net_price_vat[net_price_vat.length - 1]) +
+                                " EUR"
+                        };
+
+                        // retrieves the appropiate values for the calculus and runs
+                        // the iteration for the building of the day sales
+                        const sales = [];
+                        net_price_vat.slice(0, net_price_vat.length - 1).reverse()
+                            .forEach(value => {
+                                date = new Date(date - 86400000);
+                                const weekday = daysOfWeek[date.getDay()];
+                                sales.push({
+                                    day: "18/03",
+                                    weekday: weekday,
+                                    ammount: value + " EUR"
+                                });
+                            });
+
+                        // adds the new stores values to the list of stores that
+                        // are going to be presented in the screen
                         this.stores.push({
-                            name: value.name,
-                            mainSales: {
-                                day: "16/03",
-                                weekday: "Today's Sales",
-                                ammount: String(net_price_vat[net_price_vat.length - 1]) +
-                                    " EUR"
-                            },
-                            sales: [{
-                                day: "18/03",
-                                weekday: "Saturday",
-                                ammount: "2,453.34 EUR"
-                            }, {
-                                day: "17/03",
-                                weekday: "Friday",
-                                ammount: "7,445.41 EUR"
-                            }, {
-                                day: "16/03",
-                                weekday: "Thursday",
-                                ammount: "12,231.23 EUR"
-                            }, {
-                                day: "15/03",
-                                weekday: "Wednesday",
-                                ammount: "12,947.32 EUR"
-                            }, {
-                                day: "14/03",
-                                weekday: "Tuesday",
-                                ammount: "13,234.45 EUR"
-                            }, {
-                                day: "13/03",
-                                weekday: "Monday",
-                                ammount: "7,760.23 EUR"
-                            }]
+                            name: store.name,
+                            mainSales: mainSales,
+                            sales: sales
                         });
-                    }
+                    });
                 }, response => {
                     /* this.message = "Error";
                     this.details = JSON.stringify(response);

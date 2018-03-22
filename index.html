@@ -9,7 +9,7 @@
     <body class="center cool cool-color cool-gradient-crazy" onload="OmniDashboard.start();">
         <div id="app" class="app stores container dynamic" style="max-width: 320px;">
             <carousel>
-                <slide v-for="store in stores">
+                <slide v-for="store in stores" v-bind:key="store.name">
                     <store v-bind:store="store"
                            v-bind:key="store.name"></store>
                 </slide>
