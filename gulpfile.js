@@ -5,9 +5,14 @@ const sourcemaps = require("gulp-sourcemaps");
 
 gulp.remote = require("gulp-remote");
 
+var paths = {
+    scripts: "static/js/**/*.js",
+    css: "static/css/**/*.css"
+};
+
 gulp.task("build-js", function() {
     gulp
-        .src("static/js/**/*.js")
+        .src(paths.scripts)
         .pipe(
             order(
                 [
@@ -21,12 +26,12 @@ gulp.task("build-js", function() {
         .pipe(sourcemaps.init())
         .pipe(concat("main.js"))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest("static/dist/"));
+        .pipe(gulp.dest("static/dist"));
 });
 
 gulp.task("build-css", function() {
     gulp
-        .src("static/css/**/*.css")
+        .src(paths.css)
         .pipe(
             order(["base.css"], {
                 base: "static/css/"
@@ -52,11 +57,11 @@ gulp.task("build-libs", function() {
 });
 
 gulp.task("watch-js", function() {
-    gulp.watch("static/js/**/*.js", ["build-js"]);
+    gulp.watch(paths.scripts, ["build-js"]);
 });
 
 gulp.task("watch-css", function() {
-    gulp.watch("static/css/**/*.css", ["build-css"]);
+    gulp.watch(paths.css, ["build-css"]);
 });
 
 gulp.task("watch", ["build", "watch-js", "watch-css"]);
