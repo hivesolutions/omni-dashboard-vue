@@ -17,7 +17,7 @@ gulp.task("build-js", function() {
             order(
                 [
                     "components/*.js",
-                    "app.js"
+                    "*.js"
                 ], {
                     base: "static/js/"
                 }
