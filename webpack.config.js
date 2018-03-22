@@ -1,3 +1,4 @@
+const path = require("path");
 const webpack = require("webpack");
 
 const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
@@ -5,7 +6,7 @@ const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
 module.exports = {
     entry: "./src/app.js",
     output: {
-        path: __dirname + "/dist",
+        path: path.join(__dirname, "dist"),
         filename: "bundle.js",
         library: "OmniDashboard"
     },
@@ -38,8 +39,11 @@ module.exports = {
         }
     },
     devServer: {
-        historyApiFallback: true,
-        noInfo: true
+        contentBase: path.join(__dirname, "dist"),
+        compress: true,
+        port: 3000,
+        stats: "errors-only",
+        hot: true
     },
     performance: {
         hints: false
