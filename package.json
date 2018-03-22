@@ -4,12 +4,13 @@
     "description": "Simple Web App for Dashboarding",
     "main": "app.js",
     "scripts": {
-        "start": "node app.js",
+        "start": "http-server ./dist -p $PORT -h $HOST",
         "webpack": "webpack",
         "build": "webpack --mode production",
         "build-dev": "webpack --mode development",
         "watch": "webpack --mode development --watch",
-        "dev": "webpack-dev-server --mode development --watch"
+        "dev": "webpack-dev-server --mode development --watch --hot",
+        "production": "webpack-dev-server --mode production"
     },
     "repository": {
         "type": "git",
@@ -39,7 +40,8 @@
         "swig": "^1.4.2",
         "vue": "^2.5.16",
         "vue-resource": "^1.5.0",
-        "vue-carousel": "^0.6.9"
+        "vue-carousel": "^0.6.9",
+        "http-server": "^0.11.1"
     },
     "devDependencies": {
         "babel-loader": "^7.1.4",

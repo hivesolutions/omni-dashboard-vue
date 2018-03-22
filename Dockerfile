@@ -22,4 +22,4 @@ RUN npm install
 RUN npm install --only=dev
 RUN npm run build
 
-CMD ["/usr/bin/node", "/app/app.js"]
+CMD ["/usr/bin/npm", "run"]
