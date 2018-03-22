@@ -41,34 +41,14 @@ Vue.component("store", {
                 name: "Example Store",
                 email: "example@store.com",
                 mainSales: {
-                    day: "16/03",
-                    weekday: "Today's Sales",
-                    ammount: "14,023.42 EUR"
+                    day: "xx/xx",
+                    weekday: "Week Day",
+                    ammount: "xx,xxx.xx EUR"
                 },
                 sales: [{
-                    day: "18/03",
-                    weekday: "Saturday",
-                    ammount: "2,453.34 EUR"
-                }, {
-                    day: "17/03",
-                    weekday: "Friday",
-                    ammount: "7,445.41 EUR"
-                }, {
-                    day: "16/03",
-                    weekday: "Thursday",
-                    ammount: "12,231.23 EUR"
-                }, {
-                    day: "15/03",
-                    weekday: "Wednesday",
-                    ammount: "12,947.32 EUR"
-                }, {
-                    day: "14/03",
-                    weekday: "Tuesday",
-                    ammount: "13,234.45 EUR"
-                }, {
-                    day: "13/03",
-                    weekday: "Monday",
-                    ammount: "7,760.23 EUR"
+                    day: "xx/xx",
+                    weekday: "Day",
+                    ammount: "xx,xxx.xx EUR"
                 }],
                 isMain: false
             },
