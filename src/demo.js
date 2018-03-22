@@ -6,8 +6,6 @@ export const demo = function() {
     const app = new Vue({
         el: "#app",
         components: {
-            "carousel": VueCarousel.Carousel,
-            "slide": VueCarousel.Slide,
             "user": User
         },
         data: {
