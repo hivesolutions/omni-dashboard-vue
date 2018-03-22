@@ -1,3 +1,5 @@
+@charset "utf-8";
+
 .store {
     width: 320px; /*TODO temporary */
     user-select: none;
