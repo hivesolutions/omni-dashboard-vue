@@ -26,7 +26,25 @@ module.exports = {
                 presets: ["env"]
             }
         }, {
-            test: /\.(png|jpg|gif|svg|html)$/,
+            test: /\.html$/,
+            use: [{
+                loader: "file-loader",
+                options: {
+                    name: "[name].[ext]",
+                },
+            }, {
+                loader: "extract-loader",
+            }, {
+                loader: "html-loader",
+                options: {
+                    minimize: true,
+                    removeComments: true,
+                    collapseWhitespace: true,
+                    conservativeCollapse: false
+                },
+            }],
+        }, {
+            test: /\.(png|jpg|gif|svg)$/,
             loader: "file-loader",
             options: {
                 name: "[name].[ext]?[hash]"

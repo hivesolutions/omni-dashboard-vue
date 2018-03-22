@@ -1,6 +1,9 @@
 import Vue from "vue";
 import VueResource from "vue-resource";
-import { Carousel, Slide } from "vue-carousel";
+import {
+    Carousel,
+    Slide
+} from "vue-carousel";
 
 import Store from "./components/store";
 
