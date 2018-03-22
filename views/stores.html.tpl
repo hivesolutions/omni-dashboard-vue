@@ -4,7 +4,7 @@
     {% raw %}
         <div id="app" class="app stores container dynamic" style="max-width: 320px;">
             <carousel>
-                <slide v-for="store in stores">
+                <slide v-for="store in stores" :key="store.name">
                     <store v-bind:store="store"></store>
                 </slide>
             </carousel>
