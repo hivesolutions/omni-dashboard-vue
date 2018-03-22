@@ -9,11 +9,10 @@ ENV HOST 0.0.0.0
 ENV PORT 8080
 ENV NODE_ENV production
 
-ADD app.js /app/
+ADD index.html /app/
 ADD package.json /app/
 ADD webpack.config.js /app/
-ADD static /app/static
-ADD views /app/views
+ADD src /app/src
 
 WORKDIR /app
 

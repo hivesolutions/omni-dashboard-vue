@@ -9,7 +9,7 @@
         "build": "webpack --mode production",
         "build-dev": "webpack --mode development",
         "watch": "webpack --mode development --watch",
-        "dev": "webpack-dev-server"
+        "dev": "webpack-dev-server --mode development"
     },
     "repository": {
         "type": "git",
@@ -27,12 +27,12 @@
     },
     "homepage": "https://github.com/hivesolutions/omni_dashboard_vue#readme",
     "files": [
-        "app.js",
-        "static/**/*.css",
-        "static/**/*.js",
-        "static/**/*.svg",
-        "static/**/*.png",
-        "views/**/*.tpl"
+        "index.html",
+        "src/**/*.css",
+        "src/**/*.js",
+        "src/**/*.svg",
+        "src/**/*.png",
+        "src/**/*.html"
     ],
     "dependencies": {
         "express": "^4.16.3",

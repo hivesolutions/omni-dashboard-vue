@@ -2,6 +2,8 @@ import Vue from "vue";
 
 import "./store.css";
 
+import arrowUp from "file!./assets/arrow_up.svg"
+
 export const Store = Vue.component("store", {
     template: `
         <div class=\"store\">
@@ -9,7 +11,7 @@ export const Store = Vue.component("store", {
                 <div class="column"></div>
                 <div class="column">
                     <div class="trend">
-                        <img src="/static/images/arrow_up.svg" class="up" />
+                        <img src="{{ arrowUp }}" class="up" />
                     </div>
                 </div>
                 <div class="column right">
