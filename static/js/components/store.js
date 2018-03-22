@@ -1,6 +1,6 @@
 import Vue from "vue";
 
-export default Store = Vue.component("store", {
+export const Store = Vue.component("store", {
     template: `
         <div class=\"store\">
             <div class="line">
@@ -62,3 +62,5 @@ export default Store = Vue.component("store", {
         }
     }
 });
+
+export default Store;

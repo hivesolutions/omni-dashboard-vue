@@ -1,9 +1,11 @@
 import Vue from "vue";
+import VueResource from "vue-resource"
 import VueCarousel from "vue-carousel"
 
 import Store from "./components/store"
 
-export default stores = function() {
+export const stores = function() {
+    Vue.use(VueResource);
     Vue.use(VueCarousel);
 
     const app = new Vue({
@@ -86,3 +88,5 @@ export default stores = function() {
 
     return app;
 };
+
+export default stores;

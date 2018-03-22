@@ -7,11 +7,10 @@
             <link rel="stylesheet" type="text/css" href="/static/dist/layout.css" />
         {% endblock %}
         {% block javascript %}
-            <script src="/static/dist/libs.js"></script>
-            <script src="/static/dist/main.js"></script>
+            <script src="/static/dist/bundle.js"></script>
         {% endblock %}
     </head>
-    <body class="center cool cool-color cool-gradient-crazy" onload="start();">
+    <body class="center cool cool-color cool-gradient-crazy" onload="OmniDashboard.start();">
         {% block content %}{% endblock %}
     </body>
 </html>
