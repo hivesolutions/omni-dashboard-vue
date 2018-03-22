@@ -7,6 +7,9 @@ EXPOSE 8080
 
 ENV HOST 0.0.0.0
 ENV PORT 8080
+ENV CACHE 86400
+ENV CORS 1
+ENV BASE_PATH /app/dist
 ENV NODE_ENV production
 
 ADD index.html /app/
@@ -18,9 +21,9 @@ WORKDIR /app
 
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN apt-get update && apt-get install -y nodejs
+RUN pip3 install --upgrade netius
 RUN npm install
 RUN npm install --only=dev
 RUN npm run build
-RUN npm install -g http-server
 
-CMD ["/usr/bin/http-server", "./dist", "-p", "$PORT", "-h", "$HOST"]
+CMD ["/usr/bin/python3", "-m", "netius.extra.filea"]
