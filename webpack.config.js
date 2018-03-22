@@ -21,7 +21,10 @@ module.exports = {
         }, {
             test: /\.js$/,
             loader: "babel-loader",
-            exclude: /node_modules/
+            exclude: /node_modules/,
+            query: {
+                presets: ["env"]
+            }
         }, {
             test: /\.(png|jpg|gif|svg|html)$/,
             loader: "file-loader",
