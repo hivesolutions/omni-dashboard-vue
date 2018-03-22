@@ -39,8 +39,10 @@ export const stores = function() {
                         unit: "day"
                     }
                 }).then(response => {
+                    // resets the list of stores currently associated to the
+                    // component as new ones are going to be used
                     this.stores = [];
-                   
+
                     // converts the received object into a sequence of tuples
                     // containing both the object id and the name of the store
                     let stores = Object.keys(response.data).map(k => [k, response.data[k]]);
@@ -64,7 +66,8 @@ export const stores = function() {
                         const mainSales = {
                             day: "19/03",
                             weekday: "Today's Sales",
-                            ammount: net_price_vat[net_price_vat.length - 1].formatMoney(2, ".", ",", "EUR")
+                            ammount: net_price_vat[net_price_vat.length - 1].formatMoney(
+                                2, ".", ",", "EUR")
                         };
 
                         // retrieves the appropiate values for the calculus and runs
@@ -77,7 +80,8 @@ export const stores = function() {
                                 sales.push({
                                     day: "18/03",
                                     weekday: weekday,
-                                    ammount: value.formatMoney(2, ".", ",", "EUR")
+                                    ammount: value.formatMoney(2, ".", ",",
+                                        "EUR")
                                 });
                             });
 
