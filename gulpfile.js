@@ -1,8 +1,7 @@
-var gulp = require("gulp");
-var concat = require("gulp-concat");
-var order = require("gulp-order");
-var sourcemaps = require("gulp-sourcemaps");
-var watch = require("gulp-watch");
+const gulp = require("gulp");
+const concat = require("gulp-concat");
+const order = require("gulp-order");
+const sourcemaps = require("gulp-sourcemaps");
 
 gulp.remote = require("gulp-remote");
 
@@ -60,8 +59,8 @@ gulp.task("watch-css", function() {
     gulp.watch("static/css/**/*.css", ["build-css"]);
 });
 
-gulp.task("build", ["build-js", "build-css", "build-libs"]);
-
 gulp.task("watch", ["build", "watch-js", "watch-css"]);
+
+gulp.task("build", ["build-js", "build-css", "build-libs"]);
 
 gulp.task("default", ["build"]);
