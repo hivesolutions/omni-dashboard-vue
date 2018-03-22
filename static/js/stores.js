@@ -1,18 +1,17 @@
 import Vue from "vue";
 import VueResource from "vue-resource"
-import VueCarousel from "vue-carousel"
+import {Carousel, Slide} from "vue-carousel"
 
 import Store from "./components/store"
 
-export const stores = function() {
-    Vue.use(VueResource);
-    Vue.use(VueCarousel);
+Vue.use(VueResource);
 
+export const stores = function() {
     const app = new Vue({
         el: "#app",
         components: {
-            "carousel": VueCarousel.Carousel,
-            "slide": VueCarousel.Slide,
+            "carousel": Carousel,
+            "slide": Slide,
             "store": Store
         },
         data: {

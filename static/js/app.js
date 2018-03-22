@@ -1,13 +1,15 @@
 import demo from "./demo";
 import stores from "./stores";
 
+export const globals = {};
+
 export const start = function() {
     const element = document.getElementById("app");
     if (element.classList.contains("demo")) {
-        demo();
+        globals.app = demo();
     }
     if (element.classList.contains("stores")) {
-        stores();
+        globals.app = stores();
     }
 };
 
