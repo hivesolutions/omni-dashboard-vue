@@ -1,6 +1,8 @@
 import demo from "./demo";
 import stores from "./stores";
 
+import "../index.html";
+
 import "./assets/css/base.css";
 import "./assets/css/layout.css";
 import "./assets/css/stores.css";
