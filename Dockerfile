@@ -22,6 +22,6 @@ RUN apt-get update && apt-get install -y nodejs
 RUN npm install
 RUN npm install --only=dev
 RUN npm install -g gulp && npm link gulp
-RUN gulp build
+RUN npm run build
 
 CMD ["/usr/bin/node", "/app/app.js"]
