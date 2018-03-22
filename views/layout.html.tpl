@@ -3,9 +3,6 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, minimum-scale=1, maximum-scale=1" />
         <title>{% block title %}{% endblock %}</title>
-        {% block stylesheet %}
-            <link rel="stylesheet" type="text/css" href="/static/dist/layout.css" />
-        {% endblock %}
         {% block javascript %}
             <script src="/static/dist/bundle.js"></script>
         {% endblock %}
