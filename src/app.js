@@ -4,7 +4,6 @@ import "../index.html";
 
 import "./assets/css/base.css";
 import "./assets/css/layout.css";
-import "./assets/css/stores.css";
 
 export const globals = {};
 

@@ -1,25 +1,37 @@
 <template>
-<div class="store">
+<div class="stores">
     <carousel>
         <slide v-for="store in stores" v-bind:key="store.name">
             <store v-bind:store="store"
-                    v-bind:key="store.name"></store>
+                   v-bind:key="store.name"></store>
         </slide>
     </carousel>
-    <div class="footer">Updated 20/03 17.32</div>
+    <div class="footer">Updated 20/03 17:32</div>
     <div class="selectors">
-        <span v-for="store in stores" v-bind:key="store.name">&middot;</span>
+        <span v-for="store in stores"
+              v-bind:key="store.name">&middot;</span>
     </div>
 </div>
 </template>
 
 <script>
 import Vue from "vue";
+import {
+    Carousel,
+    Slide
+} from "vue-carousel";
 
+import Store from "../store";
 import daysOfWeek from "../../util";
 
-export const Stores = Vue.component("stores", {
+import "./stores.css";
 
+export const Stores = Vue.component("stores", {
+    components: {
+        "carousel": Carousel,
+        "slide": Slide,
+        "store": Store
+    },
     data: function() {
         return {
             stores: []
@@ -45,7 +57,7 @@ export const Stores = Vue.component("stores", {
                     unit: "day"
                 }
             }).then(response => {
-               this.setStores(response.data);
+                this.setStores(response.data);
             }, response => {
                 /* this.message = "Error";
                 this.details = JSON.stringify(response);
