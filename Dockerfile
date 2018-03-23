@@ -16,7 +16,8 @@ ENV CORS 1
 ENV BASE_PATH /app/dist
 ENV NODE_ENV production
 
-ADD index.html /app/
+ADD .eslintrc.js /app/
+ADD index.html.tpl /app/
 ADD package.json /app/
 ADD webpack.config.js /app/
 ADD src /app/src
