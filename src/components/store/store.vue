@@ -45,7 +45,7 @@ import Vue from "vue";
 
 import "./store.css";
 
-import arrowUp from "./assets/arrow_up.svg"
+import "./assets/arrow_up.svg";
 
 export const Store = Vue.component("store", {
     props: {
@@ -67,7 +67,7 @@ export const Store = Vue.component("store", {
                     currency: "EUR"
                 }],
                 isMain: false
-            },
+            }
         }
     },
     methods: {
