@@ -6,7 +6,10 @@
                    v-bind:key="store.name"></store>
         </slide>
     </carousel>
-    <div class="footer">Updated 20/03 17:32</div>
+    <div class="footer" v-if="lastUpdate">
+        <span>Updated</span>
+        <span class="date">{{ lastUpdate }}</span>
+    </div>
     <div class="selectors">
         <span v-for="store in stores"
               v-bind:key="store.name">&middot;</span>
@@ -34,7 +37,8 @@ export const Stores = Vue.component("stores", {
     },
     data: function() {
         return {
-            stores: []
+            stores: [],
+            lastUpdate: null
         };
     },
     methods: {
@@ -68,6 +72,15 @@ export const Stores = Vue.component("stores", {
             // resets the list of stores currently associated to the
             // component as new ones are going to be used
             this.stores = [];
+
+            // builds the string that is going to display the date of the
+            // latest update of the stores list
+            const lastUpdateDate = new Date();
+            const lastUpdateDay = String(lastUpdateDate.getDate()).padStart(2, "0");
+            const lastUpdateMonth = String(lastUpdateDate.getMonth() + 1).padStart(2, "0");
+            const lastUpdateHours = String(lastUpdateDate.getHours()).padStart(2, "0");
+            const lastUpdateMinutes = String(lastUpdateDate.getMinutes()).padStart(2, "0");
+            this.lastUpdate = `${lastUpdateDay}/${lastUpdateMonth} ${lastUpdateHours}:${lastUpdateMinutes}`;
 
             // converts the received object into a sequence of tuples
             // containing both the object id and the name of the store

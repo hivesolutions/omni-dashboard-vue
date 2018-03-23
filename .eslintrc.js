@@ -6,7 +6,8 @@ module.exports = {
         "quotes": ["error", "double"],
         "semi": ["error", "always"],
         "space-before-function-paren": ["error", "never"],
-        "mocha/no-exclusive-tests": "error"
+        "mocha/no-exclusive-tests": "error",
+        "no-debugger": "warn"
     },
     "env": {
         "jasmine": true
