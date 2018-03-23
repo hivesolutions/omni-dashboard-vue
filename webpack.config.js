@@ -14,7 +14,11 @@ module.exports = {
         rules: [{
             test: /\.vue$/,
             loader: "vue-loader",
-            options: {}
+            options: {
+                loaders: {
+                    js: "babel-loader!eslint-loader"
+                }
+            }
         }, {
             test: /\.css$/,
             use: ["style-loader", "css-loader"]
