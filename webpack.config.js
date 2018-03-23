@@ -3,6 +3,7 @@ const webpack = require("webpack");
 
 const ManifestPlugin = require("webpack-manifest-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const WebpackPwaManifest = require("webpack-pwa-manifest");
 
 module.exports = {
     entry: "./src/app.js",
@@ -23,6 +24,13 @@ module.exports = {
                 conservativeCollapse: false,
                 preserveLineBreaks: false
             }
+        }),
+        new WebpackPwaManifest({
+            name: "Omni Dashboard",
+            short_name: "OmniDashboard",
+            description: "Sales Dashboard for Omni",
+            background_color: "#6d6d6d",
+            icons: []
         })
     ],
     module: {
