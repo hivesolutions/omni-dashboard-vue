@@ -1,6 +1,8 @@
 const path = require("path");
 const webpack = require("webpack");
 
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CleanWebpackPlugin = require("clean-webpack-plugin");
 const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
 
 module.exports = {
@@ -10,6 +12,17 @@ module.exports = {
         filename: "bundle.js",
         library: "OmniDashboard"
     },
+    plugins: [
+        new HtmlWebpackPlugin({
+            title: "Omni Dashboard",
+            template: "index.html.tpl",
+            cache: false,
+            minify: {
+                collapseWhitespace: true,
+                preserveLineBreaks: false
+            }
+        })
+    ],
     module: {
         rules: [{
             test: /\.vue$/,
@@ -69,9 +82,9 @@ module.exports = {
     },
     devServer: {
         contentBase: path.join(__dirname, "dist"),
-        compress: true,
+        compress: false,
         port: 3000,
-        stats: "errors-only",
+        stats: "minimal",
         hot: true
     },
     performance: {

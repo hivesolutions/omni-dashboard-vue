@@ -1,8 +1,5 @@
 import stores from "./stores";
-
 import "hive-js-util";
-
-import "../index.html";
 
 import "./assets/css/base.css";
 import "./assets/css/layout.css";
