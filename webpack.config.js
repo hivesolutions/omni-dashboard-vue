@@ -18,7 +18,9 @@ module.exports = {
             template: "index.html.tpl",
             cache: false,
             minify: {
+                removeComments: true,
                 collapseWhitespace: true,
+                conservativeCollapse: false,
                 preserveLineBreaks: false
             }
         })
@@ -61,7 +63,8 @@ module.exports = {
                     minimize: true,
                     removeComments: true,
                     collapseWhitespace: true,
-                    conservativeCollapse: false
+                    conservativeCollapse: false,
+                    preserveLineBreaks: false
                 }
             }]
         }, {
