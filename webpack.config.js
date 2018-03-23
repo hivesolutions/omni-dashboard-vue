@@ -2,7 +2,6 @@ const path = require("path");
 const webpack = require("webpack");
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
 
 module.exports = {
     entry: "./src/app.js",
@@ -100,10 +99,6 @@ if (process.env.NODE_ENV === "production") {
     module.exports.plugins = (module.exports.plugins || []).concat([
         new webpack.DefinePlugin({
             "process.env.NODE_ENV": JSON.stringify("production")
-        }),
-        new UglifyJSPlugin({
-            sourceMap: true,
-            extractComments: true
         })
     ]);
 }
