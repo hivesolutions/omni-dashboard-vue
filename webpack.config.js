@@ -2,7 +2,6 @@ const path = require("path");
 const webpack = require("webpack");
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CleanWebpackPlugin = require("clean-webpack-plugin");
 const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
 
 module.exports = {
@@ -53,10 +52,10 @@ module.exports = {
             use: [{
                 loader: "file-loader",
                 options: {
-                    name: "[name].[ext]?[hash]",
+                    name: "[name].[ext]?[hash]"
                 }
             }, {
-                loader: "extract-loader",
+                loader: "extract-loader"
             }, {
                 loader: "html-loader",
                 options: {
@@ -76,7 +75,7 @@ module.exports = {
         }, {
             test: /\.(woff|woff2|eot|ttf|otf)$/,
             loader: "file-loader"
-        }],
+        }]
     },
     resolve: {
         alias: {
