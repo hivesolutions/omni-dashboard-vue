@@ -105,8 +105,30 @@
 
 .store .results .weekday {
     font-size: 15px;
+    line-height: 15px;
+}
+
+.store .results.results-main .weekday {
+    font-size: 18px;
+    line-height: 18px;
 }
 
 .store .results .money {
     font-size: 16px;
+    line-height: 16px;
+}
+
+.store .results.results-main .money {
+    font-size: 19px;
+    line-height: 19px;
+}
+
+.store .results .money > .currency {
+    font-size: 10px;
+    letter-spacing: 0.1px;
+}
+
+.store .results.results-main .money > .currency {
+    font-size: 11px;
+    letter-spacing: 0.2px;
 }

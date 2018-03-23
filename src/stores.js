@@ -66,8 +66,9 @@ export const stores = function() {
                         const mainSales = {
                             day: "19/03",
                             weekday: "Today's Sales",
-                            ammount: net_price_vat[net_price_vat.length - 1].formatMoney(
-                                2, ".", ",", "EUR")
+                            amount: net_price_vat[net_price_vat.length - 1].formatMoney(
+                                2, ".", ","),
+                            currency: "EUR"
                         };
 
                         // retrieves the appropiate values for the calculus and runs
@@ -80,8 +81,8 @@ export const stores = function() {
                                 sales.push({
                                     day: "18/03",
                                     weekday: weekday,
-                                    ammount: value.formatMoney(2, ".", ",",
-                                        "EUR")
+                                    amount: value.formatMoney(2, ".", ","),
+                                    currency: "EUR"
                                 });
                             });
 

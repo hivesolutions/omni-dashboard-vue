@@ -19,7 +19,10 @@
             <div class="weekday">{{ store.mainSales.weekday }}</div>
         </div>
         <div class="right">
-            <div class="money">{{ store.mainSales.ammount }}</div>
+            <div class="money">
+                <span class="amount">{{ store.mainSales.amount }}</span>
+                <span class="currency">{{ store.mainSales.currency }}</span>
+            </div>
         </div>
     </div>
     <div class="results" v-for="sale in store.sales" v-bind:key="sale.key">
@@ -28,7 +31,10 @@
             <div class="weekday">{{ sale.weekday }}</div>
         </div>
         <div class="right">
-            <div class="money">{{ sale.ammount }}</div>
+            <div class="money">
+                <span class="amount">{{ sale.amount }}</span>
+                <span class="currency">{{ sale.currency }}</span>
+            </div>
         </div>
     </div>
 </div>
@@ -51,12 +57,14 @@ export const Store = Vue.component("store", {
                 mainSales: {
                     day: "xx/xx",
                     weekday: "Week Day",
-                    ammount: "xx,xxx.xx EUR"
+                    amount: "xx,xxx.xx",
+                    currency: "EUR"
                 },
                 sales: [{
                     day: "xx/xx",
                     weekday: "Day",
-                    ammount: "xx,xxx.xx EUR"
+                    amount: "xx,xxx.xx",
+                    currency: "EUR"
                 }],
                 isMain: false
             },
