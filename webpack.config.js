@@ -1,6 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
 
+const ManifestPlugin = require("webpack-manifest-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
@@ -11,6 +12,7 @@ module.exports = {
         library: "OmniDashboard"
     },
     plugins: [
+        new ManifestPlugin({}),
         new HtmlWebpackPlugin({
             title: "Omni Dashboard",
             template: "index.html.tpl",
