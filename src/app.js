@@ -10,7 +10,7 @@ export const globals = {};
 
 export const start = function() {
     const element = document.getElementById("app");
-    if (element.classList.contains("stores")) {
+    if (element.classList.contains("app-stores")) {
         globals.app = stores();
     }
 };
