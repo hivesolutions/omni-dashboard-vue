@@ -61,10 +61,14 @@ export const stores = function() {
                         // price values to be used in this function
                         const net_price_vat = store.net_price_vat;
 
+                        // creates the string that is going to represent the current day
+                        // as a day and month literal
+                        const dayS = `${String(date.getDate()).padStart(2, "0")}/${String(date.getMonth() + 1).padStart(2, "0")}`;
+
                         // builds the value of the main sale of the current store
                         // this is considered to be a "special value"
                         const mainSales = {
-                            day: "19/03",
+                            day: dayS,
                             weekday: "Today's Sales",
                             amount: net_price_vat[net_price_vat.length - 1].formatMoney(
                                 2, ".", ","),
@@ -77,9 +81,12 @@ export const stores = function() {
                         net_price_vat.slice(0, net_price_vat.length - 1).reverse()
                             .forEach(value => {
                                 date = new Date(date - 86400000);
+                                // creates the string that is going to represent the current day
+                                // as a day and month literal
+                                const dayS = `${String(date.getDate()).padStart(2, "0")}/${String(date.getMonth() + 1).padStart(2, "0")}`;
                                 const weekday = daysOfWeek[date.getDay()];
                                 sales.push({
-                                    day: "18/03",
+                                    day: dayS,
                                     weekday: weekday,
                                     amount: value.formatMoney(2, ".", ","),
                                     currency: "EUR"
