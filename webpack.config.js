@@ -9,7 +9,7 @@ module.exports = {
     entry: "./src/app.js",
     output: {
         path: path.join(__dirname, "dist"),
-        filename: "bundle.js",
+        filename: "bundle.js?[hash]",
         library: "OmniDashboard"
     },
     plugins: [
@@ -53,7 +53,7 @@ module.exports = {
             use: [{
                 loader: "file-loader",
                 options: {
-                    name: "[name].[ext]",
+                    name: "[name].[ext]?[hash]",
                 }
             }, {
                 loader: "extract-loader",
