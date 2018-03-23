@@ -1,6 +1,5 @@
 import Vue from "vue";
 import VueResource from "vue-resource";
-import _ from "hive-js-util"
 
 import Stores from "./components/stores";
 

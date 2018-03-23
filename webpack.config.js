@@ -24,18 +24,22 @@ module.exports = {
             use: ["style-loader", "css-loader"]
         }, {
             test: /\.js$/,
-            loader: "babel-loader",
             exclude: /node_modules/,
-            query: {
-                presets: ["env"]
-            }
+            use: [{
+                loader: "babel-loader",
+                query: {
+                    presets: ["env"]
+                }
+            }, {
+                loader: "eslint-loader"
+            }]
         }, {
             test: /\.html$/,
             use: [{
                 loader: "file-loader",
                 options: {
                     name: "[name].[ext]",
-                },
+                }
             }, {
                 loader: "extract-loader",
             }, {
@@ -45,8 +49,8 @@ module.exports = {
                     removeComments: true,
                     collapseWhitespace: true,
                     conservativeCollapse: false
-                },
-            }],
+                }
+            }]
         }, {
             test: /\.(png|jpg|gif|svg)$/,
             loader: "file-loader",
@@ -55,7 +59,7 @@ module.exports = {
             }
         }, {
             test: /\.(woff|woff2|eot|ttf|otf)$/,
-            use: ["file-loader"]
+            loader: "file-loader"
         }],
     },
     resolve: {

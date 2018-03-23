@@ -1,4 +1,5 @@
 import stores from "./stores";
+import "hive-js-util";
 
 import "../index.html";
 
