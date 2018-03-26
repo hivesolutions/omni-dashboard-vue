@@ -6,7 +6,7 @@
         <title><%= htmlWebpackPlugin.options.title %></title>
     </head>
     <body class="center cool cool-color cool-gradient-crazy" onload="OmniDashboard.start();">
-        <div id="app" class="app app-stores container dynamic" style="max-width: 320px;">
+        <div id="app" class="app app-stores container dynamic">
             <stores ref="stores"></stores>
         </div>
     </body>

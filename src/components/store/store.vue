@@ -49,6 +49,7 @@
     -moz-user-select: none;
     -khtml-user-select: none;
     -webkit-user-select: none;
+    padding: 0px 24px 0px 24px;
 }
 
 .store .trend {
