@@ -18,7 +18,7 @@ export const stores = function() {
         data: {
             sid: null,
             username: null,
-            baseUrl: null,
+            instance: null,
             isLoading: false
         },
         mounted: function() {
@@ -50,6 +50,7 @@ export const stores = function() {
             loadData: function() {
                 this.sid = window.localStorage.sid;
                 this.username = window.localStorage.username;
+                this.instance = window.localStorage.instance;
             }
         },
         watch: {
@@ -58,6 +59,17 @@ export const stores = function() {
             },
             username: function(val) {
                 window.localStorage.username = val;
+            },
+            instance: function(val) {
+                window.localStorage.instance = val;
+            }
+        },
+        computed: {
+            baseUrl: function() {
+                return this.domain ? `https://${this.domain}/api/` : null;
+            },
+            domain: function() {
+                return this.instance ? `${this.instance}.frontdoorhd.com` : null;
             }
         }
     });

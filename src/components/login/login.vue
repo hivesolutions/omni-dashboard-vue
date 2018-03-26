@@ -1,8 +1,5 @@
 <template>
 <div class="login container" v-bind:class="{ visible: isVisible }">
-    <p>
-        <img src="~./assets/superman.svg">
-    </p>
     <h1>Login</h1>
     <p class="extra error" v-if="message">{{ message }}</p>
     <p class="extra">
@@ -35,7 +32,7 @@
     top: 50%;
     width: 420px;
     margin-left: -160px;
-    margin-top: -228px;
+    margin-top: -191px;
     display: none;
     width: 320px;
     min-width: 320px;
@@ -50,6 +47,12 @@
 .login.visible {
     opacity: 1.0;
     display: block;
+}
+
+.login h1 {
+    font-size: 30px;
+    line-height: 32px;
+    margin-bottom: 24px;
 }
 
 .login .error {
@@ -147,8 +150,7 @@ export const Login = Vue.component("login", {
             message: null,
             username: null,
             password: null,
-            instance: null,
-            baseUrl: null
+            instance: null
         };
     },
     methods: {
@@ -177,7 +179,7 @@ export const Login = Vue.component("login", {
             }).then(response => {
                 this.$root.sid = response.data.session_id;
                 this.$root.username = response.data.username;
-                this.$root.baseUrl = this.baseUrl;
+                this.$root.instance = this.instance;
                 this.$root.refresh();
             }, response => {
                 const message = response.data.exception.message;
@@ -193,9 +195,14 @@ export const Login = Vue.component("login", {
             } else {
                 this.$root.hideOverlay();
             }
+        }
+    },
+    computed: {
+        baseUrl: function() {
+            return this.domain ? `https://${this.domain}/api/` : null;
         },
-        instance: function(val) {
-            this.baseUrl = `https://${this.instance}.frontdoorhd.com/api/`;
+        domain: function() {
+            return this.instance ? `${this.instance}.frontdoorhd.com` : null;
         }
     }
 });

@@ -18,6 +18,10 @@
     <div class="footer" v-if="lastUpdate">
         <span>Updated</span>
         <span class="date">{{ lastUpdate }}</span>
+        <br/>
+        <span class="username">{{ this.$root.username }}</span>
+        <span>@</span>
+        <span class="domain">{{ this.$root.domain }}</span>
     </div>
 </div>
 </template>
@@ -49,7 +53,9 @@
     font-size: 10px;
     font-weight: 600;
     text-transform: uppercase;
-    margin-top: 24px;
+    line-height: 18px;
+    clear: both;
+    margin-top: 38px;
 }
 </style>
 
