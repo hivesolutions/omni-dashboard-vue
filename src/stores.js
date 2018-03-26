@@ -18,7 +18,7 @@ export const stores = function() {
         data: {
             sid: null,
             username: null,
-            baseUrl: "https://ldj.frontdoorhd.com/api/",
+            baseUrl: null,
             isLoading: false
         },
         mounted: function() {

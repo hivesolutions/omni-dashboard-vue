@@ -83,6 +83,13 @@ export const Stores = Vue.component("stores", {
             this.remote();
         },
         remote: function() {
+            // in case we don't have a valid base URL the control flow is
+            // returned immediately to the caller method
+            if (!this.$root.baseUrl) {
+                this.$root.showLogin();
+                return;
+            }
+
             // sets the current component as loading as a remote request
             // is going to be executed (as expected)
             this.isLoading = true;

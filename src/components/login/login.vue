@@ -63,14 +63,14 @@
 }
 
 .login .instance > input {
-    width: 110px;
+    width: 126px;
 }
 
 .login .instance > span {
-    font-size: 14px;
+    font-size: 13px;
     text-transform: uppercase;
     font-weight: 600;
-    letter-spacing: 0.6px;
+    letter-spacing: 0.4px;
     vertical-align: bottom;
 }
 
@@ -147,7 +147,8 @@ export const Login = Vue.component("login", {
             message: null,
             username: null,
             password: null,
-            instance: null
+            instance: null,
+            baseUrl: null
         };
     },
     methods: {
@@ -168,7 +169,7 @@ export const Login = Vue.component("login", {
             this.message = null;
         },
         submit: function() {
-            this.$http.get(this.$root.baseUrl + "login.json", {
+            this.$http.get(this.baseUrl + "login.json", {
                 params: {
                     username: this.username,
                     password: this.password
@@ -176,6 +177,7 @@ export const Login = Vue.component("login", {
             }).then(response => {
                 this.$root.sid = response.data.session_id;
                 this.$root.username = response.data.username;
+                this.$root.baseUrl = this.baseUrl;
                 this.$root.refresh();
             }, response => {
                 const message = response.data.exception.message;
@@ -191,6 +193,9 @@ export const Login = Vue.component("login", {
             } else {
                 this.$root.hideOverlay();
             }
+        },
+        instance: function(val) {
+            this.baseUrl = `https://${this.instance}.frontdoorhd.com/api/`;
         }
     }
 });
