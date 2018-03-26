@@ -4,7 +4,8 @@
         <div class="column"></div>
         <div class="column">
             <div class="trend">
-                <img src="~./assets/arrow_up.svg" class="up" />
+                <img src="~./assets/arrow_up.svg" class="up" v-if="store.mainSales.direction === 'up'" />
+                <img src="~./assets/arrow_down.svg" class="down" v-if="store.mainSales.direction === 'down'" />
             </div>
         </div>
         <div class="column right">
@@ -191,7 +192,8 @@ export const Store = Vue.component("store", {
                     day: "xx/xx",
                     weekday: "Week Day",
                     amount: "xx,xxx.xx",
-                    currency: "EUR"
+                    currency: "EUR",
+                    direction: "up"
                 },
                 sales: [{
                     day: "xx/xx",

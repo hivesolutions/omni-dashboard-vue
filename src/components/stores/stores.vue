@@ -10,7 +10,8 @@
     <carousel>
         <slide v-for="store in stores" v-bind:key="store.name">
             <store v-bind:store="store"
-                   v-bind:key="store.name"></store>
+                   v-bind:key="store.name"
+                   ref="store"></store>
         </slide>
     </carousel>
     <div class="footer" v-if="lastUpdate">
@@ -28,32 +29,32 @@
 @import "~loaders.css/loaders.css";
 
 .loader {
-    margin: 32px 0px 32px 0px;
-    display: inline-block;
+  margin: 32px 0px 32px 0px;
+  display: inline-block;
 }
 
 .visible .loader {
-    position: absolute;
-    margin-top: 44px;
+  position: absolute;
+  margin-top: 44px;
 }
 
 .loader > * > div {
-    background-color: #ffb25f;
+  background-color: #ffb25f;
 }
 
 .stores .footer {
-    font-size: 10px;
-    font-weight: 500;
-    text-transform: uppercase;
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
 }
 
 .stores .selectors {
-    color: #8d8d8d;
-    font-size: 44px;
+  color: #8d8d8d;
+  font-size: 44px;
 }
 
 .stores .selectors > .selected {
-    color: #2d2d2d;
+  color: #2d2d2d;
 }
 </style>
 
@@ -160,7 +161,8 @@ export const Stores = Vue.component("stores", {
                     weekday: "Today's Sales",
                     amount: netPriceVat[netPriceVat.length - 1].formatMoney(
                         2, ".", ","),
-                    currency: "EUR"
+                    currency: "EUR",
+                    direction: netPriceVat[netPriceVat.length - 1] > netPriceVat[netPriceVat.length - 2] ? "up" : "down"
                 };
 
                 // retrieves the appropiate values for the calculus and runs
