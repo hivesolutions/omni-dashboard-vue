@@ -13,6 +13,11 @@
         <input type="password" placeholder="Password" ref="password"
                v-model="password" v-on:keyup.enter="submit" />
     </p>
+    <p class="extra instance">
+        <input type="text" placeholder="your-url" ref="instance"
+               v-model="instance" v-on:keyup.enter="submit" />
+        <span>.frontdoorhd.com</span>
+    </p>
     <p class="extra buttons">
         <a href="#" class="button" v-on:click="submit">Signin</a>
     </p>
@@ -51,6 +56,22 @@
     color: #c9273f;
     font-weight: 600;
     font-size: 16;
+}
+
+.login .instance {
+    text-align: left;
+}
+
+.login .instance > input {
+    width: 110px;
+}
+
+.login .instance > span {
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+    vertical-align: bottom;
 }
 
 .login > .buttons {
@@ -125,7 +146,8 @@ export const Login = Vue.component("login", {
             isVisible: false,
             message: null,
             username: null,
-            password: null
+            password: null,
+            instance: null
         };
     },
     methods: {
@@ -142,6 +164,7 @@ export const Login = Vue.component("login", {
         reset: function() {
             this.username = null;
             this.password = null;
+            this.instance = null;
             this.message = null;
         },
         submit: function() {
