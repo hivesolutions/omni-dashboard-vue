@@ -17,6 +17,23 @@
 </div>
 </template>
 
+<style scoped>
+.stores .footer {
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.stores .selectors {
+    color: #8d8d8d;
+    font-size: 44px;
+}
+
+.stores .selectors > .selected {
+    color: #2d2d2d;
+}
+</style>
+
 <script>
 import Vue from "vue";
 import {
@@ -26,8 +43,6 @@ import {
 
 import Store from "../store";
 import daysOfWeek from "../../util";
-
-import "./stores.css";
 
 export const Stores = Vue.component("stores", {
     components: {
