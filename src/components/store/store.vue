@@ -3,7 +3,7 @@
     <div class="line">
         <div class="column left">
             <div class="logout">
-                <img src="~./assets/refresh.svg" v-on:click="logout" />
+                <img src="~./assets/logout.svg" v-on:click="logout" />
             </div>
         </div>
         <div class="column">
@@ -116,6 +116,7 @@
     -webkit-filter: invert(0.5) sepia(1) saturate(50) hue-rotate(12deg);
 }
 
+.store .logout,
 .store .refresh {
     transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1.0);
     -o-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1.0);
@@ -125,10 +126,12 @@
     -webkit-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1.0);
 }
 
+.loading .store .logout,
 .loading .store .refresh {
     opacity: 0.0;
 }
 
+.store .logout > img,
 .store .refresh > img {
     cursor: pointer;
 }
