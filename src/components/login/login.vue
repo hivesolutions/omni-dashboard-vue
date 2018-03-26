@@ -83,6 +83,36 @@ input[type=password] {
     -moz-border-radius: 0px 0px 0px 0px;
     -khtml-border-radius: 0px 0px 0px 0px;
     -webkit-border-radius: 0px 0px 0px 0px;
+    transition: border-color 0.10s linear;
+    -o-transition: border-color 0.10s linear;
+    -ms-transition: border-color 0.10s linear;
+    -moz-transition: border-color 0.10s linear;
+    -khtml-transition: border-color 0.10s linear;
+    -webkit-transition: border-color 0.10s linear;
+}
+
+input[type=text]:focus,
+input[type=password]:focus {
+    border-bottom-color: #2d2d2d;
+}
+
+input[type=text]::placeholder,
+input[type=password]::placeholder {
+    color: #6baec4;
+    font-size: 12px;
+    letter-spacing: 1.0px;
+    text-transform: uppercase;
+    transition: color 0.10s linear;
+    -o-transition: color 0.10s linear;
+    -ms-transition: color 0.10s linear;
+    -moz-transition: color 0.10s linear;
+    -khtml-transition: color 0.10s linear;
+    -webkit-transition: color 0.10s linear;
+}
+
+input[type=text]:focus::placeholder,
+input[type=password]:focus::placeholder {
+    color: #8d8d8d;
 }
 </style>
 
