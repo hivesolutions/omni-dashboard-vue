@@ -11,6 +11,9 @@ export const stores = function() {
         components: {
             "stores": Stores
         },
+        data: {
+            isLoading: false
+        },
         methods: {
             refresh: function() {
                 this.$refs.stores.refresh();

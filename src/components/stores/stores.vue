@@ -1,5 +1,5 @@
 <template>
-<div class="stores" v-bind:class="{ visible: isVisible }">
+<div class="stores" v-bind:class="{ visible: isVisible, loading: isLoading }">
     <div class="loader" v-if="isLoading">
         <div class="ball-scale-multiple">
             <div></div>
@@ -86,6 +86,7 @@ export const Stores = Vue.component("stores", {
             // sets the current component as loading as a remote request
             // is going to be executed (as expected)
             this.isLoading = true;
+            this.$root.isLoading = true;
 
             // retrieves the current timestamp as it's going to be used
             // as the basis for the remote request
@@ -103,9 +104,11 @@ export const Stores = Vue.component("stores", {
                 }
             }).then(response => {
                 this.isLoading = false;
+                this.$root.isLoading = false;
                 this.setStores(response.data);
             }, response => {
                 this.isLoading = false;
+                this.$root.isLoading = false;
                 this.message = "Error loading remote data";
             });
         },

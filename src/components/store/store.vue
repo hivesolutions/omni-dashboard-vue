@@ -72,6 +72,16 @@
     justify-content: center;
     margin: 12px auto 12px auto;
     width: 64px;
+    transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1.0);
+    -o-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1.0);
+    -ms-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1.0);
+    -moz-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1.0);
+    -khtml-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1.0);
+    -webkit-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1.0);
+}
+
+.loading .store .trend {
+    opacity: 0.0;
 }
 
 .store .trend > img {
@@ -100,6 +110,19 @@
     -moz-filter: invert(0.5) sepia(1) saturate(50) hue-rotate(12deg);
     -khtml-filter: invert(0.5) sepia(1) saturate(50) hue-rotate(12deg);
     -webkit-filter: invert(0.5) sepia(1) saturate(50) hue-rotate(12deg);
+}
+
+.store .refresh {
+    transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1.0);
+    -o-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1.0);
+    -ms-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1.0);
+    -moz-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1.0);
+    -khtml-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1.0);
+    -webkit-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1.0);
+}
+
+.loading .store .refresh {
+    opacity: 0.0;
 }
 
 .store .refresh > img {
