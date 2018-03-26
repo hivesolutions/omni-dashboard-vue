@@ -11,9 +11,9 @@ export const stores = function() {
     const app = new Vue({
         el: "#app",
         components: {
-            "login": Login,
-            "stores": Stores,
-            "overlay": Overlay
+            Login,
+            Stores,
+            Overlay
         },
         data: {
             sid: null,

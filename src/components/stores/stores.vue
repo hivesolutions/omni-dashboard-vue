@@ -65,9 +65,9 @@ import daysOfWeek from "../../util";
 
 export const Stores = Vue.component("stores", {
     components: {
-        "carousel": Carousel,
-        "slide": Slide,
-        "store": Store
+        Carousel,
+        Slide,
+        Store
     },
     data: function() {
         return {

@@ -209,8 +209,6 @@
 <script>
 import Vue from "vue";
 
-import "./assets/arrow_up.svg";
-
 export const Store = Vue.component("store", {
     props: {
         store: {
