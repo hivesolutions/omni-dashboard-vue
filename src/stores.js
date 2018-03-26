@@ -16,6 +16,7 @@ export const stores = function() {
             "overlay": Overlay
         },
         data: {
+            sid: null,
             baseUrl: "https://ldj.frontdoorhd.com/api/",
             isLoading: false
         },
@@ -33,6 +34,7 @@ export const stores = function() {
                 this.$refs.login.hide();
             },
             refresh: function() {
+                this.hideLogin();
                 this.$refs.stores.refresh();
             }
         }

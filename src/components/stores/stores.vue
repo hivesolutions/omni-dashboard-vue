@@ -96,8 +96,7 @@ export const Stores = Vue.component("stores", {
             // set of stores stats for the current environment
             this.$http.get(this.$root.baseUrl + "sale_snapshots/stats.json", {
                 params: {
-                    sid: "6ff41b73a1b92379aaa0aee14e835c70",
-                    /* TODO this is hardcoded */
+                    sid: this.$root.sid,
                     date: timestamp,
                     has_global: "True",
                     output: "simple",
@@ -112,6 +111,7 @@ export const Stores = Vue.component("stores", {
                 this.isLoading = false;
                 this.$root.isLoading = false;
                 this.message = "Error loading remote data";
+                this.$root.showLogin();
             });
         },
         setStores: function(data) {
