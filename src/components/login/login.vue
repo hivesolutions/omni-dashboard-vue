@@ -77,12 +77,12 @@ input[type=password] {
     padding: 0px 2px 0px 2px;
     outline: none;
     font-weight: 600;
-    border-radius: 24px 24px 24px 24px;
-    -o-border-radius: 24px 24px 24px 24px;
-    -ms-border-radius: 24px 24px 24px 24px;
-    -moz-border-radius: 24px 24px 24px 24px;
-    -khtml-border-radius: 24px 24px 24px 24px;
-    -webkit-border-radius: 24px 24px 24px 24px;
+    border-radius: 0px 0px 0px 0px;
+    -o-border-radius: 0px 0px 0px 0px;
+    -ms-border-radius: 0px 0px 0px 0px;
+    -moz-border-radius: 0px 0px 0px 0px;
+    -khtml-border-radius: 0px 0px 0px 0px;
+    -webkit-border-radius: 0px 0px 0px 0px;
 }
 </style>
 
