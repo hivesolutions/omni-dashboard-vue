@@ -21,6 +21,10 @@ export const stores = function() {
             baseUrl: "https://ldj.frontdoorhd.com/api/",
             isLoading: false
         },
+        mounted: function() {
+            this.loadData();
+            this.refresh();
+        },
         methods: {
             showOverlay: function() {
                 this.$refs.overlay.show();
@@ -42,11 +46,21 @@ export const stores = function() {
             refresh: function() {
                 this.hideLogin();
                 this.$refs.stores.refresh();
+            },
+            loadData: function() {
+                this.sid = window.localStorage.sid;
+                this.username = window.localStorage.username;
+            }
+        },
+        watch: {
+            sid: function(val) {
+                window.localStorage.sid = val;
+            },
+            username: function(val) {
+                window.localStorage.username = val;
             }
         }
     });
-
-    app.refresh();
 
     return app;
 };
