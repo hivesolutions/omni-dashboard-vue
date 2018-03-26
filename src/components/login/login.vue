@@ -78,7 +78,7 @@
 }
 
 .login .instance > input {
-    width: 126px;
+    width: 118px;
 }
 
 .login .instance > span {
