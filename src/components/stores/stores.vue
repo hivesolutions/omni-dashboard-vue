@@ -1,5 +1,6 @@
 <template>
 <div class="stores" v-bind:class="{ visible: isVisible, loading: isLoading }">
+    <GlobalEvents @key-up.left="previous" @key-up.right="next"></GlobalEvents>
     <div class="loader" v-if="isLoading">
         <div class="ball-scale-multiple">
             <div></div>
@@ -7,7 +8,7 @@
             <div></div>
         </div>
     </div>
-    <carousel :perPage="1" :paginationSize="8" :paginationPadding="4">
+    <carousel :perPage="1" :paginationSize="8" :paginationPadding="4" ref="carousel">
         <slide v-for="store in stores"
                v-bind:key="store.name">
             <store v-bind:store="store"
@@ -65,12 +66,14 @@ import {
     Carousel,
     Slide
 } from "vue-carousel";
+import GlobalEvents from "vue-global-events";
 
 import Store from "../store";
 import daysOfWeek from "../../util";
 
 export const Stores = Vue.component("stores", {
     components: {
+        GlobalEvents,
         Carousel,
         Slide,
         Store
@@ -85,6 +88,16 @@ export const Stores = Vue.component("stores", {
         };
     },
     methods: {
+        reset: function() {
+            this.stores = [];
+            this.lastUpdate = null;
+        },
+        next: function() {
+            this.$refs.carousel.advancePage();
+        },
+        previous: function() {
+            this.$refs.carousel.advancePage("backward");
+        },
         refresh: function() {
             this.remote();
         },

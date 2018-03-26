@@ -4,15 +4,15 @@
         <h1>Login</h1>
         <p class="extra error" v-if="message">{{ message }}</p>
         <p class="extra">
-            <input type="text" placeholder="Username" ref="username"
+            <input type="text" placeholder="Username" autocapitalize="none" ref="username"
                    v-model="username" v-on:keyup.enter="submit" />
         </p>
         <p class="extra">
-            <input type="password" placeholder="Password" ref="password"
+            <input type="password" placeholder="Password" autocapitalize="none" ref="password"
                    v-model="password" v-on:keyup.enter="submit" />
         </p>
         <p class="extra instance">
-            <input type="text" placeholder="your-url" ref="instance"
+            <input type="text" placeholder="your-url" autocapitalize="none" ref="instance"
                    v-model="instance" v-on:keyup.enter="submit" />
             <span>.frontdoorhd.com</span>
         </p>
