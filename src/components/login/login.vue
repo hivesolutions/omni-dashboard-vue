@@ -23,19 +23,12 @@
     width: 420px;
     margin-left: -245px;
     margin-top: -120px;
-    visibility: hidden;
-    opacity: 0.0;
-    transition: opacity 0.35s cubic-bezier(0.645, 0.045, 0.355, 1.0), visibility 0.35s cubic-bezier(0.645, 0.045, 0.355, 1.0);
-    -o-transition: opacity 0.35s cubic-bezier(0.645, 0.045, 0.355, 1.0), visibility 0.35s cubic-bezier(0.645, 0.045, 0.355, 1.0);
-    -ms-transition: opacity 0.35s cubic-bezier(0.645, 0.045, 0.355, 1.0), visibility 0.35s cubic-bezier(0.645, 0.045, 0.355, 1.0);
-    -moz-transition: opacity 0.35s cubic-bezier(0.645, 0.045, 0.355, 1.0), visibility 0.35s cubic-bezier(0.645, 0.045, 0.355, 1.0);
-    -khtml-transition: opacity 0.35s cubic-bezier(0.645, 0.045, 0.355, 1.0), visibility 0.35s cubic-bezier(0.645, 0.045, 0.355, 1.0);
-    -webkit-transition: opacity 0.35s cubic-bezier(0.645, 0.045, 0.355, 1.0), visibility 0.35s cubic-bezier(0.645, 0.045, 0.355, 1.0);
+    display: none;
 }
 
 .login.visible {
-    visibility: visible;
     opacity: 1.0;
+    display: block;
 }
 </style>
 
