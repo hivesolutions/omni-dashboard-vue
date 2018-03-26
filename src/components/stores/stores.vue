@@ -22,27 +22,34 @@
 </div>
 </template>
 
+<style>
+.VueCarousel-pagination {
+    margin-top: 10px;
+}
+</style>
+
 <style scoped>
 @import "~loaders.css/loaders.css";
 
 .loader {
-  margin: 32px 0px 32px 0px;
-  display: inline-block;
+    margin: 32px 0px 32px 0px;
+    display: inline-block;
 }
 
 .visible .loader {
-  position: absolute;
-  margin-top: 44px;
+    position: absolute;
+    margin-top: 44px;
 }
 
 .loader > * > div {
-  background-color: #ffb25f;
+    background-color: #ffb25f;
 }
 
 .stores .footer {
-  font-size: 10px;
-  font-weight: 500;
-  text-transform: uppercase;
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-top: 24px;
 }
 </style>
 
