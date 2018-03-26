@@ -43,7 +43,6 @@
 
 <style scoped>
 .store {
-    width: 320px; /*TODO temporary */
     user-select: none;
     -o-user-select: none;
     -ms-user-select: none;

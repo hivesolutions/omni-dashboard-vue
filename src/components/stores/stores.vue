@@ -7,7 +7,7 @@
             <div></div>
         </div>
     </div>
-    <carousel :perPage="1" :paginationSize="6" :paginationPadding="3">
+    <carousel :perPage="1" :paginationSize="7" :paginationPadding="4">
         <slide v-for="store in stores"
                v-bind:key="store.name">
             <store v-bind:store="store"
