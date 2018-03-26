@@ -78,11 +78,11 @@
 }
 
 .login .instance > input {
-    width: 118px;
+    width: 128px;
 }
 
 .login .instance > span {
-    font-size: 13px;
+    font-size: 12px;
     text-transform: uppercase;
     font-weight: 600;
     letter-spacing: 0.4px;
