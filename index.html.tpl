@@ -7,6 +7,7 @@
     </head>
     <body class="center cool cool-color cool-gradient-crazy" onload="OmniDashboard.start();">
         <div id="app" class="app app-stores container dynamic">
+            <overlay ref="overlay"></overlay>
             <stores ref="stores"></stores>
         </div>
     </body>

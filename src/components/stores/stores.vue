@@ -7,7 +7,7 @@
             <div></div>
         </div>
     </div>
-    <carousel :perPage="1" :paginationSize="7" :paginationPadding="4">
+    <carousel :perPage="1" :paginationSize="8" :paginationPadding="4">
         <slide v-for="store in stores"
                v-bind:key="store.name">
             <store v-bind:store="store"
@@ -47,7 +47,7 @@
 
 .stores .footer {
     font-size: 10px;
-    font-weight: 500;
+    font-weight: 600;
     text-transform: uppercase;
     margin-top: 24px;
 }
@@ -92,7 +92,9 @@ export const Stores = Vue.component("stores", {
             // as the basis for the remote request
             const timestamp = parseInt(Date.parse(new Date().toUTCString()) / 1000);
 
-            this.$http.get("https://ldj.frontdoorhd.com/api/sale_snapshots/stats.json", {
+            // runs the remote query operation to retrive the complete
+            // set of stores stats for the current environment
+            this.$http.get(this.$root.baseUrl + "sale_snapshots/stats.json", {
                 params: {
                     sid: "6ff41b73a1b92379aaa0aee14e835c70",
                     /* TODO this is hardcoded */
