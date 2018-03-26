@@ -17,6 +17,7 @@ export const stores = function() {
         },
         data: {
             sid: null,
+            username: null,
             baseUrl: "https://ldj.frontdoorhd.com/api/",
             isLoading: false
         },
@@ -32,6 +33,11 @@ export const stores = function() {
             },
             hideLogin: function() {
                 this.$refs.login.hide();
+            },
+            logout: function() {
+                this.sid = null;
+                this.username = null;
+                this.showLogin();
             },
             refresh: function() {
                 this.hideLogin();

@@ -1,7 +1,11 @@
 <template>
 <div class="store">
     <div class="line">
-        <div class="column"></div>
+        <div class="column left">
+            <div class="logout">
+                <img src="~./assets/refresh.svg" v-on:click="logout" />
+            </div>
+        </div>
         <div class="column">
             <div class="trend">
                 <img src="~./assets/arrow_up.svg" class="up" v-if="store.mainSales.direction === 'up'" />
@@ -10,7 +14,7 @@
         </div>
         <div class="column right">
             <div class="refresh">
-                <img src="~./assets/refresh.svg" v-on:click="refresh()" />
+                <img src="~./assets/refresh.svg" v-on:click="refresh" />
             </div>
         </div>
     </div>
@@ -229,6 +233,9 @@ export const Store = Vue.component("store", {
         }
     },
     methods: {
+        logout: function() {
+            this.$root.logout();
+        },
         refresh: function() {
             this.$root.refresh();
         }

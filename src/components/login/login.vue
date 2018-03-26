@@ -92,15 +92,21 @@ export const Login = Vue.component("login", {
             password: null
         };
     },
-    ready: function() {
-        console.info("cenas");
-    },
     methods: {
         show: function() {
+            this.reset();
             this.isVisible = true;
+            setTimeout(() => {
+                this.$refs.username.focus();
+            });
         },
         hide: function() {
             this.isVisible = false;
+        },
+        reset: function() {
+            this.username = null;
+            this.password = null;
+            this.message = null;
         },
         submit: function() {
             this.$http.get(this.$root.baseUrl + "login.json", {
@@ -110,6 +116,7 @@ export const Login = Vue.component("login", {
                 }
             }).then(response => {
                 this.$root.sid = response.data.session_id;
+                this.$root.username = response.data.username;
                 this.$root.refresh();
             }, response => {
                 const message = response.data.exception.message;
