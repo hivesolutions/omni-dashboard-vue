@@ -7,8 +7,9 @@
             <div></div>
         </div>
     </div>
-    <carousel>
-        <slide v-for="store in stores" v-bind:key="store.name">
+    <carousel :perPage="1" :paginationSize="6" :paginationPadding="3">
+        <slide v-for="store in stores"
+               v-bind:key="store.name">
             <store v-bind:store="store"
                    v-bind:key="store.name"
                    ref="store"></store>
@@ -17,10 +18,6 @@
     <div class="footer" v-if="lastUpdate">
         <span>Updated</span>
         <span class="date">{{ lastUpdate }}</span>
-    </div>
-    <div class="selectors">
-        <span v-for="store in stores"
-              v-bind:key="store.name">&middot;</span>
     </div>
 </div>
 </template>
@@ -46,15 +43,6 @@
   font-size: 10px;
   font-weight: 500;
   text-transform: uppercase;
-}
-
-.stores .selectors {
-  color: #8d8d8d;
-  font-size: 44px;
-}
-
-.stores .selectors > .selected {
-  color: #2d2d2d;
 }
 </style>
 
