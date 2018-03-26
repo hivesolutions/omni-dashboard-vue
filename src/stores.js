@@ -41,6 +41,8 @@ export const stores = function() {
             logout: function() {
                 this.sid = null;
                 this.username = null;
+                this.instance = null;
+                this.$refs.stores.reset();
                 this.showLogin();
             },
             refresh: function() {
@@ -58,13 +60,25 @@ export const stores = function() {
         },
         watch: {
             sid: function(val) {
-                window.localStorage.sid = val;
+                if (val) {
+                    window.localStorage.sid = val;
+                } else {
+                    delete window.localStorage.sid;
+                }
             },
             username: function(val) {
-                window.localStorage.username = val;
+                if (val) {
+                    window.localStorage.username = val;
+                } else {
+                    delete window.localStorage.username;
+                }
             },
             instance: function(val) {
-                window.localStorage.instance = val;
+                if (val) {
+                    window.localStorage.instance = val;
+                } else {
+                    delete window.localStorage.instance;
+                }
             }
         },
         computed: {
