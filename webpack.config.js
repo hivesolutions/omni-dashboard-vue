@@ -40,12 +40,23 @@ module.exports = {
             loader: "vue-loader",
             options: {
                 loaders: {
-                    js: "babel-loader!eslint-loader"
+                    js: "babel-loader!eslint-loader",
+                    scss: "vue-style-loader!css-loader!sass-loader",
+                    sass: "vue-style-loader!css-loader!sass-loader?indentedSyntax"
                 }
             }
         }, {
             test: /\.css$/,
             use: ["style-loader", "css-loader"]
+        }, {
+            test: /\.scss$/,
+            use: [{
+                loader: "style-loader"
+            }, {
+                loader: "css-loader"
+            }, {
+                loader: "sass-loader"
+            }]
         }, {
             test: /\.js$/,
             exclude: /node_modules/,

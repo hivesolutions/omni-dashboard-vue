@@ -36,11 +36,12 @@
         "src/**/*.html"
     ],
     "dependencies": {
-        "vue": "^2.5.16",
-        "vue-resource": "^1.5.0",
-        "vue-carousel": "^0.6.9",
+        "hive-js-util": "^0.1.11",
         "http-server": "^0.11.1",
-        "hive-js-util": "^0.1.11"
+        "loaders.css": "^0.1.2",
+        "vue": "^2.5.16",
+        "vue-carousel": "^0.6.9",
+        "vue-resource": "^1.5.0"
     },
     "devDependencies": {
         "babel-loader": "^7.1.4",
@@ -58,6 +59,7 @@
         "file-loader": "^1.1.11",
         "html-loader": "^0.5.5",
         "html-webpack-plugin": "^3.1.0",
+        "sass-loader": "^6.0.7",
         "style-loader": "^0.20.3",
         "vue-loader": "^14.2.1",
         "vue-template-compiler": "^2.5.16",

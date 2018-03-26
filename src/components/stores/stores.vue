@@ -1,5 +1,12 @@
 <template>
 <div class="stores">
+    <div class="loader" v-if="loading">
+        <div class="ball-scale-multiple">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
     <carousel>
         <slide v-for="store in stores" v-bind:key="store.name">
             <store v-bind:store="store"
@@ -18,6 +25,17 @@
 </template>
 
 <style scoped>
+@import "~loaders.css/loaders.css";
+
+.loader {
+    margin: 32px 0px 32px 0px;
+    display: inline-block;
+}
+
+.loader > * > div {
+    background-color: #4d4d4d;
+}
+
 .stores .footer {
     font-size: 10px;
     font-weight: 500;
@@ -53,7 +71,9 @@ export const Stores = Vue.component("stores", {
     data: function() {
         return {
             stores: [],
-            lastUpdate: null
+            lastUpdate: null,
+            loading: true,
+            message: null
         };
     },
     methods: {
@@ -61,6 +81,10 @@ export const Stores = Vue.component("stores", {
             this.remote();
         },
         remote: function() {
+            // sets the current component as loading as a remote request
+            // is going to be executed (as expected)
+            this.loading = true;
+
             // retrieves the current timestamp as it's going to be used
             // as the basis for the remote request
             const timestamp = parseInt(Date.parse(new Date().toUTCString()) / 1000);
@@ -76,11 +100,11 @@ export const Stores = Vue.component("stores", {
                     unit: "day"
                 }
             }).then(response => {
+                this.loading = false;
                 this.setStores(response.data);
             }, response => {
-                /* this.message = "Error";
-                this.details = JSON.stringify(response);
-                this.users = []; */
+                this.loading = false;
+                this.message = "Error loading remote data";
             });
         },
         setStores: function(data) {
