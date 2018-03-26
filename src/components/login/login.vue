@@ -1,38 +1,50 @@
 <template>
-<div class="login container" v-bind:class="{ visible: isVisible }">
-    <h1>Login</h1>
-    <p class="extra error" v-if="message">{{ message }}</p>
-    <p class="extra">
-        <input type="text" placeholder="Username" ref="username"
-               v-model="username" v-on:keyup.enter="submit" />
-    </p>
-    <p class="extra">
-        <input type="password" placeholder="Password" ref="password"
-               v-model="password" v-on:keyup.enter="submit" />
-    </p>
-    <p class="extra instance">
-        <input type="text" placeholder="your-url" ref="instance"
-               v-model="instance" v-on:keyup.enter="submit" />
-        <span>.frontdoorhd.com</span>
-    </p>
-    <p class="extra buttons">
-        <a href="#" class="button" v-on:click="submit">Signin</a>
-    </p>
-    <p class="extra forgot">
-        <a href="#">Forgot your password?</a>
-    </p>
+<div class="login-container" v-bind:class="{ visible: isVisible }">
+    <div class="login container">
+        <h1>Login</h1>
+        <p class="extra error" v-if="message">{{ message }}</p>
+        <p class="extra">
+            <input type="text" placeholder="Username" ref="username"
+                   v-model="username" v-on:keyup.enter="submit" />
+        </p>
+        <p class="extra">
+            <input type="password" placeholder="Password" ref="password"
+                   v-model="password" v-on:keyup.enter="submit" />
+        </p>
+        <p class="extra instance">
+            <input type="text" placeholder="your-url" ref="instance"
+                   v-model="instance" v-on:keyup.enter="submit" />
+            <span>.frontdoorhd.com</span>
+        </p>
+        <p class="extra buttons">
+            <a href="#" class="button" v-on:click="submit">Signin</a>
+        </p>
+        <p class="extra forgot">
+            <a href="#">Forgot your password?</a>
+        </p>
+    </div>
 </div>
 </template>
 
 <style scoped>
-.login {
+.login-container {
     position: fixed;
+    left: 0px;
+    top: 0px;
     z-index: 20;
-    left: 50%;
-    top: 50%;
-    width: 420px;
-    margin-left: -160px;
-    margin-top: -191px;
+    width: 100%;
+    height: 100%;
+    display: none;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.login-container.visible {
+    display: flex;
+}
+
+.login {
     display: none;
     width: 320px;
     min-width: 320px;
@@ -44,7 +56,7 @@
     padding: 20px 24px 20px 24px;
 }
 
-.login.visible {
+.login-container.visible .login {
     opacity: 1.0;
     display: block;
 }
