@@ -1,6 +1,6 @@
 <template>
-<div class="stores">
-    <div class="loader" v-if="loading">
+<div class="stores" v-bind:class="{ visible: isVisible }">
+    <div class="loader" v-if="isLoading">
         <div class="ball-scale-multiple">
             <div></div>
             <div></div>
@@ -32,8 +32,13 @@
     display: inline-block;
 }
 
+.visible .loader {
+    position: absolute;
+    margin-top: 44px;
+}
+
 .loader > * > div {
-    background-color: #4d4d4d;
+    background-color: #ffb25f;
 }
 
 .stores .footer {
@@ -72,7 +77,8 @@ export const Stores = Vue.component("stores", {
         return {
             stores: [],
             lastUpdate: null,
-            loading: true,
+            isVisible: false,
+            isLoading: true,
             message: null
         };
     },
@@ -83,7 +89,7 @@ export const Stores = Vue.component("stores", {
         remote: function() {
             // sets the current component as loading as a remote request
             // is going to be executed (as expected)
-            this.loading = true;
+            this.isLoading = true;
 
             // retrieves the current timestamp as it's going to be used
             // as the basis for the remote request
@@ -100,14 +106,18 @@ export const Stores = Vue.component("stores", {
                     unit: "day"
                 }
             }).then(response => {
-                this.loading = false;
+                this.isLoading = false;
                 this.setStores(response.data);
             }, response => {
-                this.loading = false;
+                this.isLoading = false;
                 this.message = "Error loading remote data";
             });
         },
         setStores: function(data) {
+            // sets the current panel as visible as the stores are being
+            // set (so we have a valid panel)
+            this.isVisible = true;
+
             // resets the list of stores currently associated to the
             // component as new ones are going to be used
             this.stores = [];
