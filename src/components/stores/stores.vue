@@ -81,16 +81,21 @@ export const Stores = Vue.component("stores", {
     data: function() {
         return {
             stores: [],
+            message: null,
             lastUpdate: null,
+            span: 7,
+            unit: "day",
             isVisible: false,
-            isLoading: true,
-            message: null
+            isLoading: true
         };
     },
     methods: {
         reset: function() {
             this.stores = [];
+            this.message = null;
             this.lastUpdate = null;
+            this.span = 7;
+            this.unit = "day";
         },
         next: function() {
             this.$refs.carousel.advancePage();
@@ -100,6 +105,9 @@ export const Stores = Vue.component("stores", {
         },
         refresh: function() {
             this.remote();
+        },
+        changeUnit: function(unit) {
+            this.unit = unit || (this.unit === "day" ? "month" : "day");
         },
         remote: function() {
             // in case we don't have a valid base URL the control flow is
@@ -126,8 +134,8 @@ export const Stores = Vue.component("stores", {
                     date: timestamp,
                     has_global: "True",
                     output: "simple",
-                    span: 7,
-                    unit: "day"
+                    span: this.span,
+                    unit: this.unit
                 }
             }).then(response => {
                 this.isLoading = false;
@@ -184,7 +192,7 @@ export const Stores = Vue.component("stores", {
                 // this is considered to be a "special value"
                 const mainSales = {
                     day: dayS,
-                    weekday: "Today's Sales",
+                    weekday: this.unit === "day" ? "Today's Sales" : "Month's Sales",
                     amount: netPriceVat[netPriceVat.length - 1].formatMoney(
                         2, ".", ","),
                     currency: "EUR",
@@ -217,6 +225,14 @@ export const Stores = Vue.component("stores", {
                     sales: sales
                 });
             });
+        }
+    },
+    watch: {
+        span: function(val) {
+            this.refresh();
+        },
+        unit: function(val) {
+            this.refresh();
         }
     }
 });

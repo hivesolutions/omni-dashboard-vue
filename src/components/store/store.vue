@@ -8,8 +8,12 @@
         </div>
         <div class="column">
             <div class="trend">
-                <img src="~./assets/arrow_up.svg" class="up" v-if="store.mainSales.direction === 'up'" />
-                <img src="~./assets/arrow_down.svg" class="down" v-if="store.mainSales.direction === 'down'" />
+                <img src="~./assets/arrow_up.svg" class="up"
+                     v-if="store.mainSales.direction === 'up'"
+                     v-on:click="changeUnit" />
+                <img src="~./assets/arrow_down.svg" class="down"
+                     v-if="store.mainSales.direction === 'down'"
+                     v-on:click="changeUnit" />
             </div>
         </div>
         <div class="column right">
@@ -96,6 +100,7 @@
     -khtml-filter: invert(0.5) sepia(1) saturate(50) hue-rotate(67deg);
     -webkit-filter: invert(0.5) sepia(1) saturate(50) hue-rotate(67deg);
     width: 38px;
+    cursor: pointer;
 }
 
 .store .trend > img.up {
@@ -239,6 +244,9 @@ export const Store = Vue.component("store", {
         },
         refresh: function() {
             this.$root.refresh();
+        },
+        changeUnit: function(mode) {
+            this.$root.changeUnit();
         }
     }
 });

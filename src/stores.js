@@ -47,6 +47,9 @@ export const stores = function() {
                 this.hideLogin();
                 this.$refs.stores.refresh();
             },
+            changeUnit: function() {
+                this.$refs.stores.changeUnit();
+            },
             loadData: function() {
                 this.sid = window.localStorage.sid;
                 this.username = window.localStorage.username;
