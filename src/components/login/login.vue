@@ -202,7 +202,7 @@ export const Login = Vue.component("login", {
                 this.$root.refresh();
             }, response => {
                 this.$refs.button.isLoading = false;
-                const message = response.data.exception.message;
+                const message = response.data.exception ? response.data.exception.message : "Unknown error";
                 const finalMessage = message.slice(0, 1).toUpperCase() + message.slice(1);
                 this.message = finalMessage;
             });

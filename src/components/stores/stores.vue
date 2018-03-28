@@ -88,11 +88,14 @@ export const Stores = Vue.component("stores", {
             dimension: "net_price_vat",
             isVisible: false,
             isLoading: true,
-            data: null
+            data: null,
+            timeout: null,
+            timeoutInterval: 300000
         };
     },
     methods: {
         reset: function() {
+            this.timeout && clearTimeout(this.timeout);
             this.stores = [];
             this.message = null;
             this.lastUpdate = null;
@@ -102,6 +105,7 @@ export const Stores = Vue.component("stores", {
             this.isVisible = false;
             this.isLoading = true;
             this.data = null;
+            this.timeout = null;
         },
         next: function() {
             this.$refs.carousel.advancePage();
@@ -142,6 +146,12 @@ export const Stores = Vue.component("stores", {
                 return;
             }
 
+            // in case there's a timeout handler defined clears it to avoid
+            // any possible duplicated execution
+            if (this.timeout) {
+                clearTimeout(this.timeout);
+            }
+
             // sets the current component as loading as a remote request
             // is going to be executed (as expected)
             this.isLoading = true;
@@ -167,6 +177,7 @@ export const Stores = Vue.component("stores", {
                 this.$root.isLoading = false;
                 this.data = response.data;
                 this.setStores(this.data);
+                this.timeout = setTimeout(this.refresh, this.timeoutInterval);
             }, response => {
                 this.isLoading = false;
                 this.$root.isLoading = false;
