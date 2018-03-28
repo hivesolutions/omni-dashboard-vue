@@ -145,6 +145,16 @@
     cursor: pointer;
 }
 
+.store .logout > img:hover,
+.store .refresh > img:hover {
+    filter: invert(0.5) sepia(1) hue-rotate(12deg);
+    -o-filter: invert(0.5) sepia(1) hue-rotate(12deg);
+    -ms-filter: invert(0.5) sepia(1) hue-rotate(12deg);
+    -moz-filter: invert(0.5) sepia(1) hue-rotate(12deg);
+    -khtml-filter: invert(0.5) sepia(1) hue-rotate(12deg);
+    -webkit-filter: invert(0.5) sepia(1) hue-rotate(12deg);
+}
+
 .store .results {
     border-radius: 2px 2px 2px 2px;
     -o-border-radius: 2px 2px 2px 2px;

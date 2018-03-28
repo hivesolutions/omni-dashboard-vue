@@ -103,11 +103,12 @@
 input[type=text],
 input[type=password] {
     border: none;
-    height: 42px;
+    height: 30px;
     width: 100%;
     font-family: -apple-system, "BlinkMacSystemFont", "Segoe UI", "Roboto", "Open Sans", "Helvetica", "Arial", sans-serif;
     font-size: 16px;
-    line-height: 32px;
+    line-height: 16px;
+    margin-top: 12px;
     border-bottom: 1px solid #2d9fc4;
     box-sizing: border-box;
     padding: 0px 2px 0px 2px;
