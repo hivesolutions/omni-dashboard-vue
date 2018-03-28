@@ -28,9 +28,11 @@
             <div class="weekday">{{ store.mainSales.weekday }}</div>
         </div>
         <div class="right">
-            <div class="money" v-on:click="changeDimension">
-                <span class="amount">{{ store.mainSales.amount }}</span>
-                <span class="currency">{{ store.mainSales.currency }}</span>
+            <div class="money">
+                <span class="money-inner" v-on:click="changeDimension">
+                    <span class="amount">{{ store.mainSales.amount }}</span>
+                    <span class="currency">{{ store.mainSales.currency }}</span>
+                </span>
             </div>
         </div>
     </div>
@@ -40,9 +42,11 @@
             <div class="weekday">{{ sale.weekday }}</div>
         </div>
         <div class="right">
-            <div class="money" v-on:click="changeDimension">
-                <span class="amount">{{ sale.amount }}</span>
-                <span class="currency">{{ sale.currency }}</span>
+            <div class="money">
+                <span class="money-inner" v-on:click="changeDimension">
+                    <span class="amount">{{ sale.amount }}</span>
+                    <span class="currency">{{ sale.currency }}</span>
+                </span>
             </div>
         </div>
     </div>
@@ -193,21 +197,25 @@
 .store .results .money {
     font-size: 16px;
     line-height: 16px;
-    display: inline-block;
-    cursor: pointer;
+    height: 16px;
 }
 
 .store .results.results-main .money {
     font-size: 19px;
     line-height: 19px;
+    height: 19px;
 }
 
-.store .results .money > .currency {
+.store .results .money > .money-inner {
+    cursor: pointer;
+}
+
+.store .results .money > .money-inner > .currency {
     font-size: 10px;
     letter-spacing: 0.1px;
 }
 
-.store .results.results-main .money > .currency {
+.store .results.results-main .money > .money-inner > .currency {
     font-size: 11px;
     letter-spacing: 0.2px;
 }

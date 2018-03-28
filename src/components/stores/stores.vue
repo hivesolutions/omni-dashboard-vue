@@ -87,7 +87,8 @@ export const Stores = Vue.component("stores", {
             unit: "day",
             dimension: "net_price_vat",
             isVisible: false,
-            isLoading: true
+            isLoading: true,
+            data: null
         };
     },
     methods: {
@@ -100,6 +101,7 @@ export const Stores = Vue.component("stores", {
             this.dimension = "net_price_vat";
             this.isVisible = false;
             this.isLoading = true;
+            this.data = null;
         },
         next: function() {
             this.$refs.carousel.advancePage();
@@ -163,13 +165,17 @@ export const Stores = Vue.component("stores", {
             }).then(response => {
                 this.isLoading = false;
                 this.$root.isLoading = false;
-                this.setStores(response.data);
+                this.data = response.data;
+                this.setStores(this.data);
             }, response => {
                 this.isLoading = false;
                 this.$root.isLoading = false;
                 this.message = "Error loading remote data";
                 this.$root.showLogin();
             });
+        },
+        refreshLight: function() {
+            this.setStores(this.data);
         },
         setStores: function(data) {
             // sets the current panel as visible as the stores are being
@@ -295,7 +301,7 @@ export const Stores = Vue.component("stores", {
             this.refresh();
         },
         dimension: function(val) {
-            this.refresh();
+            this.refreshLight();
         }
     }
 });
