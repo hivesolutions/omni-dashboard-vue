@@ -10,7 +10,7 @@
 <script>
 import Vue from "vue";
 
-export const Button = Vue.component("button", {
+export const ButtonColor = Vue.component("button-color", {
     data: function() {
         return {
             isLoading: false
@@ -20,5 +20,5 @@ export const Button = Vue.component("button", {
     }
 });
 
-export default Button;
+export default ButtonColor;
 </script>
