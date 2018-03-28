@@ -17,7 +17,7 @@
             <span>.frontdoorhd.com</span>
         </p>
         <p class="extra buttons">
-            <a href="#" class="button" v-on:click="submit">Signin</a>
+            <button-color ref="button" v-on:click="submit">Signin</button-color>
         </p>
         <p class="extra forgot">
             <a href="#">Forgot your password?</a>
@@ -155,7 +155,12 @@ input[type=password]:focus::placeholder {
 <script>
 import Vue from "vue";
 
+import ButtonColor from "../button-color/button-color.vue";
+
 export const Login = Vue.component("login", {
+    components: {
+        ButtonColor
+    },
     data: function() {
         return {
             isVisible: false,
@@ -183,17 +188,20 @@ export const Login = Vue.component("login", {
             this.message = null;
         },
         submit: function() {
+            this.$refs.button.isLoading = true;
             this.$http.get(this.baseUrl + "login.json", {
                 params: {
                     username: this.username,
                     password: this.password
                 }
             }).then(response => {
+                this.$refs.button.isLoading = false;
                 this.$root.sid = response.data.session_id;
                 this.$root.username = response.data.username;
                 this.$root.instance = this.instance;
                 this.$root.refresh();
             }, response => {
+                this.$refs.button.isLoading = false;
                 const message = response.data.exception.message;
                 const finalMessage = message.slice(0, 1).toUpperCase() + message.slice(1);
                 this.message = finalMessage;
