@@ -69,7 +69,7 @@ import {
 import GlobalEvents from "vue-global-events";
 
 import Store from "../store/store.vue";
-import daysOfWeek from "../../util";
+import {daysOfWeek, months} from "../../util";
 
 export const Stores = Vue.component("stores", {
     components: {
@@ -208,19 +208,25 @@ export const Stores = Vue.component("stores", {
                     .forEach(value => {
                         // decrements the currently defined delta from the current date
                         // depending on the unit currently in use
-                        date = new Date(date - 86400000);
+                        if (this.unit === "day") {
+                            date = new Date(date - 86400000);
+                        } else {
+                            date = new Date(date.getFullYear(), date.getMonth() - 1, 1);
+                        }
 
                         // creates the string that is going to represent the current day
                         // as a day and month literal
                         const dayS = `${String(date.getDate()).padStart(2, "0")}/${String(date.getMonth() + 1).padStart(2, "0")}`;
+                        const monthS = `${String(date.getMonth() + 1).padStart(2, "0")}/${String(date.getFullYear()).slice(2, 4).padStart(2, "0")}`;
                         const weekday = daysOfWeek[date.getDay()];
+                        const yearmonth = months[date.getMonth()];
 
                         // pushes the current sale per day structure to the list of sales
                         // note that although the name of the structure is a day it may
                         // represent other temporal units
                         sales.push({
-                            day: dayS,
-                            weekday: weekday,
+                            day: this.unit === "day" ? dayS : monthS,
+                            weekday: this.unit === "day" ? weekday : yearmonth,
                             amount: value.formatMoney(2, ".", ","),
                             currency: "EUR"
                         });
