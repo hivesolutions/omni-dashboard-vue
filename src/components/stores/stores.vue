@@ -96,6 +96,8 @@ export const Stores = Vue.component("stores", {
             this.lastUpdate = null;
             this.span = 7;
             this.unit = "day";
+            this.isVisible = false;
+            this.isLoading = true;
         },
         next: function() {
             this.$refs.carousel.advancePage();
