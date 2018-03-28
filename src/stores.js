@@ -1,9 +1,7 @@
 import Vue from "vue";
 import VueResource from "vue-resource";
 
-import Login from "./components/login";
-import Stores from "./components/stores";
-import Overlay from "./components/overlay";
+import {Login, Stores, Overlay} from "./components";
 
 export const stores = function() {
     Vue.use(VueResource);

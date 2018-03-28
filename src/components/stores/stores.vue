@@ -68,7 +68,7 @@ import {
 } from "vue-carousel";
 import GlobalEvents from "vue-global-events";
 
-import Store from "../store";
+import Store from "..";
 import daysOfWeek from "../../util";
 
 export const Stores = Vue.component("stores", {
