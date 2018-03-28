@@ -85,6 +85,7 @@ export const Stores = Vue.component("stores", {
             lastUpdate: null,
             span: 7,
             unit: "day",
+            dimension: "net_price_vat",
             isVisible: false,
             isLoading: true
         };
@@ -96,6 +97,7 @@ export const Stores = Vue.component("stores", {
             this.lastUpdate = null;
             this.span = 7;
             this.unit = "day";
+            this.dimension = "net_price_vat";
             this.isVisible = false;
             this.isLoading = true;
         },
@@ -110,6 +112,25 @@ export const Stores = Vue.component("stores", {
         },
         changeUnit: function(unit) {
             this.unit = unit || (this.unit === "day" ? "month" : "day");
+        },
+        changeDimension: function(dimension) {
+            if (dimension) {
+                this.dimension = dimension;
+            } else {
+                switch (this.dimension) {
+                case "net_price_vat":
+                    this.dimension = "net_number_sales";
+                    break;
+
+                case "net_number_sales":
+                    this.dimension = "number_entries";
+                    break;
+
+                case "number_entries":
+                    this.dimension = "net_price_vat";
+                    break;
+                }
+            }
         },
         remote: function() {
             // in case we don't have a valid base URL the control flow is
@@ -179,12 +200,36 @@ export const Stores = Vue.component("stores", {
 
             // iteates over the complete set of stores
             stores.forEach(store => {
+                let currency;
+                let label;
+                let places;
+
                 // creates the initial date value to be used
                 let date = new Date();
 
                 // retrieves the value for the current store and the target
                 // price values to be used in this function
-                const netPriceVat = store.net_price_vat;
+                const values = store[this.dimension];
+
+                switch (this.dimension) {
+                case "net_price_vat":
+                    currency = "EUR";
+                    label = "Sales";
+                    places = 2;
+                    break;
+
+                case "net_number_sales":
+                    currency = "SAL";
+                    label = "Sales";
+                    places = 0;
+                    break;
+
+                case "number_entries":
+                    currency = "ENT";
+                    label = "Entries";
+                    places = 0;
+                    break;
+                }
 
                 // creates the string that is going to represent the current day
                 // as a day and month literal
@@ -194,17 +239,17 @@ export const Stores = Vue.component("stores", {
                 // this is considered to be a "special value"
                 const mainSales = {
                     day: dayS,
-                    weekday: this.unit === "day" ? "Today's Sales" : "Month's Sales",
-                    amount: netPriceVat[netPriceVat.length - 1].formatMoney(
-                        2, ".", ","),
-                    currency: "EUR",
-                    direction: netPriceVat[netPriceVat.length - 1] > netPriceVat[netPriceVat.length - 2] ? "up" : "down"
+                    weekday: this.unit === "day" ? "Today's " + label : "Month's " + label,
+                    amount: values[values.length - 1].formatMoney(
+                        places, ".", ","),
+                    currency: currency,
+                    direction: values[values.length - 1] > values[values.length - 2] ? "up" : "down"
                 };
 
                 // retrieves the appropiate values for the calculus and runs
                 // the iteration for the building of the day sales
                 const sales = [];
-                netPriceVat.slice(0, netPriceVat.length - 1).reverse()
+                values.slice(0, values.length - 1).reverse()
                     .forEach(value => {
                         // decrements the currently defined delta from the current date
                         // depending on the unit currently in use
@@ -227,8 +272,8 @@ export const Stores = Vue.component("stores", {
                         sales.push({
                             day: this.unit === "day" ? dayS : monthS,
                             weekday: this.unit === "day" ? weekday : yearmonth,
-                            amount: value.formatMoney(2, ".", ","),
-                            currency: "EUR"
+                            amount: value.formatMoney(places, ".", ","),
+                            currency: currency
                         });
                     });
 
@@ -247,6 +292,9 @@ export const Stores = Vue.component("stores", {
             this.refresh();
         },
         unit: function(val) {
+            this.refresh();
+        },
+        dimension: function(val) {
             this.refresh();
         }
     }

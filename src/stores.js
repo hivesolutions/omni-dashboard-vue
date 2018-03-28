@@ -54,6 +54,9 @@ export const stores = function() {
             changeUnit: function() {
                 this.$refs.stores.changeUnit();
             },
+            changeDimension: function() {
+                this.$refs.stores.changeDimension();
+            },
             loadData: function() {
                 this.sid = window.localStorage.sid;
                 this.username = window.localStorage.username;

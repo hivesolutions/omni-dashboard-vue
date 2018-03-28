@@ -28,7 +28,7 @@
             <div class="weekday">{{ store.mainSales.weekday }}</div>
         </div>
         <div class="right">
-            <div class="money">
+            <div class="money" v-on:click="changeDimension">
                 <span class="amount">{{ store.mainSales.amount }}</span>
                 <span class="currency">{{ store.mainSales.currency }}</span>
             </div>
@@ -40,7 +40,7 @@
             <div class="weekday">{{ sale.weekday }}</div>
         </div>
         <div class="right">
-            <div class="money">
+            <div class="money" v-on:click="changeDimension">
                 <span class="amount">{{ sale.amount }}</span>
                 <span class="currency">{{ sale.currency }}</span>
             </div>
@@ -193,6 +193,8 @@
 .store .results .money {
     font-size: 16px;
     line-height: 16px;
+    display: inline-block;
+    cursor: pointer;
 }
 
 .store .results.results-main .money {
@@ -247,6 +249,9 @@ export const Store = Vue.component("store", {
         },
         changeUnit: function(mode) {
             this.$root.changeUnit();
+        },
+        changeDimension: function(mode) {
+            this.$root.changeDimension();
         }
     }
 });
