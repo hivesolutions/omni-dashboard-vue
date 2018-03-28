@@ -206,11 +206,18 @@ export const Stores = Vue.component("stores", {
                 const sales = [];
                 netPriceVat.slice(0, netPriceVat.length - 1).reverse()
                     .forEach(value => {
+                        // decrements the currently defined delta from the current date
+                        // depending on the unit currently in use
                         date = new Date(date - 86400000);
+
                         // creates the string that is going to represent the current day
                         // as a day and month literal
                         const dayS = `${String(date.getDate()).padStart(2, "0")}/${String(date.getMonth() + 1).padStart(2, "0")}`;
                         const weekday = daysOfWeek[date.getDay()];
+
+                        // pushes the current sale per day structure to the list of sales
+                        // note that although the name of the structure is a day it may
+                        // represent other temporal units
                         sales.push({
                             day: dayS,
                             weekday: weekday,
