@@ -189,6 +189,12 @@ export const Stores = Vue.component("stores", {
             this.setStores(this.data);
         },
         setStores: function(data) {
+            // in case the provided data is not valid or not set returns
+            // the control flow immediately (avoids invalid cases)
+            if (!data) {
+                return;
+            }
+
             // sets the current panel as visible as the stores are being
             // set (so we have a valid panel)
             this.isVisible = true;
