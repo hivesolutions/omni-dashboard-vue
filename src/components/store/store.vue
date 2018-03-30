@@ -119,6 +119,7 @@
 .store .logout > img,
 .store .refresh > img {
     cursor: pointer;
+    vertical-align: middle;
 }
 
 .store .logout > img:hover,
