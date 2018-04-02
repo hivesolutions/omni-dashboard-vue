@@ -179,10 +179,16 @@ export const Stores = Vue.component("stores", {
                 this.setStores(this.data);
                 this.timeout = setTimeout(this.refresh, this.timeoutInterval);
             }, response => {
+                // removes the loading indicators and then updates the message
+                // indicator for the current panel to indicate the error
                 this.isLoading = false;
                 this.$root.isLoading = false;
                 this.message = "Error loading remote data";
-                this.$root.showLogin();
+
+                // verifies if the error received may be related with authentication
+                // and if that's the case shows the login window (to escape)
+                const isAuth = response.status && parseInt(response.status / 100) === 4;
+                isAuth && this.$root.showLogin();
             });
         },
         refreshLight: function() {
