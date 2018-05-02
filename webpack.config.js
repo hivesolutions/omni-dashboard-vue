@@ -1,6 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
 
+const { VueLoaderPlugin } = require("vue-loader");
 const ManifestPlugin = require("webpack-manifest-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackPwaManifest = require("webpack-pwa-manifest");
@@ -14,6 +15,7 @@ module.exports = {
         library: "OmniDashboard"
     },
     plugins: [
+        new VueLoaderPlugin({}),
         new ManifestPlugin({}),
         new HtmlWebpackPlugin({
             title: "Omni Dashboard",
@@ -49,7 +51,7 @@ module.exports = {
             test: /\.css$/,
             use: ["style-loader", "css-loader"]
         }, {
-            test: /\.scss$/,
+            test: /\.(scss|sass)$/,
             use: [{
                 loader: "style-loader"
             }, {
