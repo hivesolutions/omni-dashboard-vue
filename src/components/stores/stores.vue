@@ -137,6 +137,10 @@ export const Stores = Vue.component("stores", {
                     break;
 
                 case "number_entries":
+                    this.dimension = "conversion_rate";
+                    break;
+
+                case "conversion_rate":
                     this.dimension = "net_price_vat";
                     break;
                 }
@@ -260,7 +264,7 @@ export const Stores = Vue.component("stores", {
                     break;
 
                 case "net_average_sale":
-                    values = store["net_price_vat"].map((v, i) => v / store["net_number_sales"][i]);
+                    values = store["net_price_vat"].map((v, i) => v / (store["net_number_sales"][i] || 1.0));
                     currency = "EUR";
                     label = "ASV";
                     places = 2;
@@ -271,6 +275,13 @@ export const Stores = Vue.component("stores", {
                     currency = "ENT";
                     label = "Entries";
                     places = 0;
+                    break;
+
+                case "conversion_rate":
+                    values = store["net_number_sales"].map((v, i) => store["number_entries"][i] ? v / store["number_entries"][i] * 100.0 : 0.0);
+                    currency = "%";
+                    label = "Conv.";
+                    places = 1;
                     break;
                 }
 
