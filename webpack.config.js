@@ -1,11 +1,14 @@
 const path = require("path");
 const webpack = require("webpack");
 
-const { VueLoaderPlugin } = require("vue-loader");
+const vueLoader = require("vue-loader");
+
 const ManifestPlugin = require("webpack-manifest-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackPwaManifest = require("webpack-pwa-manifest");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+
+const VueLoaderPlugin = vueLoader.VueLoaderPlugin;
 
 module.exports = {
     entry: "./src/app.js",
