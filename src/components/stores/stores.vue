@@ -266,7 +266,7 @@ export const Stores = Vue.component("stores", {
                 case "net_average_sale":
                     values = store["net_price_vat"].map((v, i) => v / (store["net_number_sales"][i] || 1.0));
                     currency = "EUR";
-                    label = "ASV";
+                    label = "Average";
                     places = 2;
                     break;
 
