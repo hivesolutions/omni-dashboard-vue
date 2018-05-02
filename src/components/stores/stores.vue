@@ -129,6 +129,10 @@ export const Stores = Vue.component("stores", {
                     break;
 
                 case "net_number_sales":
+                    this.dimension = "net_average_sale";
+                    break;
+
+                case "net_average_sale":
                     this.dimension = "number_entries";
                     break;
 
@@ -227,8 +231,10 @@ export const Stores = Vue.component("stores", {
             stores = stores.sort((a, b) => parseInt(a[0]) > parseInt(b[0]) ? 1 : -1);
             stores = stores.map(v => v[1]);
 
-            // iteates over the complete set of stores
+            // iteates over the complete set of stores to update the values
+            // corresponding to the associated dimension
             stores.forEach(store => {
+                let values;
                 let currency;
                 let label;
                 let places;
@@ -236,24 +242,32 @@ export const Stores = Vue.component("stores", {
                 // creates the initial date value to be used
                 let date = new Date();
 
-                // retrieves the value for the current store and the target
-                // price values to be used in this function
-                const values = store[this.dimension];
-
+                // switches over the currently selected dimension to properly
+                // update the complete set of variables of the update operation
                 switch (this.dimension) {
                 case "net_price_vat":
+                    values = store["net_price_vat"];
                     currency = "EUR";
                     label = "Sales";
                     places = 2;
                     break;
 
                 case "net_number_sales":
+                    values = store["net_number_sales"];
                     currency = "SAL";
                     label = "Sales";
                     places = 0;
                     break;
 
+                case "net_average_sale":
+                    values = store["net_price_vat"].map((v, i) => v / store["net_number_sales"][i]);
+                    currency = "EUR";
+                    label = "ASV";
+                    places = 2;
+                    break;
+
                 case "number_entries":
+                    values = store["number_entries"];
                     currency = "ENT";
                     label = "Entries";
                     places = 0;
