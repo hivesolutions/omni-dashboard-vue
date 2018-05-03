@@ -1,6 +1,7 @@
 <template>
 <div class="stores" v-bind:class="{ visible: isVisible, loading: isLoading }">
-    <GlobalEvents @key-up.left="previous" @key-up.right="next"></GlobalEvents>
+    <GlobalEvents @key-up.left="previous" @key-up.right="next"
+                  @key-up.up="nextDimension" @key-up.down="previousDimension"></GlobalEvents>
     <div class="loader" v-if="isLoading">
         <div class="ball-scale-multiple">
             <div></div>
@@ -71,6 +72,14 @@ import GlobalEvents from "vue-global-events";
 import Store from "../store/store.vue";
 import {daysOfWeek, months} from "../../util";
 
+export const SEQUENCE = [
+    "net_price_vat",
+    "net_number_sales",
+    "net_average_sale",
+    "number_entries",
+    "conversion_rate"
+];
+
 export const Stores = Vue.component("stores", {
     components: {
         GlobalEvents,
@@ -123,28 +132,18 @@ export const Stores = Vue.component("stores", {
             if (dimension) {
                 this.dimension = dimension;
             } else {
-                switch (this.dimension) {
-                case "net_price_vat":
-                    this.dimension = "net_number_sales";
-                    break;
-
-                case "net_number_sales":
-                    this.dimension = "net_average_sale";
-                    break;
-
-                case "net_average_sale":
-                    this.dimension = "number_entries";
-                    break;
-
-                case "number_entries":
-                    this.dimension = "conversion_rate";
-                    break;
-
-                case "conversion_rate":
-                    this.dimension = "net_price_vat";
-                    break;
-                }
+                this.nextDimension();
             }
+        },
+        nextDimension: function() {
+            const currentIndex = SEQUENCE.indexOf(this.dimension);
+            const targetIndex = currentIndex === SEQUENCE.length - 1 ? 0 : currentIndex + 1;
+            this.dimension = SEQUENCE[targetIndex];
+        },
+        previousDimension: function() {
+            const currentIndex = SEQUENCE.indexOf(this.dimension);
+            const targetIndex = currentIndex === 0 ? SEQUENCE.length - 1 : currentIndex - 1;
+            this.dimension = SEQUENCE[targetIndex];
         },
         remote: function() {
             // in case we don't have a valid base URL the control flow is
