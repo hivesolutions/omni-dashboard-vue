@@ -13,4 +13,8 @@ export const start = function() {
     }
 };
 
+if (typeof window !== "undefined") {
+    window.globals = globals;
+}
+
 export default start;

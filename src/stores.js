@@ -10,6 +10,11 @@ import {
 export const stores = function() {
     Vue.use(VueResource);
 
+    // creates the common bus that is going to be used
+    // for global event registering and triggering, a
+    // common pattern for vue applications
+    Vue.prototype.$bus = new Vue();
+
     const app = new Vue({
         el: "#app",
         components: {
@@ -46,10 +51,12 @@ export const stores = function() {
                 this.instance = null;
                 this.$refs.stores.reset();
                 this.showLogin();
+                this.$bus.$emit("logged-out");
             },
             refresh: function() {
                 this.hideLogin();
                 this.$refs.stores.refresh();
+                this.$bus.$emit("refreshed");
             },
             changeUnit: function() {
                 this.$refs.stores.changeUnit();
