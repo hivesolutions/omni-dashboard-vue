@@ -238,12 +238,15 @@ export const Stores = Vue.component("stores", {
             // iteates over the complete set of stores to update the values
             // corresponding to the associated dimension
             stores.forEach(store => {
+                // initializes a series of local variables that are going to
+                // be used for the current store values
                 let values;
                 let currency;
                 let label;
                 let places;
 
-                // creates the initial date value to be used
+                // creates the initial date value to be used in the printing
+                // of the last update timestamp
                 let date = new Date();
 
                 // switches over the currently selected dimension to properly
