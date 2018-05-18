@@ -251,40 +251,40 @@ export const Stores = Vue.component("stores", {
                 // switches over the currently selected dimension to properly
                 // update the complete set of variables of the update operation
                 switch (this.dimension) {
-                case "net_price_vat":
-                    values = store["net_price_vat"];
-                    currency = "EUR";
-                    label = "Sales";
-                    places = 2;
-                    break;
+                    case "net_price_vat":
+                        values = store["net_price_vat"];
+                        currency = "EUR";
+                        label = "Sales";
+                        places = 2;
+                        break;
 
-                case "net_number_sales":
-                    values = store["net_number_sales"];
-                    currency = "SAL";
-                    label = "Sales";
-                    places = 0;
-                    break;
+                    case "net_number_sales":
+                        values = store["net_number_sales"];
+                        currency = "SAL";
+                        label = "Sales";
+                        places = 0;
+                        break;
 
-                case "net_average_sale":
-                    values = store["net_price_vat"].map((v, i) => v / (store["net_number_sales"][i] || 1.0));
-                    currency = "EUR";
-                    label = "Avg.";
-                    places = 2;
-                    break;
+                    case "net_average_sale":
+                        values = store["net_price_vat"].map((v, i) => v / (store["net_number_sales"][i] || 1.0));
+                        currency = "EUR";
+                        label = "Avg.";
+                        places = 2;
+                        break;
 
-                case "number_entries":
-                    values = store["number_entries"];
-                    currency = "ENT";
-                    label = "Entries";
-                    places = 0;
-                    break;
+                    case "number_entries":
+                        values = store["number_entries"];
+                        currency = "ENT";
+                        label = "Entries";
+                        places = 0;
+                        break;
 
-                case "conversion_rate":
-                    values = store["net_number_sales"].map((v, i) => store["number_entries"][i] ? v / store["number_entries"][i] * 100.0 : 0.0);
-                    currency = "%";
-                    label = "Conv.";
-                    places = 1;
-                    break;
+                    case "conversion_rate":
+                        values = store["net_number_sales"].map((v, i) => store["number_entries"][i] ? v / store["number_entries"][i] * 100.0 : 0.0);
+                        currency = "%";
+                        label = "Conv.";
+                        places = 1;
+                        break;
                 }
 
                 // creates the string that is going to represent the current day
