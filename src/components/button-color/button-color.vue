@@ -20,7 +20,7 @@
 .button > .ball-scale-multiple {
     -webkit-transform: scale(0.5) translateY(-30px);
     -ms-transform: scale(0.5) translateY(-30px);
-     transform: scale(0.5) translateY(-30px);
+    transform: scale(0.5) translateY(-30px);
 }
 </style>
 
