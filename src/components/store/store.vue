@@ -215,23 +215,25 @@ export const Store = Vue.component("store", {
     props: {
         store: {
             type: Object,
-            default: {
-                name: "Example Store",
-                email: "example@store.com",
-                mainSales: {
-                    day: "xx/xx",
-                    weekday: "Week Day",
-                    amount: "xx,xxx.xx",
-                    currency: "EUR",
-                    direction: "up"
-                },
-                sales: [{
-                    day: "xx/xx",
-                    weekday: "Day",
-                    amount: "xx,xxx.xx",
-                    currency: "EUR"
-                }],
-                isMain: false
+            default: function() {
+                return {
+                    name: "Example Store",
+                    email: "example@store.com",
+                    mainSales: {
+                        day: "xx/xx",
+                        weekday: "Week Day",
+                        amount: "xx,xxx.xx",
+                        currency: "EUR",
+                        direction: "up"
+                    },
+                    sales: [{
+                        day: "xx/xx",
+                        weekday: "Day",
+                        amount: "xx,xxx.xx",
+                        currency: "EUR"
+                    }],
+                    isMain: false
+                };
             }
         }
     },
