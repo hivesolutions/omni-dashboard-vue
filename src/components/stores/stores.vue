@@ -9,7 +9,8 @@
             <div></div>
         </div>
     </div>
-    <carousel :per-page="1" :pagination-size="8" :pagination-padding="4" :navigate-to="0" ref="carousel">
+    <carousel v-bind:per-page="1" v-bind:pagination-size="8"
+              v-bind:pagination-padding="4" v-bind:navigate-to="0" ref="carousel">
         <slide v-for="store in stores"
                v-bind:key="store.name">
             <store v-bind:store="store"
