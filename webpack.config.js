@@ -3,6 +3,7 @@ const webpack = require("webpack");
 
 const vueLoader = require("vue-loader");
 
+const OfflinePlugin = require("offline-plugin");
 const ManifestPlugin = require("webpack-manifest-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackPwaManifest = require("webpack-pwa-manifest");
@@ -19,6 +20,7 @@ module.exports = {
     },
     plugins: [
         new VueLoaderPlugin({}),
+        new OfflinePlugin({}),
         new ManifestPlugin({}),
         new HtmlWebpackPlugin({
             title: "Omni Dashboard",
