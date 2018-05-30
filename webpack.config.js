@@ -42,8 +42,8 @@ module.exports = {
                 src: path.resolve("src/assets/images/icon.play.png"),
                 sizes: [96, 128, 192, 256, 384, 512]
             }]
-        },
-        new OfflinePlugin({}))
+        }),
+        new OfflinePlugin({})
     ],
     module: {
         rules: [{
