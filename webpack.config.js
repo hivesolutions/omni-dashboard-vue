@@ -34,7 +34,7 @@ module.exports = {
         }),
         new WebpackPwaManifest({
             name: "Omni Dashboard",
-            short_name: "OmniDashboard",
+            short_name: "Dashboard",
             description: "Sales Dashboard for Omni",
             background_color: "#6d6d6d",
             icons: [{
