@@ -76,6 +76,7 @@
         "sass-loader": "^7.0.1",
         "sort-package-json": "^1.15.0",
         "style-loader": "^0.21.0",
+        "typeface-open-sans": "^0.0.54",
         "vue-loader": "^15.2.2",
         "vue-template-compiler": "^2.5.16",
         "webpack": "^4.10.2",

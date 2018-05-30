@@ -3,6 +3,8 @@ import "hive-js-util";
 
 import * as OfflinePluginRuntime from "offline-plugin/runtime";
 
+import "typeface-open-sans";
+
 import "./assets/css/base.css";
 import "./assets/css/layout.css";
 
@@ -26,8 +28,7 @@ if (typeof window !== "undefined") {
 
 console.info("vai fazer bind");
 window.addEventListener("beforeinstallprompt", function(event) {
-    console.info("cenas");
-    alert("cenas");
+    globals.app.logout();
     event.preventDefault();
 });
 
