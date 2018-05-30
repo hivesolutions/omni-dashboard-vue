@@ -11,6 +11,10 @@
     "bugs": {
         "url": "https://github.com/hivesolutions/omni_dashboard_vue/issues"
     },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/hivesolutions/omni_dashboard_vue.git"
+    },
     "license": "Apache-2.0",
     "author": "Hive Solutions",
     "files": [
@@ -22,10 +26,6 @@
         "src/**/*.html"
     ],
     "main": "app.js",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/hivesolutions/omni_dashboard_vue.git"
-    },
     "scripts": {
         "build": "webpack --mode production",
         "build-dev": "webpack --mode development",
@@ -43,7 +43,7 @@
     },
     "dependencies": {
         "consola": "^1.4.1",
-        "hive-js-util": "^0.1.16",
+        "hive-js-util": "^0.1.17",
         "http-server": "^0.11.1",
         "loaders.css": "^0.1.2",
         "vue": "^2.5.16",
