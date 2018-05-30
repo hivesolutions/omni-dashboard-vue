@@ -73,8 +73,8 @@ export const stores = function() {
             loadPrompt: function() {
                 console.info("vai fazer bind");
                 window.addEventListener("beforeinstallprompt", function(event) {
-                    event.preventDefault();
                     console.info("cenas");
+                    event.preventDefault();
                 });
             }
         },
