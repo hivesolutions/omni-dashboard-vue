@@ -23,6 +23,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: "Omni Dashboard",
             template: "index.html.tpl",
+            favicon: "src/assets/images/icon.png",
             cache: false,
             minify: {
                 removeComments: true,
