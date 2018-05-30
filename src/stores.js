@@ -74,9 +74,8 @@ export const stores = function() {
                 this.instance = window.localStorage.instance;
             },
             loadPrompt: function() {
-                console.info("vai fazer bind");
                 window.addEventListener("beforeinstallprompt", function(event) {
-                    alert("beforeinstallprompt called");
+                    console.info("beforeinstallprompt called");
                     event.preventDefault();
                 });
             }

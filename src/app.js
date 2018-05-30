@@ -26,10 +26,4 @@ if (typeof window !== "undefined") {
     window.globals = globals;
 }
 
-console.info("vai fazer bind");
-window.addEventListener("beforeinstallprompt", function(event) {
-    alert("beforeinstallprompt called");
-    event.preventDefault();
-});
-
 export default start;
