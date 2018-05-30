@@ -28,7 +28,7 @@ if (typeof window !== "undefined") {
 
 console.info("vai fazer bind");
 window.addEventListener("beforeinstallprompt", function(event) {
-    globals.app.logout();
+    alert("beforeinstallprompt called");
     event.preventDefault();
 });
 
