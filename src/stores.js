@@ -66,6 +66,9 @@ export const stores = function() {
                 this.$refs.stores.changeDimension();
             },
             loadData: function() {
+                if (window.localStorage === undefined) {
+                    return;
+                }
                 this.sid = window.localStorage.sid;
                 this.username = window.localStorage.username;
                 this.instance = window.localStorage.instance;
@@ -80,6 +83,9 @@ export const stores = function() {
         },
         watch: {
             sid: function(val) {
+                if (window.localStorage === undefined) {
+                    return;
+                }
                 if (val) {
                     window.localStorage.sid = val;
                 } else {
@@ -87,6 +93,9 @@ export const stores = function() {
                 }
             },
             username: function(val) {
+                if (window.localStorage === undefined) {
+                    return;
+                }
                 if (val) {
                     window.localStorage.username = val;
                 } else {
@@ -94,6 +103,9 @@ export const stores = function() {
                 }
             },
             instance: function(val) {
+                if (window.localStorage === undefined) {
+                    return;
+                }
                 if (val) {
                     window.localStorage.instance = val;
                 } else {
