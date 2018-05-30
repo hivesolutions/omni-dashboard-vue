@@ -114,4 +114,11 @@ export const stores = function() {
     return app;
 };
 
+console.info("vai fazer bind");
+window.addEventListener("beforeinstallprompt", function(event) {
+    console.info("cenas");
+    alert("cenas");
+    event.preventDefault();
+});
+
 export default stores;
