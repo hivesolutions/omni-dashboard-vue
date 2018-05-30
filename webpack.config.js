@@ -37,6 +37,7 @@ module.exports = {
             name: "Omni Dashboard",
             short_name: "Dashboard",
             description: "Sales Dashboard for Omni",
+            theme_color: "#6d6d6d",
             background_color: "#6d6d6d",
             icons: [{
                 src: path.resolve("src/assets/images/icon.play.png"),
