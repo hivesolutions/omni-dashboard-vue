@@ -26,7 +26,8 @@ export const stores = function() {
             sid: null,
             username: null,
             instance: null,
-            isLoading: false
+            isLoading: false,
+            deferredPrompt: null
         },
         mounted: function() {
             this.loadData();
@@ -65,6 +66,18 @@ export const stores = function() {
             changeDimension: function() {
                 this.$refs.stores.changeDimension();
             },
+            promptInstall: function() {
+                if (this.deferredPrompt === null) {
+                    return;
+                }
+                const self = this;
+                this.deferredPrompt.prompt();
+                this.deferredPrompt.userChoice.then(function(choiceResult) {
+                    if (choiceResult.outcome === "accepted") {
+                        self.deferredPrompt = null;
+                    }
+                });
+            },
             loadData: function() {
                 if (window.localStorage === undefined) {
                     return;
@@ -74,9 +87,10 @@ export const stores = function() {
                 this.instance = window.localStorage.instance;
             },
             loadPrompt: function() {
+                const self = this;
                 window.addEventListener("beforeinstallprompt", function(event) {
-                    console.info("beforeinstallprompt called");
                     event.preventDefault();
+                    self.deferredPrompt = event;
                 });
             }
         },

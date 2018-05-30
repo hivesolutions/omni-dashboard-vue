@@ -12,6 +12,7 @@
             <overlay ref="overlay"></overlay>
             <login ref="login"></login>
             <stores ref="stores"></stores>
+            <button-color v-if="deferredPrompt" v-on:click="promptInstall">Install</button-color>
         </div>
     </body>
 </html>
