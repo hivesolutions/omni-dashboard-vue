@@ -20,7 +20,6 @@ module.exports = {
     },
     plugins: [
         new VueLoaderPlugin({}),
-        new OfflinePlugin({}),
         new ManifestPlugin({}),
         new HtmlWebpackPlugin({
             title: "Omni Dashboard",
@@ -43,7 +42,8 @@ module.exports = {
                 src: path.resolve("src/assets/images/icon.play.png"),
                 sizes: [96, 128, 192, 256, 384, 512]
             }]
-        })
+        },
+        new OfflinePlugin({}))
     ],
     module: {
         rules: [{
