@@ -23,7 +23,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: "Omni Dashboard",
             template: "index.html.tpl",
-            favicon: "src/assets/images/icon.png",
+            favicon: "src/assets/images/icon.dna.png",
             cache: false,
             minify: {
                 removeComments: true,
@@ -38,7 +38,7 @@ module.exports = {
             description: "Sales Dashboard for Omni",
             background_color: "#6d6d6d",
             icons: [{
-                src: path.resolve("src/assets/images/icon.png"),
+                src: path.resolve("src/assets/images/icon.dna.png"),
                 sizes: [96, 128, 192, 256, 384, 512]
             }]
         })
