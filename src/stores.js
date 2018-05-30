@@ -30,6 +30,7 @@ export const stores = function() {
         },
         mounted: function() {
             this.loadData();
+            this.loadPrompt();
             this.refresh();
         },
         methods: {
@@ -68,6 +69,13 @@ export const stores = function() {
                 this.sid = window.localStorage.sid;
                 this.username = window.localStorage.username;
                 this.instance = window.localStorage.instance;
+            },
+            loadPrompt: function() {
+                console.info("vai fazer bind");
+                window.addEventListener("beforeinstallprompt", function(event) {
+                    event.preventDefault();
+                    console.info("cenas");
+                });
             }
         },
         watch: {
