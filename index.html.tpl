@@ -8,7 +8,7 @@
     </head>
     <body class="center cool cool-color cool-gradient-crazy" onload="OmniDashboard.start();">
         <noscript>Sorry, your browser does not support JavaScript.</noscript>
-        <div id="app" class="app app-stores">    
+        <div id="app" class="app app-stores">
             <overlay ref="overlay"></overlay>
             <login ref="login"></login>
             <message class="container dynamic" ref="message"></message>

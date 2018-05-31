@@ -1,12 +1,15 @@
 <template>
 <div class="notice" v-if="isVisible">
-    <button-color v-if="$root.username" v-on:click="promptInstall">Install</button-color>
+    <button-color class="button-small button-transparent" v-if="$root.deferredPrompt"
+                  v-on:click="promptInstall">Install App</button-color>
 </div>
 </template>
 
 <style scoped>
 .notice {
-    margin-top: 22px;
+    position: fixed;
+    bottom: 16px;
+    right: 22px;
 }
 </style>
 
