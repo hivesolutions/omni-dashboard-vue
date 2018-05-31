@@ -1,5 +1,5 @@
 <template>
-<div class="stores" v-bind:class="{ visible: isVisible, loading: isLoading }">
+<div class="stores" v-if="stores.length || isLoading" v-bind:class="{ visible: isVisible, loading: isLoading }">
     <GlobalEvents @key-up.left="previous" @key-up.right="next"
                   @key-up.up="nextDimension" @key-up.down="previousDimension"></GlobalEvents>
     <div class="loader" v-if="isLoading">
@@ -8,18 +8,6 @@
             <div></div>
             <div></div>
         </div>
-    </div>
-    <div class="message" v-if="message">
-        <p>
-            <img src="~./assets/superman.svg" />"
-        </p>
-        <h1>Oops there was an error</h1>
-        <p class="text">
-            Unfortunately the site is experiencing a bit of turbulence right now.<br/>
-            But soon we'll be up and the sun will shine again.<br/>
-            <span class="error-message">{{ message }}</span>
-        </p>
-        <button-color v-on:click="refresh">Refresh</button-color>
     </div>
     <carousel v-bind:per-page="1" v-bind:pagination-size="8"
               v-bind:pagination-padding="4" v-bind:navigate-to="0" ref="carousel">
@@ -62,37 +50,6 @@
 
 .loader > * > div {
     background-color: #ffb25f;
-}
-
-.message {
-    padding: 0px 24px 0px 24px;
-    box-sizing: border-box;
-    min-width: 320px;
-}
-
-.message > h1 {
-    margin: 0px 0px 0px 0px;
-}
-
-.message > .text {
-    font-size: 14px;
-    margin: 24px 0px 24px 0px;
-}
-
-.message > .text > .error-message {
-    color: #c9273f;
-    font-weight: 600;
-    margin-top: 12px;
-    display: inline-block;
-}
-
-.message img {
-    max-height: 128px;
-    max-width: 128px;
-}
-
-.visible .message {
-    display: none;
 }
 
 .stores {
@@ -138,7 +95,6 @@ export const Stores = Vue.component("stores", {
     data: function() {
         return {
             stores: [],
-            message: null,
             lastUpdate: null,
             span: 7,
             unit: "day",
@@ -154,7 +110,6 @@ export const Stores = Vue.component("stores", {
         reset: function() {
             this.timeout && clearTimeout(this.timeout);
             this.stores = [];
-            this.message = null;
             this.lastUpdate = null;
             this.span = 7;
             this.unit = "day";
@@ -212,10 +167,6 @@ export const Stores = Vue.component("stores", {
             this.isLoading = true;
             this.$root.isLoading = true;
 
-            // resets the current message value as no error exists for the
-            // new remote operation that is going to be performed
-            this.message = null;
-
             // retrieves the current timestamp as it's going to be used
             // as the basis for the remote request
             const timestamp = parseInt(Date.parse(new Date().toUTCString()) / 1000);
@@ -234,6 +185,7 @@ export const Stores = Vue.component("stores", {
             }).then(response => {
                 this.isLoading = false;
                 this.$root.isLoading = false;
+                this.$root.message = null;
                 this.data = response.data;
                 this.setStores(this.data);
                 this.timeout = setTimeout(this.refresh, this.timeoutInterval);
@@ -242,7 +194,7 @@ export const Stores = Vue.component("stores", {
                 // indicator for the current panel to indicate the error
                 this.isLoading = false;
                 this.$root.isLoading = false;
-                this.message = "Error loading remote data";
+                this.$root.message = "Error loading remote data";
 
                 // verifies if the error received may be related with authentication
                 // and if that's the case shows the login window (to escape)

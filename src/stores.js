@@ -3,6 +3,7 @@ import VueResource from "vue-resource";
 
 import {
     Login,
+    Message,
     Stores,
     Overlay
 } from "./components";
@@ -19,6 +20,7 @@ export const stores = function() {
         el: "#app",
         components: {
             Login,
+            Message,
             Stores,
             Overlay
         },
@@ -27,6 +29,7 @@ export const stores = function() {
             username: null,
             instance: null,
             isLoading: false,
+            message: null,
             deferredPrompt: null
         },
         mounted: function() {
@@ -124,6 +127,9 @@ export const stores = function() {
                 } else {
                     delete window.localStorage.instance;
                 }
+            },
+            message: function(val) {
+                this.$refs.message.setText(val);
             }
         },
         computed: {

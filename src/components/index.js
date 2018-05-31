@@ -5,6 +5,9 @@ export {
     Login
 } from "./login/login.vue";
 export {
+    Message
+} from "./message/message.vue";
+export {
     Overlay
 } from "./overlay/overlay.vue";
 export {
