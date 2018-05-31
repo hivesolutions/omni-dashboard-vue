@@ -1,5 +1,5 @@
 <template>
-<div class="stores" v-if="stores.length || isLoading" v-bind:class="{ visible: isVisible, loading: isLoading }">
+<div class="stores" v-if="isVisible || isLoading" v-bind:class="{ visible: isVisible, loading: isLoading }">
     <GlobalEvents @key-up.left="previous" @key-up.right="next"
                   @key-up.up="nextDimension" @key-up.down="previousDimension"></GlobalEvents>
     <div class="loader" v-if="isLoading">
@@ -166,6 +166,10 @@ export const Stores = Vue.component("stores", {
             // is going to be executed (as expected)
             this.isLoading = true;
             this.$root.isLoading = true;
+
+            // unsets any possible pending message in the current environment
+            // so that no errors are visible to the end-user
+            this.$root.message = null;
 
             // retrieves the current timestamp as it's going to be used
             // as the basis for the remote request
