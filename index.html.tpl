@@ -13,7 +13,7 @@
             <login ref="login"></login>
             <message class="container dynamic" ref="message"></message>
             <stores class="container dynamic" ref="stores"></stores>
-            <button-color v-if="deferredPrompt" v-on:click="promptInstall">Install</button-color>
+            <notice ref="notice"></notice>
         </div>
     </body>
 </html>

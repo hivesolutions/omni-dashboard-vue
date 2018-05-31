@@ -8,6 +8,9 @@ export {
     Message
 } from "./message/message.vue";
 export {
+    Notice
+} from "./notice/notice.vue";
+export {
     Overlay
 } from "./overlay/overlay.vue";
 export {
