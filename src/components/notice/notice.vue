@@ -11,6 +11,16 @@
     bottom: 16px;
     right: 22px;
 }
+
+@media screen and (max-width: 760px) {
+    .notice {
+        position: absolute;
+        bottom: 16px;
+        left: 0px;
+        width: 100%;
+        text-align: center;
+    }
+}
 </style>
 
 <script>
