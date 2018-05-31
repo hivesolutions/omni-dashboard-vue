@@ -8,10 +8,12 @@
     </head>
     <body class="center cool cool-color cool-gradient-crazy" onload="OmniDashboard.start();">
         <noscript>Sorry, your browser does not support JavaScript.</noscript>
-        <div id="app" class="app app-stores container dynamic">
-            <overlay ref="overlay"></overlay>
-            <login ref="login"></login>
-            <stores ref="stores"></stores>
+        <div id="app" class="app app-stores">
+            <div class="container dynamic">
+                <overlay ref="overlay"></overlay>
+                <login ref="login"></login>
+                <stores ref="stores"></stores>
+            </div>
             <button-color v-if="deferredPrompt" v-on:click="promptInstall">Install</button-color>
         </div>
     </body>

@@ -70,7 +70,7 @@
 .login .error {
     color: #c9273f;
     font-weight: 600;
-    font-size: 16;
+    font-size: 14px;
 }
 
 .login .instance {

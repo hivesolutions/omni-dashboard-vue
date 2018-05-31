@@ -9,6 +9,18 @@
             <div></div>
         </div>
     </div>
+    <div class="message" v-if="message">
+        <p>
+            <img src="~./assets/superman.svg" />"
+        </p>
+        <h1>Oops there was an error</h1>
+        <p class="text">
+            Unfortunately the site is experiencing a bit of turbulence right now.<br/>
+            But soon we'll be up and the sun will shine again.<br/>
+            <span class="error-message">{{ message }}</span>
+        </p>
+        <button-color v-on:click="refresh">Refresh</button-color>
+    </div>
     <carousel v-bind:per-page="1" v-bind:pagination-size="8"
               v-bind:pagination-padding="4" v-bind:navigate-to="0" ref="carousel">
         <slide v-for="store in stores"
@@ -50,6 +62,41 @@
 
 .loader > * > div {
     background-color: #ffb25f;
+}
+
+.message {
+    padding: 0px 24px 0px 24px;
+    box-sizing: border-box;
+    min-width: 320px;
+}
+
+.message > h1 {
+    margin: 0px 0px 0px 0px;
+}
+
+.message > .text {
+    font-size: 14px;
+    margin: 24px 0px 24px 0px;
+}
+
+.message > .text > .error-message {
+    color: #c9273f;
+    font-weight: 600;
+    margin-top: 12px;
+    display: inline-block;
+}
+
+.message img {
+    max-height: 128px;
+    max-width: 128px;
+}
+
+.visible .message {
+    display: none;
+}
+
+.stores {
+    max-width: 340px;
 }
 
 .stores .footer {
@@ -164,6 +211,10 @@ export const Stores = Vue.component("stores", {
             // is going to be executed (as expected)
             this.isLoading = true;
             this.$root.isLoading = true;
+
+            // resets the current message value as no error exists for the
+            // new remote operation that is going to be performed
+            this.message = null;
 
             // retrieves the current timestamp as it's going to be used
             // as the basis for the remote request
