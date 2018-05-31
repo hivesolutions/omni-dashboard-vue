@@ -307,7 +307,7 @@ span.button:hover {
     text-decoration: none;
 }
 
-a.buttons:active,
+a.button:active,
 span.button:active {
     background-color: #2c99bd;
 }
