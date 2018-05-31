@@ -160,31 +160,36 @@ body.cool.cool-grey {
 
 body.cool.cool-gradient,
 body.cool.cool-gradient-green {
+    background-attachment: fixed;
     background-image: linear-gradient(to right bottom, rgba(0,128,128,1) 20%, #8dbab5 80%);
 }
 
 body.cool.cool-gradient-blue {
+    background-attachment: fixed;
     background-image: linear-gradient(to right bottom, #1c7591 20%, #2d9fc4 80%);
 }
 
 body.cool.cool-gradient-violet {
+    background-attachment: fixed;
     background-image: linear-gradient(to right bottom, #008181, #5497a7, #8eadc2, #bfc6d3, #e2e2e2);
 }
 
 body.cool.cool-gradient-greenish {
+    background-attachment: fixed;
     background-image: linear-gradient(to right top, #6d327c, #485da6, #00a1ba, #00bf98, #36c486);
 }
 
 body.cool.cool-gradient-crazy {
+    background-attachment: fixed;
     background-image: linear-gradient(to right top, #38438b, #944b94, #d75a88, #ff7e71, #ffb25f, #ffeb68);
 }
 
 body.center {
     align-items: center;
     display: flex;
-    height: 100%;
     justify-content: center;
     margin: 0px 16px 0px 16px;
+    min-height: 100%;
     text-align: center;
 }
 
