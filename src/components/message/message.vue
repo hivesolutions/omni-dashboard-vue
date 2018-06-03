@@ -1,7 +1,7 @@
 <template>
 <div class="message" v-if="isVisible">
     <p>
-        <img src="~./assets/superman.svg" />"
+        <img src="~./assets/superman.svg" />
     </p>
     <h1>Oops there was an error</h1>
     <p class="text">
