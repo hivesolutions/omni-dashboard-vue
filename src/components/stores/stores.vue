@@ -119,6 +119,12 @@ export const Stores = Vue.component("stores", {
             this.data = null;
             this.timeout = null;
         },
+        show: function() {
+            this.isVisible = true;
+        },
+        hide: function() {
+            this.isVisible = false;
+        },
         next: function() {
             this.$refs.carousel.advancePage();
         },

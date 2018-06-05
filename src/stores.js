@@ -44,11 +44,21 @@ export const stores = function() {
             hideOverlay: function() {
                 this.$refs.overlay.hide();
             },
+            showStores: function() {
+                this.$refs.stores.show();
+            },
+            hideStores: function() {
+                this.$refs.stores.hide();
+            },
             showLogin: function() {
                 this.$refs.login.show();
             },
             hideLogin: function() {
                 this.$refs.login.hide();
+            },
+            hideAll: function() {
+                this.hideStores();
+                this.hideLogin();
             },
             logout: function() {
                 this.sid = null;
@@ -130,6 +140,9 @@ export const stores = function() {
             },
             message: function(val) {
                 this.$refs.message.setText(val);
+                if (val) {
+                    this.hideAll();
+                }
             }
         },
         computed: {
