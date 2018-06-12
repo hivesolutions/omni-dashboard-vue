@@ -200,16 +200,20 @@ export const Stores = Vue.component("stores", {
                 this.setStores(this.data);
                 this.timeout = setTimeout(this.refresh, this.timeoutInterval);
             }, response => {
-                // removes the loading indicators and then updates the message
-                // indicator for the current panel to indicate the error
+                // removes the loading indicators and the root flag that controls
+                // the global loading state
                 this.isLoading = false;
                 this.$root.isLoading = false;
-                this.$root.message = "Error loading remote data";
 
                 // verifies if the error received may be related with authentication
-                // and if that's the case shows the login window (to escape)
+                // and if that's the case shows the login window (to escape) otherwise
+                // sets the root message indicating the error to the user
                 const isAuth = response.status && parseInt(response.status / 100) === 4;
-                isAuth && this.$root.showLogin();
+                if(isAuth) {
+                    this.$root.showLogin();
+                } else {
+                    this.$root.message = "Error loading remote data";
+                }
             });
         },
         refreshLight: function() {
