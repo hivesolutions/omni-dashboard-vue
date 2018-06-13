@@ -209,7 +209,7 @@ export const Stores = Vue.component("stores", {
                 // and if that's the case shows the login window (to escape) otherwise
                 // sets the root message indicating the error to the user
                 const isAuth = response.status && parseInt(response.status / 100) === 4;
-                if(isAuth) {
+                if (isAuth) {
                     this.$root.showLogin();
                 } else {
                     this.$root.message = "Error loading remote data";
