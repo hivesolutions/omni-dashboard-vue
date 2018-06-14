@@ -1,12 +1,7 @@
 import Vue from "vue";
 import VueResource from "vue-resource";
 
-import {
-    Login,
-    Message,
-    Stores,
-    Overlay
-} from "./components";
+import { Login, Message, Stores, Overlay } from "./components";
 
 export const stores = function() {
     Vue.use(VueResource);
@@ -150,7 +145,9 @@ export const stores = function() {
                 return this.domain ? `https://${this.domain}/api/` : null;
             },
             domain: function() {
-                return this.instance ? `${this.instance}.frontdoorhd.com` : null;
+                return this.instance
+                    ? `${this.instance}.frontdoorhd.com`
+                    : null;
             }
         }
     });

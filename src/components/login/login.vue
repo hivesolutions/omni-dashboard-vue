@@ -57,7 +57,7 @@
 }
 
 .login-container.visible .login {
-    opacity: 1.0;
+    opacity: 1;
     display: block;
 }
 
@@ -100,12 +100,13 @@
     color: #31acd4;
 }
 
-input[type=text],
-input[type=password] {
+input[type="text"],
+input[type="password"] {
     border: none;
     height: 30px;
     width: 100%;
-    font-family: -apple-system, "BlinkMacSystemFont", "Segoe UI", "Roboto", "Open Sans", "Helvetica", "Arial", sans-serif;
+    font-family: -apple-system, "BlinkMacSystemFont", "Segoe UI", "Roboto",
+        "Open Sans", "Helvetica", "Arial", sans-serif;
     font-size: 16px;
     line-height: 16px;
     margin-top: 12px;
@@ -120,35 +121,35 @@ input[type=password] {
     -moz-border-radius: 0px 0px 0px 0px;
     -khtml-border-radius: 0px 0px 0px 0px;
     -webkit-border-radius: 0px 0px 0px 0px;
-    transition: border-color 0.10s linear;
-    -o-transition: border-color 0.10s linear;
-    -ms-transition: border-color 0.10s linear;
-    -moz-transition: border-color 0.10s linear;
-    -khtml-transition: border-color 0.10s linear;
-    -webkit-transition: border-color 0.10s linear;
+    transition: border-color 0.1s linear;
+    -o-transition: border-color 0.1s linear;
+    -ms-transition: border-color 0.1s linear;
+    -moz-transition: border-color 0.1s linear;
+    -khtml-transition: border-color 0.1s linear;
+    -webkit-transition: border-color 0.1s linear;
 }
 
-input[type=text]:focus,
-input[type=password]:focus {
+input[type="text"]:focus,
+input[type="password"]:focus {
     border-bottom-color: #2d2d2d;
 }
 
-input[type=text]::placeholder,
-input[type=password]::placeholder {
+input[type="text"]::placeholder,
+input[type="password"]::placeholder {
     color: #6baec4;
     font-size: 12px;
-    letter-spacing: 1.0px;
+    letter-spacing: 1px;
     text-transform: uppercase;
-    transition: color 0.10s linear;
-    -o-transition: color 0.10s linear;
-    -ms-transition: color 0.10s linear;
-    -moz-transition: color 0.10s linear;
-    -khtml-transition: color 0.10s linear;
-    -webkit-transition: color 0.10s linear;
+    transition: color 0.1s linear;
+    -o-transition: color 0.1s linear;
+    -ms-transition: color 0.1s linear;
+    -moz-transition: color 0.1s linear;
+    -khtml-transition: color 0.1s linear;
+    -webkit-transition: color 0.1s linear;
 }
 
-input[type=text]:focus::placeholder,
-input[type=password]:focus::placeholder {
+input[type="text"]:focus::placeholder,
+input[type="password"]:focus::placeholder {
     color: #8d8d8d;
 }
 </style>
@@ -190,23 +191,32 @@ export const Login = Vue.component("login", {
         },
         submit: function() {
             this.$refs.button.isLoading = true;
-            this.$http.get(this.baseUrl + "login.json", {
-                params: {
-                    username: this.username,
-                    password: this.password
-                }
-            }).then(response => {
-                this.$refs.button.isLoading = false;
-                this.$root.sid = response.data.session_id;
-                this.$root.username = response.data.username;
-                this.$root.instance = this.instance;
-                this.$root.refresh();
-            }, response => {
-                this.$refs.button.isLoading = false;
-                const message = response.data.exception ? response.data.exception.message : "Unknown error";
-                const finalMessage = message.slice(0, 1).toUpperCase() + message.slice(1);
-                this.message = finalMessage;
-            });
+            this.$http
+                .get(this.baseUrl + "login.json", {
+                    params: {
+                        username: this.username,
+                        password: this.password
+                    }
+                })
+                .then(
+                    response => {
+                        this.$refs.button.isLoading = false;
+                        this.$root.sid = response.data.session_id;
+                        this.$root.username = response.data.username;
+                        this.$root.instance = this.instance;
+                        this.$root.refresh();
+                    },
+                    response => {
+                        this.$refs.button.isLoading = false;
+                        const message = response.data.exception
+                            ? response.data.exception.message
+                            : "Unknown error";
+                        const finalMessage =
+                            message.slice(0, 1).toUpperCase() +
+                            message.slice(1);
+                        this.message = finalMessage;
+                    }
+                );
         }
     },
     watch: {

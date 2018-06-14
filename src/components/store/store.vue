@@ -84,16 +84,16 @@
     justify-content: center;
     margin: 12px auto 12px auto;
     width: 64px;
-    transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1.0);
-    -o-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1.0);
-    -ms-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1.0);
-    -moz-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1.0);
-    -khtml-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1.0);
-    -webkit-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1.0);
+    transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
+    -o-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
+    -ms-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
+    -moz-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
+    -khtml-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
+    -webkit-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
 .loading .store .trend {
-    opacity: 0.0;
+    opacity: 0;
 }
 
 .store .trend > img {
@@ -103,17 +103,17 @@
 
 .store .logout,
 .store .refresh {
-    transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1.0);
-    -o-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1.0);
-    -ms-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1.0);
-    -moz-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1.0);
-    -khtml-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1.0);
-    -webkit-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1.0);
+    transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
+    -o-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
+    -ms-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
+    -moz-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
+    -khtml-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
+    -webkit-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
 .loading .store .logout,
 .loading .store .refresh {
-    opacity: 0.0;
+    opacity: 0;
 }
 
 .store .logout > img,
@@ -226,12 +226,14 @@ export const Store = Vue.component("store", {
                         currency: "EUR",
                         direction: "up"
                     },
-                    sales: [{
-                        day: "xx/xx",
-                        weekday: "Day",
-                        amount: "xx,xxx.xx",
-                        currency: "EUR"
-                    }],
+                    sales: [
+                        {
+                            day: "xx/xx",
+                            weekday: "Day",
+                            amount: "xx,xxx.xx",
+                            currency: "EUR"
+                        }
+                    ],
                     isMain: false
                 };
             }

@@ -68,14 +68,11 @@
 
 <script>
 import Vue from "vue";
-import {
-    Carousel,
-    Slide
-} from "vue-carousel";
+import { Carousel, Slide } from "vue-carousel";
 import GlobalEvents from "vue-global-events";
 
 import Store from "../store/store.vue";
-import {daysOfWeek, months} from "../../util";
+import { daysOfWeek, months } from "../../util";
 
 export const SEQUENCE = [
     "net_price_vat",
@@ -146,12 +143,14 @@ export const Stores = Vue.component("stores", {
         },
         nextDimension: function() {
             const currentIndex = SEQUENCE.indexOf(this.dimension);
-            const targetIndex = currentIndex === SEQUENCE.length - 1 ? 0 : currentIndex + 1;
+            const targetIndex =
+                currentIndex === SEQUENCE.length - 1 ? 0 : currentIndex + 1;
             this.dimension = SEQUENCE[targetIndex];
         },
         previousDimension: function() {
             const currentIndex = SEQUENCE.indexOf(this.dimension);
-            const targetIndex = currentIndex === 0 ? SEQUENCE.length - 1 : currentIndex - 1;
+            const targetIndex =
+                currentIndex === 0 ? SEQUENCE.length - 1 : currentIndex - 1;
             this.dimension = SEQUENCE[targetIndex];
         },
         remote: function() {
@@ -179,42 +178,54 @@ export const Stores = Vue.component("stores", {
 
             // retrieves the current timestamp as it's going to be used
             // as the basis for the remote request
-            const timestamp = parseInt(Date.parse(new Date().toUTCString()) / 1000);
+            const timestamp = parseInt(
+                Date.parse(new Date().toUTCString()) / 1000
+            );
 
             // runs the remote query operation to retrive the complete
             // set of stores stats for the current environment
-            this.$http.get(this.$root.baseUrl + "sale_snapshots/stats.json", {
-                params: {
-                    sid: this.$root.sid,
-                    date: timestamp,
-                    has_global: "True",
-                    output: "simple",
-                    span: this.span,
-                    unit: this.unit
-                }
-            }).then(response => {
-                this.isLoading = false;
-                this.$root.isLoading = false;
-                this.$root.message = null;
-                this.data = response.data;
-                this.setStores(this.data);
-                this.timeout = setTimeout(this.refresh, this.timeoutInterval);
-            }, response => {
-                // removes the loading indicators and the root flag that controls
-                // the global loading state
-                this.isLoading = false;
-                this.$root.isLoading = false;
+            this.$http
+                .get(this.$root.baseUrl + "sale_snapshots/stats.json", {
+                    params: {
+                        sid: this.$root.sid,
+                        date: timestamp,
+                        has_global: "True",
+                        output: "simple",
+                        span: this.span,
+                        unit: this.unit
+                    }
+                })
+                .then(
+                    response => {
+                        this.isLoading = false;
+                        this.$root.isLoading = false;
+                        this.$root.message = null;
+                        this.data = response.data;
+                        this.setStores(this.data);
+                        this.timeout = setTimeout(
+                            this.refresh,
+                            this.timeoutInterval
+                        );
+                    },
+                    response => {
+                        // removes the loading indicators and the root flag that controls
+                        // the global loading state
+                        this.isLoading = false;
+                        this.$root.isLoading = false;
 
-                // verifies if the error received may be related with authentication
-                // and if that's the case shows the login window (to escape) otherwise
-                // sets the root message indicating the error to the user
-                const isAuth = response.status && parseInt(response.status / 100) === 4;
-                if (isAuth) {
-                    this.$root.showLogin();
-                } else {
-                    this.$root.message = "Error loading remote data";
-                }
-            });
+                        // verifies if the error received may be related with authentication
+                        // and if that's the case shows the login window (to escape) otherwise
+                        // sets the root message indicating the error to the user
+                        const isAuth =
+                            response.status &&
+                            parseInt(response.status / 100) === 4;
+                        if (isAuth) {
+                            this.$root.showLogin();
+                        } else {
+                            this.$root.message = "Error loading remote data";
+                        }
+                    }
+                );
         },
         refreshLight: function() {
             this.setStores(this.data);
@@ -237,10 +248,20 @@ export const Stores = Vue.component("stores", {
             // builds the string that is going to display the date of the
             // latest update of the stores list
             const lastUpdateDate = new Date();
-            const lastUpdateDay = String(lastUpdateDate.getDate()).padStart(2, "0");
-            const lastUpdateMonth = String(lastUpdateDate.getMonth() + 1).padStart(2, "0");
-            const lastUpdateHours = String(lastUpdateDate.getHours()).padStart(2, "0");
-            const lastUpdateMinutes = String(lastUpdateDate.getMinutes()).padStart(2, "0");
+            const lastUpdateDay = String(lastUpdateDate.getDate()).padStart(
+                2,
+                "0"
+            );
+            const lastUpdateMonth = String(
+                lastUpdateDate.getMonth() + 1
+            ).padStart(2, "0");
+            const lastUpdateHours = String(lastUpdateDate.getHours()).padStart(
+                2,
+                "0"
+            );
+            const lastUpdateMinutes = String(
+                lastUpdateDate.getMinutes()
+            ).padStart(2, "0");
             this.lastUpdate = `${lastUpdateDay}/${lastUpdateMonth} ${lastUpdateHours}:${lastUpdateMinutes}`;
 
             // converts the received object into a sequence of tuples
@@ -249,7 +270,9 @@ export const Stores = Vue.component("stores", {
 
             // sotes the complete set of stores according to their object
             // identifier and then runs the reverse mapping
-            stores = stores.sort((a, b) => parseInt(a[0]) > parseInt(b[0]) ? 1 : -1);
+            stores = stores.sort(
+                (a, b) => (parseInt(a[0]) > parseInt(b[0]) ? 1 : -1)
+            );
             stores = stores.map(v => v[1]);
 
             // iteates over the complete set of stores to update the values
@@ -284,7 +307,9 @@ export const Stores = Vue.component("stores", {
                         break;
 
                     case "net_average_sale":
-                        values = store["net_price_vat"].map((v, i) => v / (store["net_number_sales"][i] || 1.0));
+                        values = store["net_price_vat"].map(
+                            (v, i) => v / (store["net_number_sales"][i] || 1.0)
+                        );
                         currency = "EUR";
                         label = "Avg.";
                         places = 2;
@@ -298,7 +323,12 @@ export const Stores = Vue.component("stores", {
                         break;
 
                     case "conversion_rate":
-                        values = store["net_number_sales"].map((v, i) => store["number_entries"][i] ? v / store["number_entries"][i] * 100.0 : 0.0);
+                        values = store["net_number_sales"].map(
+                            (v, i) =>
+                                store["number_entries"][i]
+                                    ? (v / store["number_entries"][i]) * 100.0
+                                    : 0.0
+                        );
                         currency = "%";
                         label = "Conv.";
                         places = 1;
@@ -307,36 +337,62 @@ export const Stores = Vue.component("stores", {
 
                 // creates the string that is going to represent the current day
                 // as a day and month literal
-                const dayS = `${String(date.getDate()).padStart(2, "0")}/${String(date.getMonth() + 1).padStart(2, "0")}`;
+                const dayS = `${String(date.getDate()).padStart(
+                    2,
+                    "0"
+                )}/${String(date.getMonth() + 1).padStart(2, "0")}`;
 
                 // builds the value of the main sale of the current store
                 // this is considered to be a "special value"
                 const mainSales = {
                     day: dayS,
-                    weekday: this.unit === "day" ? "Today's " + label : "Month's " + label,
+                    weekday:
+                        this.unit === "day"
+                            ? "Today's " + label
+                            : "Month's " + label,
                     amount: values[values.length - 1].formatMoney(
-                        places, ".", ","),
+                        places,
+                        ".",
+                        ","
+                    ),
                     currency: currency,
-                    direction: values[values.length - 1] > values[values.length - 2] ? "up" : "down"
+                    direction:
+                        values[values.length - 1] > values[values.length - 2]
+                            ? "up"
+                            : "down"
                 };
 
                 // retrieves the appropiate values for the calculus and runs
                 // the iteration for the building of the day sales
                 const sales = [];
-                values.slice(0, values.length - 1).reverse()
+                values
+                    .slice(0, values.length - 1)
+                    .reverse()
                     .forEach(value => {
                         // decrements the currently defined delta from the current date
                         // depending on the unit currently in use
                         if (this.unit === "day") {
                             date = new Date(date - 86400000);
                         } else {
-                            date = new Date(date.getFullYear(), date.getMonth() - 1, 1);
+                            date = new Date(
+                                date.getFullYear(),
+                                date.getMonth() - 1,
+                                1
+                            );
                         }
 
                         // creates the string that is going to represent the current day
                         // as a day and month literal
-                        const dayS = `${String(date.getDate()).padStart(2, "0")}/${String(date.getMonth() + 1).padStart(2, "0")}`;
-                        const monthS = `${String(date.getMonth() + 1).padStart(2, "0")}/${String(date.getFullYear()).slice(2, 4).padStart(2, "0")}`;
+                        const dayS = `${String(date.getDate()).padStart(
+                            2,
+                            "0"
+                        )}/${String(date.getMonth() + 1).padStart(2, "0")}`;
+                        const monthS = `${String(date.getMonth() + 1).padStart(
+                            2,
+                            "0"
+                        )}/${String(date.getFullYear())
+                            .slice(2, 4)
+                            .padStart(2, "0")}`;
                         const weekday = daysOfWeek[date.getDay()];
                         const yearmonth = months[date.getMonth()];
 

@@ -12,12 +12,20 @@
     left: 0px;
     top: 0px;
     background-color: rgba(0, 0, 0, 0);
-    transition: background-color 0.35s cubic-bezier(0.645, 0.045, 0.355, 1.0), visibility 0.35s cubic-bezier(0.645, 0.045, 0.355, 1.0);
-    -o-transition: background-color 0.35s cubic-bezier(0.645, 0.045, 0.355, 1.0), visibility 0.35s cubic-bezier(0.645, 0.045, 0.355, 1.0);
-    -ms-transition: background-color 0.35s cubic-bezier(0.645, 0.045, 0.355, 1.0), visibility 0.35s cubic-bezier(0.645, 0.045, 0.355, 1.0);
-    -moz-transition: background-color 0.35s cubic-bezier(0.645, 0.045, 0.355, 1.0), visibility 0.35s cubic-bezier(0.645, 0.045, 0.355, 1.0);
-    -khtml-transition: background-color 0.35s cubic-bezier(0.645, 0.045, 0.355, 1.0), visibility 0.35s cubic-bezier(0.645, 0.045, 0.355, 1.0);
-    -webkit-transition: background-color 0.35s cubic-bezier(0.645, 0.045, 0.355, 1.0), visibility 0.35s cubic-bezier(0.645, 0.045, 0.355, 1.0);
+    transition: background-color 0.35s cubic-bezier(0.645, 0.045, 0.355, 1),
+        visibility 0.35s cubic-bezier(0.645, 0.045, 0.355, 1);
+    -o-transition: background-color 0.35s cubic-bezier(0.645, 0.045, 0.355, 1),
+        visibility 0.35s cubic-bezier(0.645, 0.045, 0.355, 1);
+    -ms-transition: background-color 0.35s cubic-bezier(0.645, 0.045, 0.355, 1),
+        visibility 0.35s cubic-bezier(0.645, 0.045, 0.355, 1);
+    -moz-transition: background-color 0.35s cubic-bezier(0.645, 0.045, 0.355, 1),
+        visibility 0.35s cubic-bezier(0.645, 0.045, 0.355, 1);
+    -khtml-transition: background-color 0.35s
+            cubic-bezier(0.645, 0.045, 0.355, 1),
+        visibility 0.35s cubic-bezier(0.645, 0.045, 0.355, 1);
+    -webkit-transition: background-color 0.35s
+            cubic-bezier(0.645, 0.045, 0.355, 1),
+        visibility 0.35s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
 .overlay.visible {
