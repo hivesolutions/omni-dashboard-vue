@@ -30,10 +30,10 @@
         "build": "webpack --mode production",
         "build-dev": "webpack --mode development",
         "dev": "webpack-dev-server --mode development --watch --hot",
-        "lint": "eslint \"./src/**/*.js\" \"./src/**/*.vue\"",
+        "lint": "eslint \"./src/**/*.{js,vue}\"",
         "production": "webpack-dev-server --mode production",
         "start": "http-server ./dist",
-        "prettier": "prettier \"./*.json\" \"./src/**/*.json\" \"./src/**/*.js\" \"./src/**/*.vue\" --write",
+        "prettier": "prettier \"./!(dist)/**/*.{js,vue,json}\" --write",
         "upgrade": "npx sort-package-json && ncu -au",
         "watch": "webpack --mode development --watch",
         "webpack": "webpack"
