@@ -7,7 +7,8 @@ const OfflinePlugin = require("offline-plugin");
 const ManifestPlugin = require("webpack-manifest-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackPwaManifest = require("webpack-pwa-manifest");
-const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+    .BundleAnalyzerPlugin;
 
 const VueLoaderPlugin = vueLoader.VueLoaderPlugin;
 
@@ -39,76 +40,98 @@ module.exports = {
             description: "Sales Dashboard for Omni",
             theme_color: "#6d6d6d",
             background_color: "#6d6d6d",
-            icons: [{
-                src: path.resolve("src/assets/images/icon.play.png"),
-                sizes: [96, 128, 192, 256, 384, 512]
-            }]
+            icons: [
+                {
+                    src: path.resolve("src/assets/images/icon.play.png"),
+                    sizes: [96, 128, 192, 256, 384, 512]
+                }
+            ]
         }),
         new OfflinePlugin({})
     ],
     module: {
-        rules: [{
-            test: /\.vue$/,
-            loader: "vue-loader",
-            options: {
-                loaders: {
-                    js: "babel-loader!eslint-loader",
-                    scss: "vue-style-loader!css-loader!sass-loader",
-                    sass: "vue-style-loader!css-loader!sass-loader?indentedSyntax"
+        rules: [
+            {
+                test: /\.vue$/,
+                loader: "vue-loader",
+                options: {
+                    loaders: {
+                        js: "babel-loader!eslint-loader",
+                        scss: "vue-style-loader!css-loader!sass-loader",
+                        sass:
+                            "vue-style-loader!css-loader!sass-loader?indentedSyntax"
+                    }
                 }
-            }
-        }, {
-            test: /\.css$/,
-            use: ["style-loader", "css-loader"]
-        }, {
-            test: /\.(scss|sass)$/,
-            use: [{
-                loader: "style-loader"
-            }, {
-                loader: "css-loader"
-            }, {
-                loader: "sass-loader"
-            }]
-        }, {
-            test: /\.js$/,
-            use: [{
-                loader: "babel-loader"
-            }, {
-                loader: "eslint-loader"
-            }]
-        }, {
-            test: /\.html$/,
-            use: [{
+            },
+            {
+                test: /\.css$/,
+                use: ["style-loader", "css-loader"]
+            },
+            {
+                test: /\.(scss|sass)$/,
+                use: [
+                    {
+                        loader: "style-loader"
+                    },
+                    {
+                        loader: "css-loader"
+                    },
+                    {
+                        loader: "sass-loader"
+                    }
+                ]
+            },
+            {
+                test: /\.js$/,
+                use: [
+                    {
+                        loader: "babel-loader"
+                    },
+                    {
+                        loader: "eslint-loader"
+                    }
+                ]
+            },
+            {
+                test: /\.html$/,
+                use: [
+                    {
+                        loader: "file-loader",
+                        options: {
+                            name: "[name].[ext]?[hash]"
+                        }
+                    },
+                    {
+                        loader: "extract-loader"
+                    },
+                    {
+                        loader: "html-loader",
+                        options: {
+                            minimize: true,
+                            removeComments: true,
+                            collapseWhitespace: true,
+                            conservativeCollapse: false,
+                            preserveLineBreaks: false
+                        }
+                    }
+                ]
+            },
+            {
+                test: /\.(png|jpg|gif|svg|ico)$/,
                 loader: "file-loader",
                 options: {
                     name: "[name].[ext]?[hash]"
                 }
-            }, {
-                loader: "extract-loader"
-            }, {
-                loader: "html-loader",
-                options: {
-                    minimize: true,
-                    removeComments: true,
-                    collapseWhitespace: true,
-                    conservativeCollapse: false,
-                    preserveLineBreaks: false
-                }
-            }]
-        }, {
-            test: /\.(png|jpg|gif|svg|ico)$/,
-            loader: "file-loader",
-            options: {
-                name: "[name].[ext]?[hash]"
+            },
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/,
+                loader: "file-loader"
             }
-        }, {
-            test: /\.(woff|woff2|eot|ttf|otf)$/,
-            loader: "file-loader"
-        }]
+        ]
     },
     resolve: {
         alias: {
-            "vue$": "vue/dist/vue.esm.js"
+            vue$: "vue/dist/vue.esm.js"
         }
     },
     devServer: {

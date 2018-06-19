@@ -33,7 +33,7 @@
         "lint": "eslint \"./src/**/*.{js,vue}\"",
         "production": "webpack-dev-server --mode production",
         "start": "http-server ./dist",
-        "prettier": "prettier \"./!(dist)/**/*.{js,vue,json}\" --write",
+        "prettier": "prettier \"./*.{js,json}\" \"./!(dist)/**/*.{js,json}\" --write",
         "upgrade": "npx sort-package-json && ncu -au",
         "watch": "webpack --mode development --watch",
         "webpack": "webpack"
