@@ -7,8 +7,7 @@ const OfflinePlugin = require("offline-plugin");
 const ManifestPlugin = require("webpack-manifest-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackPwaManifest = require("webpack-pwa-manifest");
-const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
-    .BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 const VueLoaderPlugin = vueLoader.VueLoaderPlugin;
 
@@ -58,8 +57,7 @@ module.exports = {
                     loaders: {
                         js: "babel-loader!eslint-loader",
                         scss: "vue-style-loader!css-loader!sass-loader",
-                        sass:
-                            "vue-style-loader!css-loader!sass-loader?indentedSyntax"
+                        sass: "vue-style-loader!css-loader!sass-loader?indentedSyntax"
                     }
                 }
             },

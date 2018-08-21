@@ -145,9 +145,7 @@ export const stores = function() {
                 return this.domain ? `https://${this.domain}/api/` : null;
             },
             domain: function() {
-                return this.instance
-                    ? `${this.instance}.frontdoorhd.com`
-                    : null;
+                return this.instance ? `${this.instance}.frontdoorhd.com` : null;
             }
         }
     });
