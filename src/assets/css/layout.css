@@ -161,22 +161,17 @@ body.cool.cool-grey {
 body.cool.cool-gradient,
 body.cool.cool-gradient-green {
     background-attachment: fixed;
-    background-image: linear-gradient(to right bottom, rgba(0,128,128,1) 20%, #8dbab5 80%);
+    background-image: linear-gradient(to right bottom, rgba(0,128,128,1) 20%, #8dbab5 100%);
 }
 
 body.cool.cool-gradient-blue {
     background-attachment: fixed;
-    background-image: linear-gradient(to right bottom, #1c7591 20%, #2d9fc4 80%);
+    background-image: linear-gradient(to right bottom, #1c7591 20%, #2d9fc4 100%);
 }
 
 body.cool.cool-gradient-violet {
     background-attachment: fixed;
-    background-image: linear-gradient(to right bottom, #008181, #5497a7, #8eadc2, #bfc6d3, #e2e2e2);
-}
-
-body.cool.cool-gradient-greenish {
-    background-attachment: fixed;
-    background-image: linear-gradient(to right top, #6d327c, #485da6, #00a1ba, #00bf98, #36c486);
+    background-image: linear-gradient(to right bottom, #a18cd1 0%, #fbc2eb 100%);
 }
 
 body.cool.cool-gradient-crazy {
