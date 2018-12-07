@@ -62,7 +62,7 @@
         "babel-preset-stage-2": "^6.24.1",
         "css-loader": "^1.0.0",
         "eslint": "^5.4.0",
-        "eslint-config-hive": "^0.1.5",
+        "eslint-config-hive": "^0.1.7",
         "eslint-loader": "^2.1.0",
         "extract-loader": "^2.0.1",
         "file-loader": "^1.1.11",
