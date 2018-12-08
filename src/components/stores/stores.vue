@@ -29,12 +29,6 @@
 </div>
 </template>
 
-<style>
-.VueCarousel-pagination {
-    margin-top: 10px;
-}
-</style>
-
 <style scoped>
 @import "~loaders.css/loaders.css";
 
@@ -62,7 +56,6 @@
     text-transform: uppercase;
     line-height: 18px;
     clear: both;
-    margin-top: 38px;
 }
 </style>
 
