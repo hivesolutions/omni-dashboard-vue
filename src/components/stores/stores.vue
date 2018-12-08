@@ -29,6 +29,12 @@
 </div>
 </template>
 
+<style>
+.VueCarousel-pagination button:focus {
+    outline: none !important;
+}
+</style>
+
 <style scoped>
 @import "~loaders.css/loaders.css";
 
