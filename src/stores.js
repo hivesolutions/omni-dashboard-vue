@@ -27,6 +27,52 @@ export const stores = function() {
             message: null,
             deferredPrompt: null
         },
+        computed: {
+            baseUrl: function() {
+                return this.domain ? `https://${this.domain}/api/` : null;
+            },
+            domain: function() {
+                return this.instance ? `${this.instance}.frontdoorhd.com` : null;
+            }
+        },
+        watch: {
+            sid: function(val) {
+                if (window.localStorage === undefined) {
+                    return;
+                }
+                if (val) {
+                    window.localStorage.sid = val;
+                } else {
+                    delete window.localStorage.sid;
+                }
+            },
+            username: function(val) {
+                if (window.localStorage === undefined) {
+                    return;
+                }
+                if (val) {
+                    window.localStorage.username = val;
+                } else {
+                    delete window.localStorage.username;
+                }
+            },
+            instance: function(val) {
+                if (window.localStorage === undefined) {
+                    return;
+                }
+                if (val) {
+                    window.localStorage.instance = val;
+                } else {
+                    delete window.localStorage.instance;
+                }
+            },
+            message: function(val) {
+                this.$refs.message.setText(val);
+                if (val) {
+                    this.hideAll();
+                }
+            }
+        },
         mounted: function() {
             this.loadData();
             this.loadPrompt();
@@ -100,52 +146,6 @@ export const stores = function() {
                     event.preventDefault();
                     self.deferredPrompt = event;
                 });
-            }
-        },
-        watch: {
-            sid: function(val) {
-                if (window.localStorage === undefined) {
-                    return;
-                }
-                if (val) {
-                    window.localStorage.sid = val;
-                } else {
-                    delete window.localStorage.sid;
-                }
-            },
-            username: function(val) {
-                if (window.localStorage === undefined) {
-                    return;
-                }
-                if (val) {
-                    window.localStorage.username = val;
-                } else {
-                    delete window.localStorage.username;
-                }
-            },
-            instance: function(val) {
-                if (window.localStorage === undefined) {
-                    return;
-                }
-                if (val) {
-                    window.localStorage.instance = val;
-                } else {
-                    delete window.localStorage.instance;
-                }
-            },
-            message: function(val) {
-                this.$refs.message.setText(val);
-                if (val) {
-                    this.hideAll();
-                }
-            }
-        },
-        computed: {
-            baseUrl: function() {
-                return this.domain ? `https://${this.domain}/api/` : null;
-            },
-            domain: function() {
-                return this.instance ? `${this.instance}.frontdoorhd.com` : null;
             }
         }
     });
