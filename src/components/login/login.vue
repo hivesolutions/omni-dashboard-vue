@@ -50,16 +50,16 @@
 
 <style scoped>
 .login-container {
-    position: fixed;
-    left: 0px;
-    top: 0px;
-    z-index: 20;
-    width: 100%;
-    height: 100%;
-    display: none;
     align-items: center;
-    text-align: center;
+    display: none;
+    height: 100%;
     justify-content: center;
+    left: 0px;
+    position: fixed;
+    text-align: center;
+    top: 0px;
+    width: 100%;
+    z-index: 20;
 }
 
 .login-container.visible {
@@ -67,11 +67,11 @@
 }
 
 .login {
-    display: none;
-    width: 320px;
-    min-width: 320px;
-    max-width: 320px;
     box-sizing: border-box;
+    display: none;
+    max-width: 320px;
+    min-width: 320px;
+    width: 320px;
 }
 
 .container.login {
@@ -79,8 +79,8 @@
 }
 
 .login-container.visible .login {
-    opacity: 1;
     display: block;
+    opacity: 1;
 }
 
 .login h1 {
@@ -91,8 +91,8 @@
 
 .login .error {
     color: #c9273f;
-    font-weight: 600;
     font-size: 14px;
+    font-weight: 600;
 }
 
 .login .instance {
@@ -105,9 +105,9 @@
 
 .login .instance > span {
     font-size: 12px;
-    text-transform: uppercase;
     font-weight: 600;
     letter-spacing: 0.4px;
+    text-transform: uppercase;
     vertical-align: bottom;
 }
 
@@ -116,39 +116,45 @@
 }
 
 .login > .forgot > a {
-    font-size: 12px;
-    letter-spacing: 0.2px;
-    font-weight: 600;
     color: #31acd4;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
 }
 
 input[type="text"],
 input[type="password"] {
     border: none;
-    height: 30px;
-    width: 100%;
-    font-family: -apple-system, "BlinkMacSystemFont", "Segoe UI", "Roboto", "Open Sans", "Helvetica",
-        "Arial", sans-serif;
-    font-size: 16px;
-    line-height: 16px;
-    margin-top: 12px;
     border-bottom: 1px solid #2d9fc4;
-    box-sizing: border-box;
-    padding: 0px 2px 0px 2px;
-    outline: none;
-    font-weight: 600;
-    border-radius: 0px 0px 0px 0px;
     -o-border-radius: 0px 0px 0px 0px;
     -ms-border-radius: 0px 0px 0px 0px;
     -moz-border-radius: 0px 0px 0px 0px;
     -khtml-border-radius: 0px 0px 0px 0px;
     -webkit-border-radius: 0px 0px 0px 0px;
-    transition: border-color 0.1s linear;
+    border-radius: 0px 0px 0px 0px;
+    box-sizing: border-box;
+    font-family: -apple-system,
+        "BlinkMacSystemFont",
+        "Segoe UI",
+        "Roboto",
+        "Open Sans",
+        "Helvetica",
+        "Arial",
+        sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    height: 30px;
+    line-height: 16px;
+    margin-top: 12px;
+    outline: none;
+    padding: 0px 2px 0px 2px;
     -o-transition: border-color 0.1s linear;
     -ms-transition: border-color 0.1s linear;
     -moz-transition: border-color 0.1s linear;
     -khtml-transition: border-color 0.1s linear;
     -webkit-transition: border-color 0.1s linear;
+    transition: border-color 0.1s linear;
+    width: 100%;
 }
 
 input[type="text"]:focus,
@@ -162,12 +168,12 @@ input[type="password"]::placeholder {
     font-size: 12px;
     letter-spacing: 1px;
     text-transform: uppercase;
-    transition: color 0.1s linear;
     -o-transition: color 0.1s linear;
     -ms-transition: color 0.1s linear;
     -moz-transition: color 0.1s linear;
     -khtml-transition: color 0.1s linear;
     -webkit-transition: color 0.1s linear;
+    transition: color 0.1s linear;
 }
 
 input[type="text"]:focus::placeholder,

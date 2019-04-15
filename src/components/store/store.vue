@@ -69,41 +69,41 @@
 
 <style scoped>
 .store {
-    user-select: none;
+    padding: 0px 24px 0px 24px;
     -o-user-select: none;
     -ms-user-select: none;
     -moz-user-select: none;
     -khtml-user-select: none;
     -webkit-user-select: none;
-    padding: 0px 24px 0px 24px;
+    user-select: none;
 }
 
 .store .trend {
     align-items: center;
     border: 1px solid #e2e2e2;
-    border-radius: 32px 32px 32px 32px;
     -o-border-radius: 32px 32px 32px 32px;
     -ms-border-radius: 32px 32px 32px 32px;
     -moz-border-radius: 32px 32px 32px 32px;
     -khtml-border-radius: 32px 32px 32px 32px;
     -webkit-border-radius: 32px 32px 32px 32px;
-    box-shadow: 0px 0px 8px rgba(180, 180, 180, 0.4);
+    border-radius: 32px 32px 32px 32px;
     -o-box-shadow: 0px 0px 8px rgba(180, 180, 180, 0.4);
     -ms-box-shadow: 0px 0px 8px rgba(180, 180, 180, 0.4);
     -moz-box-shadow: 0px 0px 8px rgba(180, 180, 180, 0.4);
     -khtml-box-shadow: 0px 0px 8px rgba(180, 180, 180, 0.4);
     -webkit-box-shadow: 0px 0px 8px rgba(180, 180, 180, 0.4);
+    box-shadow: 0px 0px 8px rgba(180, 180, 180, 0.4);
     display: flex;
     height: 64px;
     justify-content: center;
     margin: 12px auto 12px auto;
-    width: 64px;
-    transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
     -o-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
     -ms-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
     -moz-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
     -khtml-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
     -webkit-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
+    width: 64px;
 }
 
 .loading .store .trend {
@@ -111,18 +111,18 @@
 }
 
 .store .trend > img {
-    width: 38px;
     cursor: pointer;
+    width: 38px;
 }
 
 .store .logout,
 .store .refresh {
-    transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
     -o-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
     -ms-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
     -moz-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
     -khtml-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
     -webkit-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
 .loading .store .logout,
@@ -138,32 +138,33 @@
 
 .store .logout > img:hover,
 .store .refresh > img:hover {
-    filter: invert(0.5) sepia(1) hue-rotate(12deg);
     -o-filter: invert(0.5) sepia(1) hue-rotate(12deg);
     -ms-filter: invert(0.5) sepia(1) hue-rotate(12deg);
     -moz-filter: invert(0.5) sepia(1) hue-rotate(12deg);
     -khtml-filter: invert(0.5) sepia(1) hue-rotate(12deg);
     -webkit-filter: invert(0.5) sepia(1) hue-rotate(12deg);
+    filter: invert(0.5) sepia(1) hue-rotate(12deg);
 }
 
 .store .results {
-    border-radius: 2px 2px 2px 2px;
     -o-border-radius: 2px 2px 2px 2px;
     -ms-border-radius: 2px 2px 2px 2px;
     -moz-border-radius: 2px 2px 2px 2px;
     -khtml-border-radius: 2px 2px 2px 2px;
     -webkit-border-radius: 2px 2px 2px 2px;
+    border-radius: 2px 2px 2px 2px;
     font-size: 0px;
     font-weight: 600;
     margin: 6px 0px 6px 0px;
     padding: 6px 0px 6px 0px;
 }
 
-.store .results:after {
+.store .results::after {
     clear: both;
     content: "";
     display: block;
 }
+
 .store .results > * {
     display: inline-block;
     font-size: 14px;
@@ -197,14 +198,14 @@
 
 .store .results .money {
     font-size: 16px;
-    line-height: 16px;
     height: 16px;
+    line-height: 16px;
 }
 
 .store .results.results-main .money {
     font-size: 19px;
-    line-height: 19px;
     height: 19px;
+    line-height: 19px;
 }
 
 .store .results .money > .money-inner {

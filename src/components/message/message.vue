@@ -36,9 +36,9 @@
 
 .message > .text > .error-message {
     color: #c9273f;
+    display: inline-block;
     font-weight: 600;
     margin-top: 12px;
-    display: inline-block;
 }
 
 .message img {

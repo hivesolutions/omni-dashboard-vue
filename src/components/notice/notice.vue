@@ -12,18 +12,19 @@
 
 <style scoped>
 .notice {
-    position: fixed;
     bottom: 16px;
+    position: fixed;
     right: 22px;
 }
 
 @media screen and (max-width: 760px) {
+
     .notice {
-        position: absolute;
         bottom: 16px;
         left: 0px;
-        width: 100%;
+        position: absolute;
         text-align: center;
+        width: 100%;
     }
 }
 </style>

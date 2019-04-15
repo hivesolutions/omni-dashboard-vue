@@ -49,13 +49,13 @@
 @import "~loaders.css/loaders.css";
 
 .loader {
-    margin: 32px 0px 32px 0px;
     display: inline-block;
+    margin: 32px 0px 32px 0px;
 }
 
 .visible .loader {
-    position: absolute;
     margin-top: 44px;
+    position: absolute;
 }
 
 .loader > * > div {
@@ -67,11 +67,11 @@
 }
 
 .stores .footer {
+    clear: both;
     font-size: 10px;
     font-weight: 600;
-    text-transform: uppercase;
     line-height: 18px;
-    clear: both;
+    text-transform: uppercase;
 }
 </style>
 
