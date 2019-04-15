@@ -31,6 +31,7 @@
         "build-dev": "webpack --mode development",
         "dev": "webpack-dev-server --mode development --watch --hot",
         "lint": "eslint \"./src/**/*.{js,vue}\"",
+        "lint-all": "npm run lint && npm run stylelint",
         "lint-fix": "eslint \"./src/**/*.{js,vue}\" --fix",
         "prettier": "prettier \"./*.{js,json,vue}\" \"./!(dist)/**/*.{js,json,vue}\" --write",
         "production": "webpack-dev-server --mode production",
