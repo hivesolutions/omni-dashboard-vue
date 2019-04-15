@@ -4,11 +4,11 @@
         v-bind:class="{ loading: isLoading }"
         v-on:click="$emit('click')"
     >
-        <slot v-if="!isLoading"></slot>
+        <slot v-if="!isLoading" />
         <div class="ball-scale-multiple" v-if="isLoading">
-            <div></div>
-            <div></div>
-            <div></div>
+            <div />
+            <div />
+            <div />
         </div>
     </span>
 </template>

@@ -1,20 +1,20 @@
 <template>
     <div
         class="stores"
-        v-if="isVisible || isLoading"
         v-bind:class="{ visible: isVisible, loading: isLoading }"
+        v-if="isVisible || isLoading"
     >
         <GlobalEvents
-            @key-up.left="previous"
-            @key-up.right="next"
-            @key-up.up="nextDimension"
-            @key-up.down="previousDimension"
-        ></GlobalEvents>
+            v-on:key-up.left="previous"
+            v-on:key-up.right="next"
+            v-on:key-up.up="nextDimension"
+            v-on:key-up.down="previousDimension"
+        />
         <div class="loader" v-if="isLoading">
             <div class="ball-scale-multiple">
-                <div></div>
-                <div></div>
-                <div></div>
+                <div />
+                <div />
+                <div />
             </div>
         </div>
         <carousel
@@ -25,7 +25,7 @@
             ref="carousel"
         >
             <slide v-for="store in stores" v-bind:key="store.name">
-                <store v-bind:store="store" v-bind:key="store.name" ref="store"></store>
+                <store v-bind:store="store" v-bind:key="store.name" ref="store" />
             </slide>
         </carousel>
         <div class="footer" v-if="lastUpdate">
@@ -111,6 +111,17 @@ export const Stores = Vue.component("stores", {
             timeout: null,
             timeoutInterval: 300000
         };
+    },
+    watch: {
+        span: function(val) {
+            this.refresh();
+        },
+        unit: function(val) {
+            this.refresh();
+        },
+        dimension: function(val) {
+            this.refreshLight();
+        }
     },
     methods: {
         reset: function() {
@@ -385,17 +396,6 @@ export const Stores = Vue.component("stores", {
                     sales: sales
                 });
             });
-        }
-    },
-    watch: {
-        span: function(val) {
-            this.refresh();
-        },
-        unit: function(val) {
-            this.refresh();
-        },
-        dimension: function(val) {
-            this.refreshLight();
         }
     }
 });

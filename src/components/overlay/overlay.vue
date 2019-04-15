@@ -1,5 +1,5 @@
 <template>
-    <div class="overlay" v-bind:class="{ visible: isVisible }"></div>
+    <div class="overlay" v-bind:class="{ visible: isVisible }" />
 </template>
 
 <style scoped>

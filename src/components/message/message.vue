@@ -9,7 +9,9 @@
             But soon we'll be up and the sun will shine again.<br />
             <span class="error-message">{{ text }}</span>
         </p>
-        <button-color v-on:click="refresh">Refresh</button-color>
+        <button-color v-on:click="refresh">
+            Refresh
+        </button-color>
     </div>
 </template>
 

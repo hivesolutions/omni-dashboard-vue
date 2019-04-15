@@ -30,8 +30,12 @@
         </div>
         <div class="results results-main">
             <div class="left">
-                <div class="day">{{ store ? store.name : name }}</div>
-                <div class="weekday">{{ store.mainSales.weekday }}</div>
+                <div class="day">
+                    {{ store ? store.name : name }}
+                </div>
+                <div class="weekday">
+                    {{ store.mainSales.weekday }}
+                </div>
             </div>
             <div class="right">
                 <div class="money">
@@ -44,8 +48,12 @@
         </div>
         <div class="results" v-for="sale in store.sales" v-bind:key="sale.key">
             <div class="left">
-                <div class="day">{{ sale.day }}</div>
-                <div class="weekday">{{ sale.weekday }}</div>
+                <div class="day">
+                    {{ sale.day }}
+                </div>
+                <div class="weekday">
+                    {{ sale.weekday }}
+                </div>
             </div>
             <div class="right">
                 <div class="money">

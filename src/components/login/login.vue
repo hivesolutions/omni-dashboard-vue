@@ -2,7 +2,9 @@
     <div class="login-container" v-bind:class="{ visible: isVisible }">
         <div class="login container">
             <h1>Login</h1>
-            <p class="extra error" v-if="message">{{ message }}</p>
+            <p class="extra error" v-if="message">
+                {{ message }}
+            </p>
             <p class="extra">
                 <input
                     type="text"
@@ -35,7 +37,9 @@
                 <span>.frontdoorhd.com</span>
             </p>
             <p class="extra buttons">
-                <button-color ref="button" v-on:click="submit">Signin</button-color>
+                <button-color ref="button" v-on:click="submit">
+                    Signin
+                </button-color>
             </p>
             <p class="extra forgot">
                 <a href="#">Forgot your password?</a>
@@ -190,6 +194,23 @@ export const Login = Vue.component("login", {
             instance: null
         };
     },
+    computed: {
+        baseUrl: function() {
+            return this.domain ? `https://${this.domain}/api/` : null;
+        },
+        domain: function() {
+            return this.instance ? `${this.instance}.frontdoorhd.com` : null;
+        }
+    },
+    watch: {
+        isVisible: function(val) {
+            if (val) {
+                this.$root.showOverlay();
+            } else {
+                this.$root.hideOverlay();
+            }
+        }
+    },
     methods: {
         show: function() {
             this.reset();
@@ -233,23 +254,6 @@ export const Login = Vue.component("login", {
                         this.message = finalMessage;
                     }
                 );
-        }
-    },
-    watch: {
-        isVisible: function(val) {
-            if (val) {
-                this.$root.showOverlay();
-            } else {
-                this.$root.hideOverlay();
-            }
-        }
-    },
-    computed: {
-        baseUrl: function() {
-            return this.domain ? `https://${this.domain}/api/` : null;
-        },
-        domain: function() {
-            return this.instance ? `${this.instance}.frontdoorhd.com` : null;
         }
     }
 });

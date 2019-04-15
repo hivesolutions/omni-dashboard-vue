@@ -4,8 +4,9 @@
             class="button-small button-transparent"
             v-if="$root.deferredPrompt"
             v-on:click="promptInstall"
-            >Install App</button-color
         >
+            Install App
+        </button-color>
     </div>
 </template>
 
