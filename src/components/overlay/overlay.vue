@@ -1,5 +1,5 @@
 <template>
-<div class="overlay" v-bind:class="{ visible: isVisible }"></div>
+    <div class="overlay" v-bind:class="{ visible: isVisible }"></div>
 </template>
 
 <style scoped>
@@ -20,11 +20,9 @@
         visibility 0.35s cubic-bezier(0.645, 0.045, 0.355, 1);
     -moz-transition: background-color 0.35s cubic-bezier(0.645, 0.045, 0.355, 1),
         visibility 0.35s cubic-bezier(0.645, 0.045, 0.355, 1);
-    -khtml-transition: background-color 0.35s
-            cubic-bezier(0.645, 0.045, 0.355, 1),
+    -khtml-transition: background-color 0.35s cubic-bezier(0.645, 0.045, 0.355, 1),
         visibility 0.35s cubic-bezier(0.645, 0.045, 0.355, 1);
-    -webkit-transition: background-color 0.35s
-            cubic-bezier(0.645, 0.045, 0.355, 1),
+    -webkit-transition: background-color 0.35s cubic-bezier(0.645, 0.045, 0.355, 1),
         visibility 0.35s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 

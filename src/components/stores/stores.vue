@@ -1,32 +1,42 @@
 <template>
-<div class="stores" v-if="isVisible || isLoading" v-bind:class="{ visible: isVisible, loading: isLoading }">
-    <GlobalEvents @key-up.left="previous" @key-up.right="next"
-                  @key-up.up="nextDimension" @key-up.down="previousDimension"></GlobalEvents>
-    <div class="loader" v-if="isLoading">
-        <div class="ball-scale-multiple">
-            <div></div>
-            <div></div>
-            <div></div>
+    <div
+        class="stores"
+        v-if="isVisible || isLoading"
+        v-bind:class="{ visible: isVisible, loading: isLoading }"
+    >
+        <GlobalEvents
+            @key-up.left="previous"
+            @key-up.right="next"
+            @key-up.up="nextDimension"
+            @key-up.down="previousDimension"
+        ></GlobalEvents>
+        <div class="loader" v-if="isLoading">
+            <div class="ball-scale-multiple">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+        <carousel
+            v-bind:per-page="1"
+            v-bind:pagination-size="8"
+            v-bind:pagination-padding="4"
+            v-bind:navigate-to="0"
+            ref="carousel"
+        >
+            <slide v-for="store in stores" v-bind:key="store.name">
+                <store v-bind:store="store" v-bind:key="store.name" ref="store"></store>
+            </slide>
+        </carousel>
+        <div class="footer" v-if="lastUpdate">
+            <span>Updated</span>
+            <span class="date">{{ lastUpdate }}</span>
+            <br />
+            <span class="username">{{ this.$root.username }}</span>
+            <span>@</span>
+            <span class="domain">{{ this.$root.domain }}</span>
         </div>
     </div>
-    <carousel v-bind:per-page="1" v-bind:pagination-size="8"
-              v-bind:pagination-padding="4" v-bind:navigate-to="0" ref="carousel">
-        <slide v-for="store in stores"
-               v-bind:key="store.name">
-            <store v-bind:store="store"
-                   v-bind:key="store.name"
-                   ref="store"></store>
-        </slide>
-    </carousel>
-    <div class="footer" v-if="lastUpdate">
-        <span>Updated</span>
-        <span class="date">{{ lastUpdate }}</span>
-        <br/>
-        <span class="username">{{ this.$root.username }}</span>
-        <span>@</span>
-        <span class="domain">{{ this.$root.domain }}</span>
-    </div>
-</div>
 </template>
 
 <style>
@@ -142,14 +152,12 @@ export const Stores = Vue.component("stores", {
         },
         nextDimension: function() {
             const currentIndex = SEQUENCE.indexOf(this.dimension);
-            const targetIndex =
-                currentIndex === SEQUENCE.length - 1 ? 0 : currentIndex + 1;
+            const targetIndex = currentIndex === SEQUENCE.length - 1 ? 0 : currentIndex + 1;
             this.dimension = SEQUENCE[targetIndex];
         },
         previousDimension: function() {
             const currentIndex = SEQUENCE.indexOf(this.dimension);
-            const targetIndex =
-                currentIndex === 0 ? SEQUENCE.length - 1 : currentIndex - 1;
+            const targetIndex = currentIndex === 0 ? SEQUENCE.length - 1 : currentIndex - 1;
             this.dimension = SEQUENCE[targetIndex];
         },
         remote: function() {
@@ -177,9 +185,7 @@ export const Stores = Vue.component("stores", {
 
             // retrieves the current timestamp as it's going to be used
             // as the basis for the remote request
-            const timestamp = parseInt(
-                Date.parse(new Date().toUTCString()) / 1000
-            );
+            const timestamp = parseInt(Date.parse(new Date().toUTCString()) / 1000);
 
             // runs the remote query operation to retrive the complete
             // set of stores stats for the current environment
@@ -201,10 +207,7 @@ export const Stores = Vue.component("stores", {
                         this.$root.message = null;
                         this.data = response.data;
                         this.setStores(this.data);
-                        this.timeout = setTimeout(
-                            this.refresh,
-                            this.timeoutInterval
-                        );
+                        this.timeout = setTimeout(this.refresh, this.timeoutInterval);
                     },
                     response => {
                         // removes the loading indicators and the root flag that controls
@@ -215,9 +218,7 @@ export const Stores = Vue.component("stores", {
                         // verifies if the error received may be related with authentication
                         // and if that's the case shows the login window (to escape) otherwise
                         // sets the root message indicating the error to the user
-                        const isAuth =
-                            response.status &&
-                            parseInt(response.status / 100) === 4;
+                        const isAuth = response.status && parseInt(response.status / 100) === 4;
                         if (isAuth) {
                             this.$root.showLogin();
                         } else {
@@ -247,20 +248,10 @@ export const Stores = Vue.component("stores", {
             // builds the string that is going to display the date of the
             // latest update of the stores list
             const lastUpdateDate = new Date();
-            const lastUpdateDay = String(lastUpdateDate.getDate()).padStart(
-                2,
-                "0"
-            );
-            const lastUpdateMonth = String(
-                lastUpdateDate.getMonth() + 1
-            ).padStart(2, "0");
-            const lastUpdateHours = String(lastUpdateDate.getHours()).padStart(
-                2,
-                "0"
-            );
-            const lastUpdateMinutes = String(
-                lastUpdateDate.getMinutes()
-            ).padStart(2, "0");
+            const lastUpdateDay = String(lastUpdateDate.getDate()).padStart(2, "0");
+            const lastUpdateMonth = String(lastUpdateDate.getMonth() + 1).padStart(2, "0");
+            const lastUpdateHours = String(lastUpdateDate.getHours()).padStart(2, "0");
+            const lastUpdateMinutes = String(lastUpdateDate.getMinutes()).padStart(2, "0");
             this.lastUpdate = `${lastUpdateDay}/${lastUpdateMonth} ${lastUpdateHours}:${lastUpdateMinutes}`;
 
             // converts the received object into a sequence of tuples
@@ -269,9 +260,7 @@ export const Stores = Vue.component("stores", {
 
             // sotes the complete set of stores according to their object
             // identifier and then runs the reverse mapping
-            stores = stores.sort(
-                (a, b) => (parseInt(a[0]) > parseInt(b[0]) ? 1 : -1)
-            );
+            stores = stores.sort((a, b) => (parseInt(a[0]) > parseInt(b[0]) ? 1 : -1));
             stores = stores.map(v => v[1]);
 
             // iteates over the complete set of stores to update the values
@@ -322,11 +311,10 @@ export const Stores = Vue.component("stores", {
                         break;
 
                     case "conversion_rate":
-                        values = store["net_number_sales"].map(
-                            (v, i) =>
-                                store["number_entries"][i]
-                                    ? (v / store["number_entries"][i]) * 100.0
-                                    : 0.0
+                        values = store["net_number_sales"].map((v, i) =>
+                            store["number_entries"][i]
+                                ? (v / store["number_entries"][i]) * 100.0
+                                : 0.0
                         );
                         currency = "%";
                         label = "Conv.";
@@ -336,29 +324,18 @@ export const Stores = Vue.component("stores", {
 
                 // creates the string that is going to represent the current day
                 // as a day and month literal
-                const dayS = `${String(date.getDate()).padStart(
-                    2,
-                    "0"
-                )}/${String(date.getMonth() + 1).padStart(2, "0")}`;
+                const dayS = `${String(date.getDate()).padStart(2, "0")}/${String(
+                    date.getMonth() + 1
+                ).padStart(2, "0")}`;
 
                 // builds the value of the main sale of the current store
                 // this is considered to be a "special value"
                 const mainSales = {
                     day: dayS,
-                    weekday:
-                        this.unit === "day"
-                            ? "Today's " + label
-                            : "Month's " + label,
-                    amount: values[values.length - 1].formatMoney(
-                        places,
-                        ".",
-                        ","
-                    ),
+                    weekday: this.unit === "day" ? "Today's " + label : "Month's " + label,
+                    amount: values[values.length - 1].formatMoney(places, ".", ","),
                     currency: currency,
-                    direction:
-                        values[values.length - 1] > values[values.length - 2]
-                            ? "up"
-                            : "down"
+                    direction: values[values.length - 1] > values[values.length - 2] ? "up" : "down"
                 };
 
                 // retrieves the appropiate values for the calculus and runs
@@ -373,23 +350,17 @@ export const Stores = Vue.component("stores", {
                         if (this.unit === "day") {
                             date = new Date(date - 86400000);
                         } else {
-                            date = new Date(
-                                date.getFullYear(),
-                                date.getMonth() - 1,
-                                1
-                            );
+                            date = new Date(date.getFullYear(), date.getMonth() - 1, 1);
                         }
 
                         // creates the string that is going to represent the current day
                         // as a day and month literal
-                        const dayS = `${String(date.getDate()).padStart(
-                            2,
-                            "0"
-                        )}/${String(date.getMonth() + 1).padStart(2, "0")}`;
-                        const monthS = `${String(date.getMonth() + 1).padStart(
-                            2,
-                            "0"
-                        )}/${String(date.getFullYear())
+                        const dayS = `${String(date.getDate()).padStart(2, "0")}/${String(
+                            date.getMonth() + 1
+                        ).padStart(2, "0")}`;
+                        const monthS = `${String(date.getMonth() + 1).padStart(2, "0")}/${String(
+                            date.getFullYear()
+                        )
                             .slice(2, 4)
                             .padStart(2, "0")}`;
                         const weekday = daysOfWeek[date.getDay()];

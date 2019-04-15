@@ -1,14 +1,16 @@
 <template>
-<span class="button button-color"
-      v-bind:class="{ loading: isLoading }"
-      v-on:click="$emit('click')">
-    <slot v-if="!isLoading"></slot>
-    <div class="ball-scale-multiple" v-if="isLoading">
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
-</span>
+    <span
+        class="button button-color"
+        v-bind:class="{ loading: isLoading }"
+        v-on:click="$emit('click')"
+    >
+        <slot v-if="!isLoading"></slot>
+        <div class="ball-scale-multiple" v-if="isLoading">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </span>
 </template>
 
 <style scoped>

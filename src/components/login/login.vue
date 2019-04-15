@@ -1,29 +1,47 @@
 <template>
-<div class="login-container" v-bind:class="{ visible: isVisible }">
-    <div class="login container">
-        <h1>Login</h1>
-        <p class="extra error" v-if="message">{{ message }}</p>
-        <p class="extra">
-            <input type="text" placeholder="Username" autocapitalize="none" ref="username"
-                   v-model="username" v-on:keyup.enter="submit" />
-        </p>
-        <p class="extra">
-            <input type="password" placeholder="Password" autocapitalize="none" ref="password"
-                   v-model="password" v-on:keyup.enter="submit" />
-        </p>
-        <p class="extra instance">
-            <input type="text" placeholder="your-url" autocapitalize="none" ref="instance"
-                   v-model="instance" v-on:keyup.enter="submit" />
-            <span>.frontdoorhd.com</span>
-        </p>
-        <p class="extra buttons">
-            <button-color ref="button" v-on:click="submit">Signin</button-color>
-        </p>
-        <p class="extra forgot">
-            <a href="#">Forgot your password?</a>
-        </p>
+    <div class="login-container" v-bind:class="{ visible: isVisible }">
+        <div class="login container">
+            <h1>Login</h1>
+            <p class="extra error" v-if="message">{{ message }}</p>
+            <p class="extra">
+                <input
+                    type="text"
+                    placeholder="Username"
+                    autocapitalize="none"
+                    ref="username"
+                    v-model="username"
+                    v-on:keyup.enter="submit"
+                />
+            </p>
+            <p class="extra">
+                <input
+                    type="password"
+                    placeholder="Password"
+                    autocapitalize="none"
+                    ref="password"
+                    v-model="password"
+                    v-on:keyup.enter="submit"
+                />
+            </p>
+            <p class="extra instance">
+                <input
+                    type="text"
+                    placeholder="your-url"
+                    autocapitalize="none"
+                    ref="instance"
+                    v-model="instance"
+                    v-on:keyup.enter="submit"
+                />
+                <span>.frontdoorhd.com</span>
+            </p>
+            <p class="extra buttons">
+                <button-color ref="button" v-on:click="submit">Signin</button-color>
+            </p>
+            <p class="extra forgot">
+                <a href="#">Forgot your password?</a>
+            </p>
+        </div>
     </div>
-</div>
 </template>
 
 <style scoped>
@@ -105,8 +123,8 @@ input[type="password"] {
     border: none;
     height: 30px;
     width: 100%;
-    font-family: -apple-system, "BlinkMacSystemFont", "Segoe UI", "Roboto",
-        "Open Sans", "Helvetica", "Arial", sans-serif;
+    font-family: -apple-system, "BlinkMacSystemFont", "Segoe UI", "Roboto", "Open Sans", "Helvetica",
+        "Arial", sans-serif;
     font-size: 16px;
     line-height: 16px;
     margin-top: 12px;
@@ -211,9 +229,7 @@ export const Login = Vue.component("login", {
                         const message = response.data.exception
                             ? response.data.exception.message
                             : "Unknown error";
-                        const finalMessage =
-                            message.slice(0, 1).toUpperCase() +
-                            message.slice(1);
+                        const finalMessage = message.slice(0, 1).toUpperCase() + message.slice(1);
                         this.message = finalMessage;
                     }
                 );

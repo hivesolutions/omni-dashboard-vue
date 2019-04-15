@@ -1,56 +1,62 @@
 <template>
-<div class="store">
-    <div class="line">
-        <div class="column left">
-            <div class="logout">
-                <img src="~./assets/logout.svg" v-on:click="logout" />
+    <div class="store">
+        <div class="line">
+            <div class="column left">
+                <div class="logout">
+                    <img src="~./assets/logout.svg" v-on:click="logout" />
+                </div>
+            </div>
+            <div class="column">
+                <div class="trend">
+                    <img
+                        src="~./assets/arrow_up.svg"
+                        class="up"
+                        v-if="store.mainSales.direction === 'up'"
+                        v-on:click="changeUnit"
+                    />
+                    <img
+                        src="~./assets/arrow_down.svg"
+                        class="down"
+                        v-if="store.mainSales.direction === 'down'"
+                        v-on:click="changeUnit"
+                    />
+                </div>
+            </div>
+            <div class="column right">
+                <div class="refresh">
+                    <img src="~./assets/refresh.svg" v-on:click="refresh" />
+                </div>
             </div>
         </div>
-        <div class="column">
-            <div class="trend">
-                <img src="~./assets/arrow_up.svg" class="up"
-                     v-if="store.mainSales.direction === 'up'"
-                     v-on:click="changeUnit" />
-                <img src="~./assets/arrow_down.svg" class="down"
-                     v-if="store.mainSales.direction === 'down'"
-                     v-on:click="changeUnit" />
+        <div class="results results-main">
+            <div class="left">
+                <div class="day">{{ store ? store.name : name }}</div>
+                <div class="weekday">{{ store.mainSales.weekday }}</div>
+            </div>
+            <div class="right">
+                <div class="money">
+                    <span class="money-inner" v-on:click="changeDimension">
+                        <span class="amount">{{ store.mainSales.amount }}</span>
+                        <span class="currency">{{ store.mainSales.currency }}</span>
+                    </span>
+                </div>
             </div>
         </div>
-        <div class="column right">
-            <div class="refresh">
-                <img src="~./assets/refresh.svg" v-on:click="refresh" />
+        <div class="results" v-for="sale in store.sales" v-bind:key="sale.key">
+            <div class="left">
+                <div class="day">{{ sale.day }}</div>
+                <div class="weekday">{{ sale.weekday }}</div>
+            </div>
+            <div class="right">
+                <div class="money">
+                    <span class="money-inner" v-on:click="changeDimension">
+                        <span class="amount">{{ sale.amount }}</span>
+                        <span class="currency">{{ sale.currency }}</span>
+                    </span>
+                </div>
             </div>
         </div>
     </div>
-    <div class="results results-main">
-        <div class="left">
-            <div class="day">{{ store ? store.name : name }}</div>
-            <div class="weekday">{{ store.mainSales.weekday }}</div>
-        </div>
-        <div class="right">
-            <div class="money">
-                <span class="money-inner" v-on:click="changeDimension">
-                    <span class="amount">{{ store.mainSales.amount }}</span>
-                    <span class="currency">{{ store.mainSales.currency }}</span>
-                </span>
-            </div>
-        </div>
-    </div>
-    <div class="results" v-for="sale in store.sales" v-bind:key="sale.key">
-        <div class="left">
-            <div class="day">{{ sale.day }}</div>
-            <div class="weekday">{{ sale.weekday }}</div>
-        </div>
-        <div class="right">
-            <div class="money">
-                <span class="money-inner" v-on:click="changeDimension">
-                    <span class="amount">{{ sale.amount }}</span>
-                    <span class="currency">{{ sale.currency }}</span>
-                </span>
-            </div>
-        </div>
-    </div>
-</div>
 </template>
 
 <style scoped>
