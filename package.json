@@ -34,6 +34,7 @@
         "lint-all": "npm run lint && npm run stylelint",
         "lint-fix": "eslint \"./src/**/*.{js,vue}\" --fix",
         "prettier": "prettier \"./*.{js,json,vue}\" \"./!(dist)/**/*.{js,json,vue}\" --write",
+        "pretty": "npm run prettier && npm run lint-fix && npm run stylelint-fix",
         "production": "webpack-dev-server --mode production",
         "start": "http-server ./dist",
         "stylelint": "stylelint \"./**/*.{css,scss,vue}\"",
