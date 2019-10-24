@@ -290,6 +290,17 @@ span.button {
     user-select: none;
 }
 
+a.button:hover,
+span.button:hover {
+    background-color: #31acd4;
+    text-decoration: none;
+}
+
+a.button:active,
+span.button:active {
+    background-color: #2c99bd;
+}
+
 a.button.button-small,
 span.button.button-small {
     font-size: 10px;
@@ -300,17 +311,6 @@ span.button.button-small {
 a.button.button-green,
 span.button.button-green {
     background-color: #64a280;
-}
-
-a.button:hover,
-span.button:hover {
-    background-color: #31acd4;
-    text-decoration: none;
-}
-
-a.button:active,
-span.button:active {
-    background-color: #2c99bd;
 }
 
 a.button.button-grey,
@@ -438,6 +438,7 @@ body.cool .container {
     -khtml-box-shadow: 0px 0px 3px #e4e4e4;
     -webkit-box-shadow: 0px 0px 3px #e4e4e4;
     box-shadow: 0px 0px 3px #e4e4e4;
+    margin: 12px auto 12px auto;
     padding: 24px 42px 24px 42px;
     width: auto;
 }
