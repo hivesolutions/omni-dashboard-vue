@@ -198,7 +198,7 @@ export const Stores = Vue.component("stores", {
             // as the basis for the remote request
             const timestamp = parseInt(Date.parse(new Date().toUTCString()) / 1000);
 
-            // runs the remote query operation to retrive the complete
+            // runs the remote query operation to retrieve the complete
             // set of stores stats for the current environment
             this.$http
                 .get(this.$root.baseUrl + "sale_snapshots/stats.json", {
@@ -269,12 +269,12 @@ export const Stores = Vue.component("stores", {
             // containing both the object id and the name of the store
             let stores = Object.keys(data).map(k => [k, data[k]]);
 
-            // sotes the complete set of stores according to their object
+            // stores the complete set of stores according to their object
             // identifier and then runs the reverse mapping
             stores = stores.sort((a, b) => (parseInt(a[0]) > parseInt(b[0]) ? 1 : -1));
             stores = stores.map(v => v[1]);
 
-            // iteates over the complete set of stores to update the values
+            // iterates over the complete set of stores to update the values
             // corresponding to the associated dimension
             stores.forEach(store => {
                 // initializes a series of local variables that are going to
@@ -349,7 +349,7 @@ export const Stores = Vue.component("stores", {
                     direction: values[values.length - 1] > values[values.length - 2] ? "up" : "down"
                 };
 
-                // retrieves the appropiate values for the calculus and runs
+                // retrieves the appropriate values for the calculus and runs
                 // the iteration for the building of the day sales
                 const sales = [];
                 values
