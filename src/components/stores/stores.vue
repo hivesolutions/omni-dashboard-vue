@@ -323,9 +323,7 @@ export const Stores = Vue.component("stores", {
 
                     case "conversion_rate":
                         values = store.net_number_sales.map((v, i) =>
-                            store.number_entries[i]
-                                ? (v / store.number_entries[i]) * 100.0
-                                : 0.0
+                            store.number_entries[i] ? (v / store.number_entries[i]) * 100.0 : 0.0
                         );
                         currency = "%";
                         label = "Conv.";
