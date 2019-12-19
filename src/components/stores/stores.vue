@@ -22,13 +22,14 @@
             v-bind:pagination-size="8"
             v-bind:pagination-padding="4"
             v-bind:navigate-to="0"
+            v-if="isVisible"
             ref="carousel"
         >
             <slide v-for="store in stores" v-bind:key="store.name">
                 <store v-bind:store="store" v-bind:key="store.name" ref="store" />
             </slide>
         </carousel>
-        <div class="footer" v-if="lastUpdate">
+        <div class="footer" v-if="isVisible && lastUpdate">
             <span>Updated</span>
             <span class="date">{{ lastUpdate }}</span>
             <br />
