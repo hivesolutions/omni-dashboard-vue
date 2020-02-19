@@ -285,7 +285,9 @@ export const Stores = Vue.component("stores", {
 
             // stores the complete set of stores according to their object
             // identifier and then runs the reverse mapping
-            stores = stores.sort((a, b) => (parseInt(a[0]) > parseInt(b[0]) ? 1 : -1));
+            stores = stores.sort((a, b) =>
+                this._storeNumber(a[0], a[1]) > this._storeNumber(b[0], b[1]) ? 1 : -1
+            );
             stores = stores.map(v => v[1]);
             stores = stores.filter(v =>
                 [undefined, true].includes(
@@ -437,6 +439,12 @@ export const Stores = Vue.component("stores", {
         _getStoreInfo: async function(name) {
             const storesInfo = await this._getStoresInfo();
             return storesInfo[name];
+        },
+        _storeNumber: function(objectId, store) {
+            if (!store.name) return -1;
+            const storeParts = store.name.split("-", 2);
+            const storeNumber = parseInt(storeParts[0]);
+            return isNaN(storeNumber) ? -1 : storeNumber;
         }
     }
 });
