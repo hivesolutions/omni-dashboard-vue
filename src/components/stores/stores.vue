@@ -21,9 +21,9 @@
             v-bind:per-page="1"
             v-bind:pagination-size="8"
             v-bind:pagination-padding="4"
-            v-bind:navigate-to="0"
             v-if="isVisible"
             ref="carousel"
+            v-model="page"
         >
             <slide v-for="store in stores" v-bind:key="store.name">
                 <store v-bind:store="store" v-bind:key="store.name" ref="store" />
@@ -72,6 +72,7 @@
     font-size: 10px;
     font-weight: 600;
     line-height: 18px;
+    margin-top: 8px;
     text-transform: uppercase;
 }
 </style>
@@ -109,8 +110,10 @@ export const Stores = Vue.component("stores", {
             isVisible: false,
             isLoading: true,
             data: null,
+            page: 0,
             timeout: null,
-            timeoutInterval: 300000
+            timeoutInterval: 300000,
+            storesInfo: null
         };
     },
     watch: {
@@ -122,6 +125,9 @@ export const Stores = Vue.component("stores", {
         },
         dimension: function(val) {
             this.refreshLight();
+        },
+        page: function(val) {
+            console.info(val);
         }
     },
     methods: {
@@ -172,7 +178,7 @@ export const Stores = Vue.component("stores", {
             const targetIndex = currentIndex === 0 ? SEQUENCE.length - 1 : currentIndex - 1;
             this.dimension = SEQUENCE[targetIndex];
         },
-        remote: function() {
+        remote: async function() {
             // in case we don't have a valid base URL the control flow is
             // returned immediately to the caller method
             if (!this.$root.baseUrl) {
@@ -199,10 +205,14 @@ export const Stores = Vue.component("stores", {
             // as the basis for the remote request
             const timestamp = parseInt(Date.parse(new Date().toUTCString()) / 1000);
 
-            // runs the remote query operation to retrieve the complete
-            // set of stores stats for the current environment
-            this.$http
-                .get(this.$root.baseUrl + "sale_snapshots/stats.json", {
+            // allocates space for the response variable to be used in the storage
+            // of the remote data information
+            let response = null;
+
+            try {
+                // runs the remote query operation to retrieve the complete
+                // set of stores stats for the current environment
+                response = await this.$http.get(this.$root.baseUrl + "sale_snapshots/stats.json", {
                     params: {
                         sid: this.$root.sid,
                         date: timestamp,
@@ -211,47 +221,46 @@ export const Stores = Vue.component("stores", {
                         span: this.span,
                         unit: this.unit
                     }
-                })
-                .then(
-                    response => {
-                        this.isLoading = false;
-                        this.$root.isLoading = false;
-                        this.$root.message = null;
-                        this.data = response.data;
-                        this.setStores(this.data);
-                        this.timeout = setTimeout(this.refresh, this.timeoutInterval);
-                    },
-                    response => {
-                        // removes the loading indicators and the root flag that controls
-                        // the global loading state
-                        this.isLoading = false;
-                        this.$root.isLoading = false;
+                });
+            } catch (response) {
+                // removes the loading indicators and the root flag that controls
+                // the global loading state
+                this.isLoading = false;
+                this.$root.isLoading = false;
 
-                        // verifies if the error received may be related with authentication
-                        // and if that's the case shows the login window (to escape) otherwise
-                        // sets the root message indicating the error to the user
-                        const isAuth = response.status && parseInt(response.status / 100) === 4;
-                        if (isAuth) {
-                            this.$root.showLogin();
-                        } else {
-                            this.$root.message = "Error loading remote data";
-                        }
-                    }
-                );
+                // verifies if the error received may be related with authentication
+                // and if that's the case shows the login window (to escape) otherwise
+                // sets the root message indicating the error to the user
+                const isAuth = response.status && parseInt(response.status / 100) === 4;
+                if (isAuth) {
+                    this.$root.showLogin();
+                } else {
+                    this.$root.message = "Error loading remote data";
+                }
+            }
+
+            // updates the current store information taking into account
+            // the analytics data that has just been received
+            this.isLoading = false;
+            this.$root.isLoading = false;
+            this.$root.message = null;
+            this.data = response.data;
+            await this.setStores(this.data);
+            this.timeout = setTimeout(this.refresh, this.timeoutInterval);
         },
-        refreshLight: function() {
-            this.setStores(this.data);
+        refreshLight: async function() {
+            await this.setStores(this.data);
         },
-        setStores: function(data) {
+        setStores: async function(data) {
             // in case the provided data is not valid or not set returns
             // the control flow immediately (avoids invalid cases)
             if (!data) {
                 return;
             }
 
-            // sets the current panel as visible as the stores are being
-            // set (so we have a valid panel)
-            this.isVisible = true;
+            // "saves" the current page of the carrousel in a local variable
+            // to be used in the latter operation
+            const page = this.page;
 
             // resets the list of stores currently associated to the
             // component as new ones are going to be used
@@ -266,6 +275,10 @@ export const Stores = Vue.component("stores", {
             const lastUpdateMinutes = String(lastUpdateDate.getMinutes()).padStart(2, "0");
             this.lastUpdate = `${lastUpdateDay}/${lastUpdateMonth} ${lastUpdateHours}:${lastUpdateMinutes}`;
 
+            // gathers the complete set of information about the stores
+            // present at the back-end Omni instance
+            const storesInfo = await this._getStoresInfo();
+
             // converts the received object into a sequence of tuples
             // containing both the object id and the name of the store
             let stores = Object.keys(data).map(k => [k, data[k]]);
@@ -274,6 +287,11 @@ export const Stores = Vue.component("stores", {
             // identifier and then runs the reverse mapping
             stores = stores.sort((a, b) => (parseInt(a[0]) > parseInt(b[0]) ? 1 : -1));
             stores = stores.map(v => v[1]);
+            stores = stores.filter(v =>
+                [undefined, true].includes(
+                    ((storesInfo[v.name] || { metadata: {} }).metadata || {}).dashboard
+                )
+            );
 
             // iterates over the complete set of stores to update the values
             // corresponding to the associated dimension
@@ -395,6 +413,30 @@ export const Stores = Vue.component("stores", {
                     sales: sales
                 });
             });
+
+            // sets the current panel as visible as the stores are being
+            // set (so we have a valid panel) and restores the page that
+            // is currently visible to the one at the start of the loading
+            Vue.nextTick(() => {
+                this.page = page;
+                this.isVisible = true;
+            });
+        },
+        _getStoresInfo: async function() {
+            if (this.storesInfo !== null) return this.storesInfo;
+            const response = await this.$http.get(this.$root.baseUrl + "stores.json", {
+                params: {
+                    sid: this.$root.sid,
+                    number_records: -1
+                }
+            });
+            const storesData = response.data;
+            this.storesInfo = Object.fromEntries(storesData.map(v => [v.name, v]));
+            return this.storesInfo;
+        },
+        _getStoreInfo: async function(name) {
+            const storesInfo = await this._getStoresInfo();
+            return storesInfo[name];
         }
     }
 });
