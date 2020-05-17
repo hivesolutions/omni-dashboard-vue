@@ -42,7 +42,7 @@
         "svgo": "svgo -r . --disable='removeDimensions,removeViewBox,minifyStyles'",
         "upgrade": "npx sort-package-json && ncu -u",
         "watch": "cross-env NODE_ENV=development webpack --mode development --watch",
-        "webpack": "cross-env NODE_ENV=production webpack"
+        "webpack": "webpack"
     },
     "dependencies": {
         "hive-js-util": "^0.2.2",
