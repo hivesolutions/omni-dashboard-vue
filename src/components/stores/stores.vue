@@ -244,6 +244,13 @@ export const Stores = Vue.component("stores", {
             this.isLoading = false;
             this.$root.isLoading = false;
             this.$root.message = null;
+
+            // in case the response is not valid returns the control flow
+            // immediately, nothing to be done here
+            if (!response) return;
+
+            // unpacks the data an updates the current stores information
+            // as expected
             this.data = response.data;
             await this.setStores(this.data);
             this.timeout = setTimeout(this.refresh, this.timeoutInterval);
