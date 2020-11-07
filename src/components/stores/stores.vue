@@ -93,7 +93,7 @@ export const SEQUENCE = [
     "conversion_rate"
 ];
 
-export const Stores = Vue.component("stores", {
+export const Stores = Vue.component("Stores", {
     components: {
         GlobalEvents,
         Carousel,

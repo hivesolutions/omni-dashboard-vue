@@ -35,7 +35,7 @@
 <script>
 import Vue from "vue";
 
-export const Overlay = Vue.component("overlay", {
+export const Overlay = Vue.component("Overlay", {
     data: function() {
         return {
             isVisible: false

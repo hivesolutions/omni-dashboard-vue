@@ -56,7 +56,6 @@
     "devDependencies": {
         "@babel/core": "^7.12.3",
         "@babel/preset-env": "^7.12.1",
-        "postcss": "^8.1.6",
         "babel-loader": "^8.1.0",
         "babel-polyfill": "^6.26.0",
         "babel-preset-env": "^1.7.0",
@@ -68,6 +67,7 @@
         "eslint-config-airbnb-base": "^14.2.1",
         "eslint-config-hive": "^0.4.1",
         "eslint-config-prettier": "^6.15.0",
+        "eslint-config-ssense": "^0.2.0",
         "eslint-loader": "^4.0.2",
         "eslint-plugin-flowtype": "^5.2.0",
         "eslint-plugin-fp": "^2.3.0",
@@ -79,6 +79,7 @@
         "html-webpack-plugin": "^4.5.0",
         "npm-check-updates": "^9.2.4",
         "offline-plugin": "^5.0.7",
+        "postcss": "^8.1.6",
         "prettier": "^2.1.2",
         "prettier-config-hive": "^0.1.7",
         "sass-loader": "^10.0.5",

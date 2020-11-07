@@ -34,7 +34,7 @@ import Vue from "vue";
 
 import ButtonColor from "../button-color/button-color.vue";
 
-export const Notice = Vue.component("notice", {
+export const Notice = Vue.component("Notice", {
     components: {
         ButtonColor
     },

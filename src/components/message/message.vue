@@ -50,7 +50,7 @@
 <script>
 import Vue from "vue";
 
-export const Message = Vue.component("message", {
+export const Message = Vue.component("Message", {
     data: function() {
         return {
             text: null,

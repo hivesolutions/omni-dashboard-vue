@@ -187,7 +187,7 @@ import Vue from "vue";
 
 import ButtonColor from "../button-color/button-color.vue";
 
-export const Login = Vue.component("login", {
+export const Login = Vue.component("Login", {
     components: {
         ButtonColor
     },
