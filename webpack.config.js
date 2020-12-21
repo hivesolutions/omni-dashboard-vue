@@ -22,7 +22,7 @@ module.exports = {
     plugins: [
         new VueLoaderPlugin({}),
         new ESLintWebpackPlugin({
-            extensions: ["js", "vue", "jsx"]
+            extensions: ["js", "jsx", "vue"]
         }),
         new ManifestPlugin({}),
         new HtmlWebpackPlugin({
