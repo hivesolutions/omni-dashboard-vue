@@ -4,9 +4,10 @@ const webpack = require("webpack");
 const vueLoader = require("vue-loader");
 
 const OfflinePlugin = require("offline-plugin");
-const ManifestPlugin = require("webpack-manifest-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ESLintWebpackPlugin = require("eslint-webpack-plugin");
 const WebpackPwaManifest = require("webpack-pwa-manifest");
+const ManifestPlugin = require("webpack-manifest-plugin").WebpackManifestPlugin;
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 const VueLoaderPlugin = vueLoader.VueLoaderPlugin;
@@ -20,6 +21,9 @@ module.exports = {
     },
     plugins: [
         new VueLoaderPlugin({}),
+        new ESLintWebpackPlugin({
+            extensions: ["js", "vue", "jsx"]
+        }),
         new ManifestPlugin({}),
         new HtmlWebpackPlugin({
             title: "Omni Dashboard",
@@ -55,7 +59,7 @@ module.exports = {
                 loader: "vue-loader",
                 options: {
                     loaders: {
-                        js: "babel-loader!eslint-loader",
+                        js: "babel-loader",
                         scss: "vue-style-loader!css-loader!sass-loader",
                         sass: "vue-style-loader!css-loader!sass-loader?indentedSyntax"
                     }
@@ -84,9 +88,6 @@ module.exports = {
                 use: [
                     {
                         loader: "babel-loader"
-                    },
-                    {
-                        loader: "eslint-loader"
                     }
                 ]
             },

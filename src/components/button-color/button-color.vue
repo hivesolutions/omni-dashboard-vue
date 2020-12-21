@@ -29,7 +29,7 @@
 <script>
 import Vue from "vue";
 
-export const ButtonColor = Vue.component("ButtonColor", {
+export const ButtonColor = Vue.component("button-color", {
     data: function() {
         return {
             isLoading: false

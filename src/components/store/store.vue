@@ -226,7 +226,7 @@
 <script>
 import Vue from "vue";
 
-export const Store = Vue.component("Store", {
+export const Store = Vue.component("store", {
     props: {
         store: {
             type: Object,
