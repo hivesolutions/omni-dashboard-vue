@@ -68,7 +68,6 @@
         "eslint-config-hive": "^0.4.6",
         "eslint-config-prettier": "^7.1.0",
         "eslint-config-ssense": "^0.2.0",
-        "eslint-loader": "^4.0.2",
         "eslint-plugin-flowtype": "^5.2.0",
         "eslint-plugin-fp": "^2.3.0",
         "eslint-plugin-import": "^2.22.1",
