@@ -33,9 +33,9 @@
             <span>Updated</span>
             <span class="date">{{ lastUpdate }}</span>
             <br />
-            <span class="username">{{ this.$root.username }}</span>
+            <span class="username">{{ $root.username }}</span>
             <span>@</span>
-            <span class="domain">{{ this.$root.domain }}</span>
+            <span class="domain">{{ $root.domain }}</span>
         </div>
     </div>
 </template>
@@ -80,7 +80,7 @@
 <script>
 import Vue from "vue";
 import { Carousel, Slide } from "vue-carousel";
-import GlobalEvents from "vue-global-events";
+import { GlobalEvents } from "vue-global-events";
 
 import Store from "../store/store.vue";
 import { daysOfWeek, months } from "../../util";
