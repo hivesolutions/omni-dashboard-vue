@@ -102,6 +102,8 @@ export const stores = function() {
                 this.hideLogin();
             },
             logout: function() {
+                const result = confirm("Are you sure you want to logout?");
+                if (!result) return;
                 this.sid = null;
                 this.username = null;
                 this.instance = null;
