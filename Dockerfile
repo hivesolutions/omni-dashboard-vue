@@ -24,7 +24,7 @@ ADD src /app/src
 
 WORKDIR /app
 
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
 RUN apt-get update && apt-get install -y nodejs
 RUN pip3 install --upgrade netius
 RUN npm install --global yarn
