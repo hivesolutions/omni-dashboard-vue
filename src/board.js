@@ -2,7 +2,7 @@ import { createApp } from "vue";
 
 import components from "./components";
 
-export const stores = function() {
+export const board = function() {
     const app = createApp({
         el: "#app",
         data: function() {
@@ -127,4 +127,4 @@ export const stores = function() {
     return app;
 };
 
-export default stores;
+export default board;
