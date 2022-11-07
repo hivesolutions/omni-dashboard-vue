@@ -1,16 +1,10 @@
 import { createApp } from "vue";
 
-import { Login, Message, Stores, Overlay, Notice, ButtonColor } from "./components";
+import components from "./components";
 
 export const stores = function() {
     const app = createApp({
         el: "#app",
-        components: {
-            Login,
-            Message,
-            Stores,
-            Overlay
-        },
         data: function() {
             return {
                 sid: null,
@@ -123,13 +117,9 @@ export const stores = function() {
         }
     });
 
-    // @todo must check if this is the right way to do it
-    app.component("overlay", Overlay);
-    app.component("login", Login);
-    app.component("message", Message);
-    app.component("stores", Stores);
-    app.component("notice", Notice);
-    app.component("button-color", ButtonColor);
+    // makes use of the components (plugin) so that additional
+    // vue elements may be used
+    app.use(components);
 
     // mounts the application in the target DOM component
     // and returns the instance fo whoever wants to use it

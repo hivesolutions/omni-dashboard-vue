@@ -1,7 +1,19 @@
-export { ButtonColor } from "./button-color/button-color.vue";
-export { Login } from "./login/login.vue";
-export { Message } from "./message/message.vue";
-export { Notice } from "./notice/notice.vue";
-export { Overlay } from "./overlay/overlay.vue";
-export { Store } from "./store/store.vue";
-export { Stores } from "./stores/stores.vue";
+import { ButtonColor } from "./button-color/button-color.vue";
+import { Login } from "./login/login.vue";
+import { Message } from "./message/message.vue";
+import { Notice } from "./notice/notice.vue";
+import { Overlay } from "./overlay/overlay.vue";
+import { Store } from "./store/store.vue";
+import { Stores } from "./stores/stores.vue";
+
+export const install = app => {
+    app.component("button-color", ButtonColor);
+    app.component("login", Login);
+    app.component("message", Message);
+    app.component("notice", Notice);
+    app.component("overlay", Overlay);
+    app.component("store", Store);
+    app.component("stores", Stores);
+};
+
+export default install;

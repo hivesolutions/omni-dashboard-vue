@@ -9,9 +9,9 @@
             But soon we'll be up and the sun will shine again.<br />
             <span class="error-message">{{ text }}</span>
         </p>
-        <button-color v-on:click="refresh">
+        <ButtonColor v-on:click="refresh">
             Refresh
-        </button-color>
+        </ButtonColor>
     </div>
 </template>
 
@@ -48,7 +48,12 @@
 </style>
 
 <script>
+import ButtonColor from "../button-color/button-color.vue";
+
 export const Message = {
+    components: {
+        ButtonColor
+    },
     data: function() {
         return {
             text: null,
