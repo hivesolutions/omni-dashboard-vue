@@ -133,6 +133,9 @@ export const stores = function() {
     // common pattern for vue applications
     app.config.globalProperties.$bus = () => {};
 
+    // mounts the application in the target DOM component
+    // and returns the instance fo whoever wants to use it
+    app.mount("#app");
     return app;
 };
 
