@@ -17,7 +17,7 @@
                 <div />
             </div>
         </div>
-        <Carousel>
+        <Carousel v-bind:width="340">
             <div v-for="store in stores" v-bind:key="store.name">
                 <Store v-bind:store="store" v-bind:key="store.name" ref="store" />
             </div>
