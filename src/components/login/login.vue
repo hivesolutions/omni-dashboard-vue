@@ -128,8 +128,14 @@ input[type="password"] {
     border-bottom: 1px solid #2d9fc4;
     border-radius: 0px 0px 0px 0px;
     box-sizing: border-box;
-    font-family: -apple-system, "BlinkMacSystemFont", "Segoe UI", "Roboto", "Open Sans", "Helvetica",
-        "Arial", sans-serif;
+    font-family: -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        "Roboto",
+        "Open Sans",
+        "Helvetica",
+        "Arial",
+        sans-serif;
     font-size: 16px;
     font-weight: 600;
     height: 30px;

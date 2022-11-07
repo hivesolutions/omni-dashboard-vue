@@ -14,6 +14,7 @@
 }
 
 @media screen and (max-width: 760px) {
+
     .notice {
         bottom: 16px;
         left: 0px;
