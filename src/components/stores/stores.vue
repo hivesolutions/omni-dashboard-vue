@@ -17,13 +17,13 @@
                 <div />
             </div>
         </div>
-        <Carousel v-bind:page="2" ref="carousel">
+        <Carousel ref="carousel" v-model="page">
             <Slide v-bind:width="340" v-for="store in stores" v-bind:key="store.name">
                 <Store v-bind:store="store" v-bind:key="store.name" ref="store" />
             </Slide>
         </Carousel>
         <div class="footer" v-if="isVisible && lastUpdate">
-            <span>Updated</span>
+            <span>Updated </span>
             <span class="date">{{ lastUpdate }}</span>
             <br />
             <span class="username">{{ $root.username }}</span>
