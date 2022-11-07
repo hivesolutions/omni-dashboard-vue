@@ -1,6 +1,6 @@
 # [Omni Dashboard Vue.js](http://omni-dashboard-vue.hive.pt)
 
-The Vue.js version of the Omni Dashboard.
+The [Vue.js](https://vuejs.org) version of the Omni Dashboard.
 
 * Present sales and returns information for every Store entity in Omni
 * Allows usage from multiple Omni back-ends

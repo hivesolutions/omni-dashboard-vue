@@ -3,20 +3,18 @@ const webpack = require("webpack");
 
 const vueLoader = require("vue-loader");
 
-const OfflinePlugin = require("offline-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ESLintWebpackPlugin = require("eslint-webpack-plugin");
-const WebpackPwaManifest = require("webpack-pwa-manifest");
 const ManifestPlugin = require("webpack-manifest-plugin").WebpackManifestPlugin;
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 const VueLoaderPlugin = vueLoader.VueLoaderPlugin;
 
-module.exports = {
+const config = {
     entry: ["babel-polyfill", "./src/app.js"],
     output: {
         path: path.join(__dirname, "dist"),
-        filename: "bundle.js?[hash]",
+        filename: "bundle.js?[fullhash]",
         library: "OmniDashboard"
     },
     plugins: [
@@ -36,21 +34,7 @@ module.exports = {
                 conservativeCollapse: false,
                 preserveLineBreaks: false
             }
-        }),
-        new WebpackPwaManifest({
-            name: "Omni Dashboard",
-            short_name: "Dashboard",
-            description: "Sales Dashboard for Omni",
-            theme_color: "#6d6d6d",
-            background_color: "#6d6d6d",
-            icons: [
-                {
-                    src: path.resolve("src/assets/images/icon.play.png"),
-                    sizes: [96, 128, 192, 256, 384, 512]
-                }
-            ]
-        }),
-        new OfflinePlugin({})
+        })
     ],
     module: {
         rules: [
@@ -97,7 +81,7 @@ module.exports = {
                     {
                         loader: "file-loader",
                         options: {
-                            name: "[name].[ext]?[hash]",
+                            name: "[name].[ext]?[fullhash]",
                             esModule: false
                         }
                     },
@@ -120,7 +104,7 @@ module.exports = {
                 test: /\.(png|jpg|gif|svg|ico)$/,
                 loader: "file-loader",
                 options: {
-                    name: "[name].[ext]?[hash]",
+                    name: "[name].[ext]?[fullhash]",
                     esModule: false
                 }
             },
@@ -139,11 +123,11 @@ module.exports = {
         }
     },
     devServer: {
-        contentBase: path.join(__dirname, "dist"),
         compress: false,
-        port: 3000,
-        stats: "minimal",
-        hot: true
+        port: process.env.PORT ? parseInt(process.env.PORT) : 3000,
+        hot: true,
+        historyApiFallback: true,
+        watchFiles: ["src/**/*"]
     },
     performance: {
         hints: false
@@ -152,17 +136,19 @@ module.exports = {
 };
 
 if (process.env.NODE_ENV === "production") {
-    module.exports.devtool = "source-map";
-    module.exports.plugins = (module.exports.plugins || []).concat([
+    config.devtool = "source-map";
+    config.plugins = (config.plugins || []).concat([
         new webpack.DefinePlugin({
             "process.env.NODE_ENV": JSON.stringify("production")
         })
     ]);
 } else {
-    module.exports.plugins = (module.exports.plugins || []).concat([
+    config.plugins = (config.plugins || []).concat([
         new BundleAnalyzerPlugin({
             analyzerMode: "static",
             openAnalyzer: false
         })
     ]);
 }
+
+module.exports = config;

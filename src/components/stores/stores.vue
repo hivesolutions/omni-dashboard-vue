@@ -40,11 +40,7 @@
     </div>
 </template>
 
-<style>
-.VueCarousel-pagination button:focus {
-    outline: none !important;
-}
-</style>
+<style></style>
 
 <style scoped>
 @import "~loaders.css/loaders.css";
@@ -80,7 +76,7 @@
 <script>
 import Vue from "vue";
 import { Carousel, Slide } from "vue-carousel";
-import { GlobalEvents } from "vue-global-events";
+import GlobalEvents from "vue-global-events";
 
 import Store from "../store/store.vue";
 import { daysOfWeek, months } from "../../util";
@@ -125,9 +121,6 @@ export const Stores = Vue.component("stores", {
         },
         dimension: function(val) {
             this.refreshLight();
-        },
-        page: function(val) {
-            console.info(val);
         }
     },
     methods: {

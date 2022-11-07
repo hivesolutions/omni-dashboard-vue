@@ -70,38 +70,18 @@
 <style scoped>
 .store {
     padding: 0px 24px 0px 24px;
-    -o-user-select: none;
-    -ms-user-select: none;
-    -moz-user-select: none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
     user-select: none;
 }
 
 .store .trend {
     align-items: center;
     border: 1px solid #e2e2e2;
-    -o-border-radius: 32px 32px 32px 32px;
-    -ms-border-radius: 32px 32px 32px 32px;
-    -moz-border-radius: 32px 32px 32px 32px;
-    -khtml-border-radius: 32px 32px 32px 32px;
-    -webkit-border-radius: 32px 32px 32px 32px;
     border-radius: 32px 32px 32px 32px;
-    -o-box-shadow: 0px 0px 8px rgba(180, 180, 180, 0.4);
-    -ms-box-shadow: 0px 0px 8px rgba(180, 180, 180, 0.4);
-    -moz-box-shadow: 0px 0px 8px rgba(180, 180, 180, 0.4);
-    -khtml-box-shadow: 0px 0px 8px rgba(180, 180, 180, 0.4);
-    -webkit-box-shadow: 0px 0px 8px rgba(180, 180, 180, 0.4);
     box-shadow: 0px 0px 8px rgba(180, 180, 180, 0.4);
     display: flex;
     height: 64px;
     justify-content: center;
     margin: 12px auto 12px auto;
-    -o-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
-    -ms-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
-    -moz-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
-    -khtml-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
-    -webkit-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
     transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
     width: 64px;
 }
@@ -117,11 +97,6 @@
 
 .store .logout,
 .store .refresh {
-    -o-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
-    -ms-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
-    -moz-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
-    -khtml-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
-    -webkit-transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
     transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
@@ -138,20 +113,10 @@
 
 .store .logout > img:hover,
 .store .refresh > img:hover {
-    -o-filter: invert(0.5) sepia(1) hue-rotate(12deg);
-    -ms-filter: invert(0.5) sepia(1) hue-rotate(12deg);
-    -moz-filter: invert(0.5) sepia(1) hue-rotate(12deg);
-    -khtml-filter: invert(0.5) sepia(1) hue-rotate(12deg);
-    -webkit-filter: invert(0.5) sepia(1) hue-rotate(12deg);
     filter: invert(0.5) sepia(1) hue-rotate(12deg);
 }
 
 .store .results {
-    -o-border-radius: 2px 2px 2px 2px;
-    -ms-border-radius: 2px 2px 2px 2px;
-    -moz-border-radius: 2px 2px 2px 2px;
-    -khtml-border-radius: 2px 2px 2px 2px;
-    -webkit-border-radius: 2px 2px 2px 2px;
     border-radius: 2px 2px 2px 2px;
     font-size: 0px;
     font-weight: 600;
