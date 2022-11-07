@@ -17,7 +17,7 @@
                 <div />
             </div>
         </div>
-        <Carousel ref="carousel" v-model="page">
+        <Carousel v-if="isVisible" ref="carousel" v-model="page">
             <Slide v-bind:width="340" v-for="store in stores" v-bind:key="store.name">
                 <Store v-bind:store="store" v-bind:key="store.name" ref="store" />
             </Slide>
