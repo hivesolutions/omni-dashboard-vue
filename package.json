@@ -48,10 +48,9 @@
         "hive-js-util": "^0.4.1",
         "http-server": "^14.1.1",
         "loaders.css": "^0.1.2",
-        "vue": "^2.7.13",
+        "vue": "^3.2.41",
         "vue-carousel": "^0.18.0",
-        "vue-global-events": "^1.2.1",
-        "vue-resource": "^1.5.3"
+        "vue-global-events": "^2.1.1"
     },
     "devDependencies": {
         "@babel/core": "^7.20.2",
@@ -93,7 +92,7 @@
         "stylelint-order": "^5.0.0",
         "svgo": "^3.0.0",
         "typeface-open-sans": "^1.1.13",
-        "vue-loader": "^15.10.0",
+        "vue-loader": "^17.0.1",
         "vue-template-compiler": "^2.7.13",
         "webpack": "^5.74.0",
         "webpack-bundle-analyzer": "^4.7.0",

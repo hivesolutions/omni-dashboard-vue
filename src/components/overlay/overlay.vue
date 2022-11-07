@@ -23,9 +23,7 @@
 </style>
 
 <script>
-import Vue from "vue";
-
-export const Overlay = Vue.component("overlay", {
+export const Overlay = {
     data: function() {
         return {
             isVisible: false
@@ -39,7 +37,7 @@ export const Overlay = Vue.component("overlay", {
             this.isVisible = false;
         }
     }
-});
+};
 
 export default Overlay;
 </script>

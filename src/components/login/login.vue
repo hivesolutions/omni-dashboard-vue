@@ -168,11 +168,9 @@ input[type="password"]:focus::placeholder {
 </style>
 
 <script>
-import Vue from "vue";
-
 import ButtonColor from "../button-color/button-color.vue";
 
-export const Login = Vue.component("login", {
+export const Login = {
     components: {
         ButtonColor
     },
@@ -247,7 +245,7 @@ export const Login = Vue.component("login", {
                 );
         }
     }
-});
+};
 
 export default Login;
 </script>

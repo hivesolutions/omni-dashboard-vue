@@ -27,15 +27,13 @@
 </style>
 
 <script>
-import Vue from "vue";
-
-export const ButtonColor = Vue.component("button-color", {
+export const ButtonColor = {
     data: function() {
         return {
             isLoading: false
         };
     }
-});
+};
 
 export default ButtonColor;
 </script>
