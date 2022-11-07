@@ -217,32 +217,29 @@ export const Login = {
             this.instance = null;
             this.message = null;
         },
-        submit: function() {
+        submit: async function() {
+            if (!this.baseUrl) return;
             this.$refs.button.isLoading = true;
-            this.$http
-                .get(this.baseUrl + "login.json", {
-                    params: {
-                        username: this.username,
-                        password: this.password
-                    }
-                })
-                .then(
-                    response => {
-                        this.$refs.button.isLoading = false;
-                        this.$root.sid = response.data.session_id;
-                        this.$root.username = response.data.username;
-                        this.$root.instance = this.instance;
-                        this.$root.refresh();
-                    },
-                    response => {
-                        this.$refs.button.isLoading = false;
-                        const message = response.data.exception
-                            ? response.data.exception.message
-                            : "Unknown error";
-                        const finalMessage = message.slice(0, 1).toUpperCase() + message.slice(1);
-                        this.message = finalMessage;
-                    }
-                );
+            const url = new URL(`${this.baseUrl}login.json`);
+            const params = {
+                username: this.username,
+                password: this.password
+            };
+            Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+            const response = await fetch(url);
+            const data = await response.json();
+            if (response.ok) {
+                this.$refs.button.isLoading = false;
+                this.$root.sid = data.session_id;
+                this.$root.username = data.username;
+                this.$root.instance = this.instance;
+                this.$root.refresh();
+            } else {
+                this.$refs.button.isLoading = false;
+                const message = data.exception ? data.exception.message : "Unknown error";
+                const finalMessage = message.slice(0, 1).toUpperCase() + message.slice(1);
+                this.message = finalMessage;
+            }
         }
     }
 };

@@ -17,18 +17,9 @@
                 <div />
             </div>
         </div>
-        <carousel
-            v-bind:per-page="1"
-            v-bind:pagination-size="8"
-            v-bind:pagination-padding="4"
-            v-if="isVisible"
-            ref="carousel"
-            v-model="page"
-        >
-            <slide v-for="store in stores" v-bind:key="store.name">
-                <store v-bind:store="store" v-bind:key="store.name" ref="store" />
-            </slide>
-        </carousel>
+        <div v-for="store in stores" v-bind:key="store.name">
+            <store v-bind:store="store" v-bind:key="store.name" ref="store" />
+        </div>
         <div class="footer" v-if="isVisible && lastUpdate">
             <span>Updated</span>
             <span class="date">{{ lastUpdate }}</span>
@@ -75,7 +66,6 @@
 
 <script>
 import { nextTick } from "vue";
-import { Carousel, Slide } from "vue-carousel";
 import { GlobalEvents } from "vue-global-events";
 
 import Store from "../store/store.vue";
@@ -92,8 +82,6 @@ export const SEQUENCE = [
 export const Stores = {
     components: {
         GlobalEvents,
-        Carousel,
-        Slide,
         Store
     },
     data: function() {
@@ -202,20 +190,21 @@ export const Stores = {
             // of the remote data information
             let response = null;
 
-            try {
-                // runs the remote query operation to retrieve the complete
-                // set of stores stats for the current environment
-                response = await fetch(this.$root.baseUrl + "sale_snapshots/stats.json", {
-                    params: {
-                        sid: this.$root.sid,
-                        date: timestamp,
-                        has_global: "True",
-                        output: "simple",
-                        span: this.span,
-                        unit: this.unit
-                    }
-                });
-            } catch (response) {
+            // runs the remote query operation to retrieve the complete
+            // set of stores stats for the current environment
+            const url = new URL(`${this.$root.baseUrl}sale_snapshots/stats.json`);
+            const params = {
+                sid: this.$root.sid,
+                date: timestamp,
+                has_global: "True",
+                output: "simple",
+                span: this.span,
+                unit: this.unit
+            };
+            Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+            response = await fetch(url);
+
+            if (!response.ok) {
                 // removes the loading indicators and the root flag that controls
                 // the global loading state
                 this.isLoading = false;
@@ -240,11 +229,11 @@ export const Stores = {
 
             // in case the response is not valid returns the control flow
             // immediately, nothing to be done here
-            if (!response) return;
+            if (!response.ok) return;
 
             // unpacks the data an updates the current stores information
             // as expected
-            this.data = response.data;
+            this.data = await response.json();
             await this.setStores(this.data);
             this.timeout = setTimeout(this.refresh, this.timeoutInterval);
         },
@@ -258,7 +247,7 @@ export const Stores = {
                 return;
             }
 
-            // "saves" the current page of the carrousel in a local variable
+            // "saves" the current page of the carousel in a local variable
             // to be used in the latter operation
             const page = this.page;
 
@@ -426,13 +415,12 @@ export const Stores = {
         },
         _getStoresInfo: async function() {
             if (this.storesInfo !== null) return this.storesInfo;
-            const response = await fetch(this.$root.baseUrl + "stores.json", {
-                params: {
-                    sid: this.$root.sid,
-                    number_records: -1
-                }
-            });
-            const storesData = response.data;
+            const url = new URL(`${this.$root.baseUrl}stores.json`);
+            const params = { sid: this.$root.sid, number_records: -1 };
+            Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+            const response = await fetch(url);
+            if (!response.ok) throw new Error("Unexpected response");
+            const storesData = await response.json();
             this.storesInfo = Object.fromEntries(storesData.map(v => [v.name, v]));
             return this.storesInfo;
         },
