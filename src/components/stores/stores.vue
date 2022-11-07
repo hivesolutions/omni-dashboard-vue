@@ -17,9 +17,11 @@
                 <div />
             </div>
         </div>
-        <div v-for="store in stores" v-bind:key="store.name">
-            <Store v-bind:store="store" v-bind:key="store.name" ref="store" />
-        </div>
+        <Carousel>
+            <div v-for="store in stores" v-bind:key="store.name">
+                <Store v-bind:store="store" v-bind:key="store.name" ref="store" />
+            </div>
+        </Carousel>
         <div class="footer" v-if="isVisible && lastUpdate">
             <span>Updated</span>
             <span class="date">{{ lastUpdate }}</span>
@@ -30,8 +32,6 @@
         </div>
     </div>
 </template>
-
-<style></style>
 
 <style scoped>
 @import "~loaders.css/loaders.css";
@@ -68,6 +68,7 @@
 import { nextTick } from "vue";
 import { GlobalEvents } from "vue-global-events";
 
+import Carousel from "../carousel/carousel.vue";
 import Store from "../store/store.vue";
 import { daysOfWeek, months } from "../../util";
 
@@ -82,6 +83,7 @@ export const SEQUENCE = [
 export const Stores = {
     components: {
         GlobalEvents,
+        Carousel,
         Store
     },
     data: function() {
