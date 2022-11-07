@@ -1,6 +1,6 @@
 import { createApp } from "vue";
 
-import { Login, Message, Stores, Overlay } from "./components";
+import { Login, Message, Stores, Overlay, Notice, ButtonColor } from "./components";
 
 export const stores = function() {
     const app = createApp({
@@ -101,12 +101,10 @@ export const stores = function() {
                 this.instance = null;
                 this.$refs.stores.reset();
                 this.showLogin();
-                this.$bus.$emit("logged-out");
             },
             refresh: function() {
                 this.hideLogin();
                 this.$refs.stores.refresh();
-                this.$bus.$emit("refreshed");
             },
             changeUnit: function() {
                 this.$refs.stores.changeUnit();
@@ -126,12 +124,12 @@ export const stores = function() {
     });
 
     // @todo must check if this is the right way to do it
+    app.component("overlay", Overlay);
     app.component("login", Login);
-
-    // creates the common bus that is going to be used
-    // for global event registering and triggering, a
-    // common pattern for vue applications
-    app.config.globalProperties.$bus = () => {};
+    app.component("message", Message);
+    app.component("stores", Stores);
+    app.component("notice", Notice);
+    app.component("button-color", ButtonColor);
 
     // mounts the application in the target DOM component
     // and returns the instance fo whoever wants to use it
