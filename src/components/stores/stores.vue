@@ -17,8 +17,8 @@
                 <div />
             </div>
         </div>
-        <Carousel v-bind:width="340">
-            <Slide v-for="store in stores" v-bind:key="store.name">
+        <Carousel v-bind:page="2" ref="carousel">
+            <Slide v-bind:width="340" v-for="store in stores" v-bind:key="store.name">
                 <Store v-bind:store="store" v-bind:key="store.name" ref="store" />
             </Slide>
         </Carousel>
@@ -69,6 +69,7 @@ import { nextTick } from "vue";
 import { GlobalEvents } from "vue-global-events";
 
 import Carousel from "../carousel/carousel.vue";
+import Slide from "../carousel/slide.vue";
 import Store from "../store/store.vue";
 import { daysOfWeek, months } from "../../util";
 
@@ -84,6 +85,7 @@ export const Stores = {
     components: {
         GlobalEvents,
         Carousel,
+        Slide,
         Store
     },
     data: function() {
@@ -133,10 +135,10 @@ export const Stores = {
             this.isVisible = false;
         },
         next: function() {
-            this.$refs.carousel.advancePage();
+            this.$refs.carousel.nextPage();
         },
         previous: function() {
-            this.$refs.carousel.advancePage("backward");
+            this.$refs.carousel.previousPage();
         },
         refresh: function() {
             this.remote();
