@@ -1,4 +1,4 @@
-import stores from "./stores";
+import board from "./board";
 import "hive-js-util";
 
 import "typeface-open-sans";
@@ -22,7 +22,7 @@ export const startBody = function() {
 export const startApp = function() {
     const element = document.getElementById("app");
     if (element.classList.contains("app-stores")) {
-        globals.app = stores();
+        globals.app = board();
     }
 };
 
