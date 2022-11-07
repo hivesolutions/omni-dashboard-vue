@@ -1,10 +1,6 @@
 <template>
     <div class="notice" v-if="isVisible">
-        <button-color
-            class="button-small button-transparent"
-            v-if="$root.deferredPrompt"
-            v-on:click="promptInstall"
-        >
+        <button-color class="button-small button-transparent">
             Install App
         </button-color>
     </div>
@@ -18,7 +14,6 @@
 }
 
 @media screen and (max-width: 760px) {
-
     .notice {
         bottom: 16px;
         left: 0px;
@@ -49,9 +44,6 @@ export const Notice = Vue.component("notice", {
         },
         hide: function() {
             this.isVisible = false;
-        },
-        promptInstall: function() {
-            this.$root.promptInstall();
         }
     }
 });

@@ -14,7 +14,7 @@
             <login ref="login"></login>
             <message class="container dynamic" ref="message"></message>
             <stores class="container dynamic" ref="stores"></stores>
-            <notice ref="notice"></notice>
+            <notice ref="notice" v-if="false"></notice>
         </div>
     </body>
 </html>

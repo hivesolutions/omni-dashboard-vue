@@ -1,8 +1,6 @@
 import stores from "./stores";
 import "hive-js-util";
 
-import * as OfflinePluginRuntime from "offline-plugin/runtime";
-
 import "typeface-open-sans";
 
 import "./assets/css/base.css";
@@ -13,7 +11,6 @@ export const globals = {};
 export const start = function() {
     startBody();
     startApp();
-    install();
 };
 
 export const startBody = function() {
@@ -27,10 +24,6 @@ export const startApp = function() {
     if (element.classList.contains("app-stores")) {
         globals.app = stores();
     }
-};
-
-export const install = function() {
-    OfflinePluginRuntime.install();
 };
 
 if (typeof window !== "undefined") {

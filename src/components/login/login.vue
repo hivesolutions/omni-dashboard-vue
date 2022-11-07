@@ -126,21 +126,10 @@ input[type="text"],
 input[type="password"] {
     border: none;
     border-bottom: 1px solid #2d9fc4;
-    -o-border-radius: 0px 0px 0px 0px;
-    -ms-border-radius: 0px 0px 0px 0px;
-    -moz-border-radius: 0px 0px 0px 0px;
-    -khtml-border-radius: 0px 0px 0px 0px;
-    -webkit-border-radius: 0px 0px 0px 0px;
     border-radius: 0px 0px 0px 0px;
     box-sizing: border-box;
-    font-family: -apple-system,
-        "BlinkMacSystemFont",
-        "Segoe UI",
-        "Roboto",
-        "Open Sans",
-        "Helvetica",
-        "Arial",
-        sans-serif;
+    font-family: -apple-system, "BlinkMacSystemFont", "Segoe UI", "Roboto", "Open Sans", "Helvetica",
+        "Arial", sans-serif;
     font-size: 16px;
     font-weight: 600;
     height: 30px;
@@ -148,11 +137,6 @@ input[type="password"] {
     margin-top: 12px;
     outline: none;
     padding: 0px 2px 0px 2px;
-    -o-transition: border-color 0.1s linear;
-    -ms-transition: border-color 0.1s linear;
-    -moz-transition: border-color 0.1s linear;
-    -khtml-transition: border-color 0.1s linear;
-    -webkit-transition: border-color 0.1s linear;
     transition: border-color 0.1s linear;
     width: 100%;
 }
@@ -168,11 +152,6 @@ input[type="password"]::placeholder {
     font-size: 12px;
     letter-spacing: 1px;
     text-transform: uppercase;
-    -o-transition: color 0.1s linear;
-    -ms-transition: color 0.1s linear;
-    -moz-transition: color 0.1s linear;
-    -khtml-transition: color 0.1s linear;
-    -webkit-transition: color 0.1s linear;
     transition: color 0.1s linear;
 }
 
