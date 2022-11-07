@@ -48,9 +48,7 @@
 </style>
 
 <script>
-import Vue from "vue";
-
-export const Message = Vue.component("message", {
+export const Message = {
     data: function() {
         return {
             text: null,
@@ -72,7 +70,7 @@ export const Message = Vue.component("message", {
             this.$root.refresh();
         }
     }
-});
+};
 
 export default Message;
 </script>

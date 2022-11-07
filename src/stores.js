@@ -1,17 +1,9 @@
-import Vue from "vue";
-import VueResource from "vue-resource";
+import { createApp } from "vue";
 
 import { Login, Message, Stores, Overlay } from "./components";
 
 export const stores = function() {
-    Vue.use(VueResource);
-
-    // creates the common bus that is going to be used
-    // for global event registering and triggering, a
-    // common pattern for vue applications
-    Vue.prototype.$bus = new Vue();
-
-    const app = new Vue({
+    const app = createApp({
         el: "#app",
         components: {
             Login,
@@ -19,12 +11,14 @@ export const stores = function() {
             Stores,
             Overlay
         },
-        data: {
-            sid: null,
-            username: null,
-            instance: null,
-            isLoading: false,
-            message: null
+        data: function() {
+            return {
+                sid: null,
+                username: null,
+                instance: null,
+                isLoading: false,
+                message: null
+            };
         },
         computed: {
             baseUrl: function() {
@@ -130,6 +124,14 @@ export const stores = function() {
             }
         }
     });
+
+    // @todo must check if this is the right way to do it
+    app.component("login", Login);
+
+    // creates the common bus that is going to be used
+    // for global event registering and triggering, a
+    // common pattern for vue applications
+    app.config.globalProperties.$bus = () => {};
 
     return app;
 };

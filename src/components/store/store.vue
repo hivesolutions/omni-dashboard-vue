@@ -189,9 +189,7 @@
 </style>
 
 <script>
-import Vue from "vue";
-
-export const Store = Vue.component("store", {
+export const Store = {
     props: {
         store: {
             type: Object,
@@ -233,7 +231,7 @@ export const Store = Vue.component("store", {
             this.$root.changeDimension();
         }
     }
-});
+};
 
 export default Store;
 </script>

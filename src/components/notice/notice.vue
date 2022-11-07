@@ -26,11 +26,9 @@
 </style>
 
 <script>
-import Vue from "vue";
-
 import ButtonColor from "../button-color/button-color.vue";
 
-export const Notice = Vue.component("notice", {
+export const Notice = {
     components: {
         ButtonColor
     },
@@ -47,7 +45,7 @@ export const Notice = Vue.component("notice", {
             this.isVisible = false;
         }
     }
-});
+};
 
 export default Notice;
 </script>

@@ -74,9 +74,9 @@
 </style>
 
 <script>
-import Vue from "vue";
+import { nextTick } from "vue";
 import { Carousel, Slide } from "vue-carousel";
-import GlobalEvents from "vue-global-events";
+import { GlobalEvents } from "vue-global-events";
 
 import Store from "../store/store.vue";
 import { daysOfWeek, months } from "../../util";
@@ -89,7 +89,7 @@ export const SEQUENCE = [
     "conversion_rate"
 ];
 
-export const Stores = Vue.component("stores", {
+export const Stores = {
     components: {
         GlobalEvents,
         Carousel,
@@ -205,7 +205,7 @@ export const Stores = Vue.component("stores", {
             try {
                 // runs the remote query operation to retrieve the complete
                 // set of stores stats for the current environment
-                response = await this.$http.get(this.$root.baseUrl + "sale_snapshots/stats.json", {
+                response = await fetch(this.$root.baseUrl + "sale_snapshots/stats.json", {
                     params: {
                         sid: this.$root.sid,
                         date: timestamp,
@@ -419,14 +419,14 @@ export const Stores = Vue.component("stores", {
             // sets the current panel as visible as the stores are being
             // set (so we have a valid panel) and restores the page that
             // is currently visible to the one at the start of the loading
-            Vue.nextTick(() => {
+            nextTick(() => {
                 this.page = page;
                 this.isVisible = true;
             });
         },
         _getStoresInfo: async function() {
             if (this.storesInfo !== null) return this.storesInfo;
-            const response = await this.$http.get(this.$root.baseUrl + "stores.json", {
+            const response = await fetch(this.$root.baseUrl + "stores.json", {
                 params: {
                     sid: this.$root.sid,
                     number_records: -1
@@ -447,7 +447,7 @@ export const Stores = Vue.component("stores", {
             return isNaN(storeNumber) ? -1 : storeNumber;
         }
     }
-});
+};
 
 export default Stores;
 </script>
