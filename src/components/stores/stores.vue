@@ -18,9 +18,9 @@
             </div>
         </div>
         <Carousel v-bind:width="340">
-            <div v-for="store in stores" v-bind:key="store.name">
+            <Slide v-for="store in stores" v-bind:key="store.name">
                 <Store v-bind:store="store" v-bind:key="store.name" ref="store" />
-            </div>
+            </Slide>
         </Carousel>
         <div class="footer" v-if="isVisible && lastUpdate">
             <span>Updated</span>
