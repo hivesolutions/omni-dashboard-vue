@@ -18,27 +18,32 @@ import { nextTick } from "vue";
 
 export const Carousel = {
     props: {
+        modelValue: {
+            type: Number,
+            default: 0
+        },
         width: {
             type: Number,
             default: undefined
-        },
-        page: {
-            type: Number,
-            default: 0
         }
     },
     data: function() {
         return {
             count: 0,
-            pageData: this.page,
+            pageData: this.modelValue,
             widthData: this.width
         };
     },
     watch: {
-        pageData: function(val) {
+        modelValue(val) {
+            this.pageData = val;
             this.updateScroll();
         },
-        unitWidth: function(val) {
+        pageData(val) {
+            this.$emit("update:modelValue", val);
+            this.updateScroll();
+        },
+        unitWidth(val) {
             this.updateScroll();
         }
     },
@@ -60,8 +65,10 @@ export const Carousel = {
     },
     methods: {
         updateScroll: function() {
-            this.$refs.carousel.scrollLeft = this.pageData * this.unitWidth;
-            console.info(this.pageData * this.unitWidth);
+            this.$refs.carousel.scroll({
+                left: this.pageData * this.unitWidth,
+                behavior: "smooth"
+            });
         },
         nextPage: function() {
             this.pageData = Math.min(this.pageData + 1, this.count - 1);
