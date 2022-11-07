@@ -18,7 +18,7 @@
             </div>
         </div>
         <div v-for="store in stores" v-bind:key="store.name">
-            <store v-bind:store="store" v-bind:key="store.name" ref="store" />
+            <Store v-bind:store="store" v-bind:key="store.name" ref="store" />
         </div>
         <div class="footer" v-if="isVisible && lastUpdate">
             <span>Updated</span>

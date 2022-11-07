@@ -37,9 +37,9 @@
                 <span>.frontdoorhd.com</span>
             </p>
             <p class="extra buttons">
-                <button-color ref="button" v-on:click="submit">
+                <ButtonColor ref="button" v-on:click="submit">
                     Signin
-                </button-color>
+                </ButtonColor>
             </p>
             <p class="extra forgot">
                 <a href="#">Forgot your password?</a>

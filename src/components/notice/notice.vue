@@ -1,8 +1,8 @@
 <template>
     <div class="notice" v-if="isVisible">
-        <button-color class="button-small button-transparent">
+        <ButtonColor class="button-small button-transparent">
             Install App
-        </button-color>
+        </ButtonColor>
     </div>
 </template>
 
