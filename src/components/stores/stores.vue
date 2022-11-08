@@ -17,11 +17,14 @@
                 <div />
             </div>
         </div>
-        <div v-for="store in stores" v-bind:key="store.name">
-            <store v-bind:store="store" v-bind:key="store.name" ref="store" />
-        </div>
+        <Carousel v-if="isVisible" ref="carousel" v-model="page">
+            <Slide v-bind:width="340" v-for="store in stores" v-bind:key="store.name">
+                <Store v-bind:store="store" v-bind:key="store.name" ref="store" />
+            </Slide>
+        </Carousel>
+        <Dots v-bind:count="stores.length" v-model="page" />
         <div class="footer" v-if="isVisible && lastUpdate">
-            <span>Updated</span>
+            <span>Updated </span>
             <span class="date">{{ lastUpdate }}</span>
             <br />
             <span class="username">{{ $root.username }}</span>
@@ -30,8 +33,6 @@
         </div>
     </div>
 </template>
-
-<style></style>
 
 <style scoped>
 @import "~loaders.css/loaders.css";
@@ -68,6 +69,9 @@
 import { nextTick } from "vue";
 import { GlobalEvents } from "vue-global-events";
 
+import Carousel from "../carousel/carousel.vue";
+import Dots from "../carousel/dots.vue";
+import Slide from "../carousel/slide.vue";
 import Store from "../store/store.vue";
 import { daysOfWeek, months } from "../../util";
 
@@ -82,6 +86,9 @@ export const SEQUENCE = [
 export const Stores = {
     components: {
         GlobalEvents,
+        Carousel,
+        Dots,
+        Slide,
         Store
     },
     data: function() {
@@ -131,10 +138,10 @@ export const Stores = {
             this.isVisible = false;
         },
         next: function() {
-            this.$refs.carousel.advancePage();
+            this.$refs.carousel.nextPage();
         },
         previous: function() {
-            this.$refs.carousel.advancePage("backward");
+            this.$refs.carousel.previousPage();
         },
         refresh: function() {
             this.remote();

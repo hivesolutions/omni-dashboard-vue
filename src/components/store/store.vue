@@ -40,7 +40,7 @@
             <div class="right">
                 <div class="money">
                     <span class="money-inner" v-on:click="changeDimension">
-                        <span class="amount">{{ store.mainSales.amount }}</span>
+                        <span class="amount">{{ store.mainSales.amount }}&nbsp;</span>
                         <span class="currency">{{ store.mainSales.currency }}</span>
                     </span>
                 </div>
@@ -58,7 +58,7 @@
             <div class="right">
                 <div class="money">
                     <span class="money-inner" v-on:click="changeDimension">
-                        <span class="amount">{{ sale.amount }}</span>
+                        <span class="amount">{{ sale.amount }}&nbsp;</span>
                         <span class="currency">{{ sale.currency }}</span>
                     </span>
                 </div>

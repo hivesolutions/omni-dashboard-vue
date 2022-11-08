@@ -10,11 +10,11 @@
           data-gradients="cool-gradient-green,cool-gradient-violet,cool-gradient-crazy">
         <noscript>Sorry, your browser does not support JavaScript.</noscript>
         <div id="app" class="app app-stores">
-            <overlay ref="overlay"></overlay>
-            <login ref="login"></login>
-            <message class="container dynamic" ref="message"></message>
-            <stores class="container dynamic" ref="stores"></stores>
-            <notice ref="notice" v-if="false"></notice>
+            <Overlay ref="overlay"></Overlay>
+            <Login ref="login"></Login>
+            <Message class="container dynamic" ref="message"></Message>
+            <Stores class="container dynamic" ref="stores"></Stores>
+            <Notice ref="notice" v-if="false"></Notice>
         </div>
     </body>
 </html>

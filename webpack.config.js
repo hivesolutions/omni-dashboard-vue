@@ -55,25 +55,11 @@ const config = {
             },
             {
                 test: /\.(scss|sass)$/,
-                use: [
-                    {
-                        loader: "style-loader"
-                    },
-                    {
-                        loader: "css-loader"
-                    },
-                    {
-                        loader: "sass-loader"
-                    }
-                ]
+                use: ["style-loader", "css-loader", "sass-loader"]
             },
             {
                 test: /\.js$/,
-                use: [
-                    {
-                        loader: "babel-loader"
-                    }
-                ]
+                loader: "babel-loader"
             },
             {
                 test: /\.html$/,
