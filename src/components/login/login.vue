@@ -169,6 +169,7 @@ input[type="password"]:focus::placeholder {
 
 <script>
 import ButtonColor from "../button-color/button-color.vue";
+import { fetchParams } from "../../util";
 
 export const Login = {
     components: {
@@ -220,21 +221,20 @@ export const Login = {
         submit: async function() {
             if (!this.baseUrl) return;
             this.$refs.button.isLoading = true;
-            const url = new URL(`${this.baseUrl}login.json`);
-            const params = {
-                username: this.username,
-                password: this.password
-            };
-            Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
-            const response = await fetch(url);
-            const data = await response.json();
-            if (response.ok) {
+            try {
+                const response = await fetchParams(`${this.baseUrl}login.json`, {
+                    username: this.username,
+                    password: this.password
+                });
+                const data = await response.json();
                 this.$refs.button.isLoading = false;
                 this.$root.sid = data.session_id;
                 this.$root.username = data.username;
                 this.$root.instance = this.instance;
                 this.$root.refresh();
-            } else {
+            } catch (err) {
+                const response = err.response;
+                const data = response ? await response.json() : {};
                 this.$refs.button.isLoading = false;
                 const message = data.exception ? data.exception.message : "Unknown error";
                 const finalMessage = message.slice(0, 1).toUpperCase() + message.slice(1);
