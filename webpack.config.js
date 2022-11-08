@@ -14,6 +14,7 @@ const isProduction = process.env.NODE_ENV === "production";
 
 const config = {
     entry: ["babel-polyfill", "./src/app.js"],
+    mode: isProduction ? "production" : "development",
     output: {
         path: path.join(__dirname, "dist"),
         filename: "bundle.js?[fullhash]",
