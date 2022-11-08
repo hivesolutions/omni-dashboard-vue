@@ -9,8 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-* Support for Vue3 added
-* Deprecated old carousel component
+*
 
 ### Changed
 
@@ -19,3 +18,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 *
+
+## [0.1.0] - 2022-11-08
+
+### Added
+
+* Initial working version 🙌
+* Support for Vue3 added
+* Deprecated old carousel component
