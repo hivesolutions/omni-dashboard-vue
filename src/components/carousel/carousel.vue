@@ -70,7 +70,9 @@ export const Carousel = {
     },
     methods: {
         updateScroll: function() {
-            this.$refs["carousel-container"].style.left = `${this.pageData * this.unitWidth * -1}px`;
+            this.$refs["carousel-container"].style.left = `${
+                this.pageData * this.unitWidth * -1
+            }px`;
         },
         nextPage: function() {
             this.pageData = Math.min(this.pageData + 1, this.count - 1);
