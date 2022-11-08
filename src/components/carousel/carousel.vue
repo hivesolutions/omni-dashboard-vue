@@ -11,6 +11,11 @@
     max-width: 100%;
     overflow-x: hidden;
 }
+
+.carousel > .carousel-container {
+    position: relative;
+    transition: left 0.35s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
 </style>
 
 <script>
@@ -65,10 +70,7 @@ export const Carousel = {
     },
     methods: {
         updateScroll: function() {
-            this.$refs.carousel.scroll({
-                left: this.pageData * this.unitWidth,
-                behavior: "smooth"
-            });
+            this.$refs["carousel-container"].style.left = `${this.pageData * this.unitWidth * -1}px`;
         },
         nextPage: function() {
             this.pageData = Math.min(this.pageData + 1, this.count - 1);
