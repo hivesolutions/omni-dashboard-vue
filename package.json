@@ -35,7 +35,7 @@
         "lint-fix": "eslint \"./src/**/*.{js,vue}\" --fix",
         "prettier": "prettier \"./*.{js,json,vue}\" \"./!(dist)/**/*.{js,json,vue}\" --write",
         "pretty": "npm run prettier && npm run lint-fix && npm run stylelint-fix && npm run svgo",
-        "production": "cross-env NODE_ENV=production webpack-dev-server --mode production",
+        "production": "cross-env NODE_ENV=production webpack serve --mode production",
         "start": "http-server ./dist",
         "stylelint": "stylelint \"./**/*.{css,scss,vue}\"",
         "stylelint-fix": "stylelint \"./**/*.{css,scss,vue}\" --fix",

@@ -10,6 +10,8 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPl
 
 const VueLoaderPlugin = vueLoader.VueLoaderPlugin;
 
+const isProduction = process.env.NODE_ENV === "production";
+
 const config = {
     entry: ["babel-polyfill", "./src/app.js"],
     output: {
@@ -105,7 +107,7 @@ const config = {
     },
     resolve: {
         alias: {
-            vue$: "vue/dist/vue.esm-browser.js"
+            vue$: isProduction ? "vue/dist/vue.esm-browser.prod.js" : "vue/dist/vue.esm-browser.js"
         }
     },
     devServer: {
@@ -121,7 +123,7 @@ const config = {
     devtool: "inline-source-map"
 };
 
-if (process.env.NODE_ENV === "production") {
+if (isProduction) {
     config.devtool = "source-map";
     config.plugins = (config.plugins || []).concat([
         new webpack.DefinePlugin({
