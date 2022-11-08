@@ -22,6 +22,7 @@
                 <Store v-bind:store="store" v-bind:key="store.name" ref="store" />
             </Slide>
         </Carousel>
+        <Dots v-bind:count="stores.length" v-model="page" />
         <div class="footer" v-if="isVisible && lastUpdate">
             <span>Updated </span>
             <span class="date">{{ lastUpdate }}</span>
@@ -69,6 +70,7 @@ import { nextTick } from "vue";
 import { GlobalEvents } from "vue-global-events";
 
 import Carousel from "../carousel/carousel.vue";
+import Dots from "../carousel/dots.vue";
 import Slide from "../carousel/slide.vue";
 import Store from "../store/store.vue";
 import { daysOfWeek, months } from "../../util";
@@ -85,6 +87,7 @@ export const Stores = {
     components: {
         GlobalEvents,
         Carousel,
+        Dots,
         Slide,
         Store
     },

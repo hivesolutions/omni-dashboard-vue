@@ -1,5 +1,7 @@
 import { ButtonColor } from "./button-color/button-color.vue";
 import { Carousel } from "./carousel/carousel.vue";
+import { Dot } from "./carousel/dot.vue";
+import { Dots } from "./carousel/dots.vue";
 import { Slide } from "./carousel/slide.vue";
 import { Login } from "./login/login.vue";
 import { Message } from "./message/message.vue";
@@ -11,6 +13,8 @@ import { Stores } from "./stores/stores.vue";
 export const install = app => {
     app.component("button-color", ButtonColor);
     app.component("carousel", Carousel);
+    app.component("dot", Dot);
+    app.component("dots", Dots);
     app.component("slide", Slide);
     app.component("login", Login);
     app.component("message", Message);
