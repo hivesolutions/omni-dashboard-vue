@@ -3,6 +3,7 @@ const webpack = require("webpack");
 
 const vueLoader = require("vue-loader");
 
+const TerserPlugin = require("terser-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ESLintWebpackPlugin = require("eslint-webpack-plugin");
 const ManifestPlugin = require("webpack-manifest-plugin").WebpackManifestPlugin;
@@ -120,6 +121,15 @@ const config = {
     },
     performance: {
         hints: false
+    },
+    optimization: {
+        minimizer: [
+            new TerserPlugin({
+                terserOptions: {
+                    compress: false
+                }
+            })
+        ]
     },
     devtool: "inline-source-map"
 };

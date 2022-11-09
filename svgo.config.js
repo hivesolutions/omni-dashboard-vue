@@ -4,12 +4,18 @@ module.exports = {
             name: "preset-default",
             params: {
                 overrides: {
-                    removeDimensions: false,
                     removeViewBox: false,
-                    minifyStyles: false,
-                    active: false
+                    minifyStyles: false
                 }
             }
+        },
+        {
+            name: "preset-custom",
+            params: {
+                removeDimensions: false,
+                active: false
+            },
+            fn: (ast, params, info) => {}
         }
     ]
 };
