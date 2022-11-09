@@ -73,7 +73,7 @@ import Carousel from "../carousel/carousel.vue";
 import Dots from "../carousel/dots.vue";
 import Slide from "../carousel/slide.vue";
 import Store from "../store/store.vue";
-import { daysOfWeek, months } from "../../util";
+import { daysOfWeek, months, fetchParams } from "../../util";
 
 export const SEQUENCE = [
     "net_price_vat",
@@ -199,19 +199,16 @@ export const Stores = {
 
             // runs the remote query operation to retrieve the complete
             // set of stores stats for the current environment
-            const url = new URL(`${this.$root.baseUrl}sale_snapshots/stats.json`);
-            const params = {
-                sid: this.$root.sid,
-                date: timestamp,
-                has_global: "True",
-                output: "simple",
-                span: this.span,
-                unit: this.unit
-            };
-            Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
-            response = await fetch(url);
-
-            if (!response.ok) {
+            try {
+                response = await fetchParams(`${this.$root.baseUrl}sale_snapshots/stats.json`, {
+                    sid: this.$root.sid,
+                    date: timestamp,
+                    has_global: "True",
+                    output: "simple",
+                    span: this.span,
+                    unit: this.unit
+                });
+            } catch (err) {
                 // removes the loading indicators and the root flag that controls
                 // the global loading state
                 this.isLoading = false;
@@ -422,11 +419,10 @@ export const Stores = {
         },
         _getStoresInfo: async function() {
             if (this.storesInfo !== null) return this.storesInfo;
-            const url = new URL(`${this.$root.baseUrl}stores.json`);
-            const params = { sid: this.$root.sid, number_records: -1 };
-            Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
-            const response = await fetch(url);
-            if (!response.ok) throw new Error("Unexpected response");
+            const response = await fetchParams(`${this.$root.baseUrl}stores.json`, {
+                sid: this.$root.sid,
+                number_records: -1
+            });
             const storesData = await response.json();
             this.storesInfo = Object.fromEntries(storesData.map(v => [v.name, v]));
             return this.storesInfo;

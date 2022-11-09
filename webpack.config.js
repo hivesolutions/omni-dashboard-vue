@@ -3,6 +3,7 @@ const webpack = require("webpack");
 
 const vueLoader = require("vue-loader");
 
+const TerserPlugin = require("terser-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ESLintWebpackPlugin = require("eslint-webpack-plugin");
 const ManifestPlugin = require("webpack-manifest-plugin").WebpackManifestPlugin;
@@ -10,8 +11,11 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPl
 
 const VueLoaderPlugin = vueLoader.VueLoaderPlugin;
 
+const isProduction = process.env.NODE_ENV === "production";
+
 const config = {
     entry: ["babel-polyfill", "./src/app.js"],
+    mode: isProduction ? "production" : "development",
     output: {
         path: path.join(__dirname, "dist"),
         filename: "bundle.js?[fullhash]",
@@ -105,7 +109,7 @@ const config = {
     },
     resolve: {
         alias: {
-            vue$: "vue/dist/vue.esm-browser.js"
+            vue$: isProduction ? "vue/dist/vue.esm-browser.prod.js" : "vue/dist/vue.esm-browser.js"
         }
     },
     devServer: {
@@ -118,10 +122,19 @@ const config = {
     performance: {
         hints: false
     },
+    optimization: {
+        minimizer: [
+            new TerserPlugin({
+                terserOptions: {
+                    compress: false
+                }
+            })
+        ]
+    },
     devtool: "inline-source-map"
 };
 
-if (process.env.NODE_ENV === "production") {
+if (isProduction) {
     config.devtool = "source-map";
     config.plugins = (config.plugins || []).concat([
         new webpack.DefinePlugin({

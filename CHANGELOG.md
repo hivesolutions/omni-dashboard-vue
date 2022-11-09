@@ -19,6 +19,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 *
 
+## [0.1.2] - 2022-11-09
+
+### Fixed
+
+* Compress issue with minimizer and Vue.js 3
+
+## [0.1.1] - 2022-11-08
+
+### Fixed
+
+* Improved error handling in login, fixed usability issue
+
 ## [0.1.0] - 2022-11-08
 
 ### Added
