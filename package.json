@@ -7,13 +7,13 @@
         "omni",
         "vue"
     ],
-    "homepage": "https://github.com/hivesolutions/omni_dashboard_vue#readme",
+    "homepage": "https://github.com/hivesolutions/omni-dashboard-vue#readme",
     "bugs": {
-        "url": "https://github.com/hivesolutions/omni_dashboard_vue/issues"
+        "url": "https://github.com/hivesolutions/omni-dashboard-vue/issues"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/hivesolutions/omni_dashboard_vue.git"
+        "url": "git+https://github.com/hivesolutions/omni-dashboard-vue.git"
     },
     "license": "Apache-2.0",
     "author": "Hive Solutions",
