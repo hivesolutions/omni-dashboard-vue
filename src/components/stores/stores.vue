@@ -209,6 +209,10 @@ export const Stores = {
                     unit: this.unit
                 });
             } catch (err) {
+                // unpacks the response object from the error so that it can
+                // be used for error handling purposes
+                response = err.response;
+
                 // removes the loading indicators and the root flag that controls
                 // the global loading state
                 this.isLoading = false;
