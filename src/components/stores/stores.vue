@@ -437,6 +437,7 @@ export const Stores = {
         },
         _storeNumber: function(objectId, store) {
             if (!store.name) return -1;
+            if (store.name === "global") return -2;
             const storeParts = store.name.split("-", 2);
             const storeNumber = parseInt(storeParts[0]);
             return isNaN(storeNumber) ? -1 : storeNumber;
