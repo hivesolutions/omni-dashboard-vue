@@ -3,14 +3,14 @@
         <p>
             <img src="~./assets/superman.svg" />
         </p>
-        <h1>Oops there was an error</h1>
+        <h1>{{ title }}</h1>
         <p class="text">
             Unfortunately the site is experiencing a bit of turbulence right now.<br />
             But soon we'll be up and the sun will shine again.<br />
             <span class="error-message">{{ text }}</span>
         </p>
         <ButtonColor v-on:click="refresh">
-            Refresh
+            {{ refreshText }}
         </ButtonColor>
     </div>
 </template>
@@ -53,6 +53,16 @@ import ButtonColor from "../button-color/button-color.vue";
 export const Message = {
     components: {
         ButtonColor
+    },
+    props: {
+        title: {
+            type: String,
+            default: "Oops there was an error"
+        },
+        refreshText: {
+            type: String,
+            default: "Refresh"
+        }
     },
     data: function() {
         return {

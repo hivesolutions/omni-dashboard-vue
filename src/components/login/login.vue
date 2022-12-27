@@ -1,7 +1,7 @@
 <template>
     <div class="login-container" v-bind:class="{ visible: isVisible }">
         <div class="login container">
-            <h1>Login</h1>
+            <h1>{{ title }}</h1>
             <p class="extra error" v-if="message">
                 {{ message }}
             </p>
@@ -174,6 +174,12 @@ import { fetchParams } from "../../util";
 export const Login = {
     components: {
         ButtonColor
+    },
+    props: {
+        title: {
+            type: String,
+            default: "Login"
+        }
     },
     data: function() {
         return {

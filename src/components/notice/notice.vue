@@ -1,7 +1,7 @@
 <template>
     <div class="notice" v-if="isVisible">
         <ButtonColor class="button-small button-transparent">
-            Install App
+            {{ text }}
         </ButtonColor>
     </div>
 </template>
@@ -31,6 +31,12 @@ import ButtonColor from "../button-color/button-color.vue";
 export const Notice = {
     components: {
         ButtonColor
+    },
+    props: {
+        text: {
+            type: String,
+            default: "Install App"
+        }
     },
     data: function() {
         return {
