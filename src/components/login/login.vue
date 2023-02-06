@@ -168,8 +168,9 @@ input[type="password"]:focus::placeholder {
 </style>
 
 <script>
+import { API } from "omni-api-js";
+
 import ButtonColor from "../button-color/button-color.vue";
-import { fetchParams } from "../../util";
 
 export const Login = {
     components: {
@@ -192,7 +193,7 @@ export const Login = {
     },
     computed: {
         baseUrl: function() {
-            return this.domain ? `https://${this.domain}/api/` : null;
+            return this.domain ? `https://${this.domain}/` : null;
         },
         domain: function() {
             return this.instance ? `${this.instance}.frontdoorhd.com` : null;
@@ -228,21 +229,20 @@ export const Login = {
             if (!this.baseUrl) return;
             this.$refs.button.isLoading = true;
             try {
-                const response = await fetchParams(`${this.baseUrl}login.json`, {
+                const api = new API({
+                    baseUrl: this.baseUrl,
                     username: this.username,
                     password: this.password
                 });
-                const data = await response.json();
+                await api.login();
                 this.$refs.button.isLoading = false;
-                this.$root.sid = data.session_id;
-                this.$root.username = data.username;
+                this.$root.api = api;
+                this.$root.sid = api.sessionId;
+                this.$root.username = this.username;
                 this.$root.instance = this.instance;
                 this.$root.refresh();
             } catch (err) {
-                const response = err.response;
-                const data = response ? await response.json() : {};
-                this.$refs.button.isLoading = false;
-                const message = data.exception ? data.exception.message : "Unknown error";
+                const message = err.message ? err.message : "Unknown error";
                 const finalMessage = message.slice(0, 1).toUpperCase() + message.slice(1);
                 this.message = finalMessage;
             }

@@ -73,7 +73,7 @@ import Carousel from "../carousel/carousel.vue";
 import Dots from "../carousel/dots.vue";
 import Slide from "../carousel/slide.vue";
 import Store from "../store/store.vue";
-import { daysOfWeek, months, fetchParams } from "../../util";
+import { daysOfWeek, months } from "../../util";
 
 export const SEQUENCE = [
     "net_price_vat",
@@ -193,25 +193,29 @@ export const Stores = {
             // as the basis for the remote request
             const timestamp = parseInt(Date.parse(new Date().toUTCString()) / 1000);
 
-            // allocates space for the response variable to be used in the storage
-            // of the remote data information
-            let response = null;
-
             // runs the remote query operation to retrieve the complete
             // set of stores stats for the current environment
             try {
-                response = await fetchParams(`${this.$root.baseUrl}sale_snapshots/stats.json`, {
-                    sid: this.$root.sid,
-                    date: timestamp,
-                    has_global: "True",
-                    output: "simple",
-                    span: this.span,
-                    unit: this.unit
+                this.data = await this.$root.api.statsSaleSnapshot({
+                    params: {
+                        date: timestamp,
+                        has_global: "True",
+                        output: "simple",
+                        span: this.span,
+                        unit: this.unit
+                    }
                 });
             } catch (err) {
+                // in case there's no response element in the error then redirects
+                // the user agent immediately to the login panel
+                if (!err.response) {
+                    this.$root.showLogin();
+                    return;
+                }
+
                 // unpacks the response object from the error so that it can
                 // be used for error handling purposes
-                response = err.response;
+                const response = err.response;
 
                 // removes the loading indicators and the root flag that controls
                 // the global loading state
@@ -235,13 +239,9 @@ export const Stores = {
             this.$root.isLoading = false;
             this.$root.message = null;
 
-            // in case the response is not valid returns the control flow
-            // immediately, nothing to be done here
-            if (!response.ok) return;
-
             // unpacks the data an updates the current stores information
-            // as expected
-            this.data = await response.json();
+            // as expected, setting a timeout for the automatic update
+            // of the sale snapshot information
             await this.setStores(this.data);
             this.timeout = setTimeout(this.refresh, this.timeoutInterval);
         },
@@ -423,12 +423,12 @@ export const Stores = {
         },
         _getStoresInfo: async function() {
             if (this.storesInfo !== null) return this.storesInfo;
-            const response = await fetchParams(`${this.$root.baseUrl}stores.json`, {
-                sid: this.$root.sid,
-                number_records: -1
+            const stores = await this.$root.api.listStores({
+                params: {
+                    number_records: -1
+                }
             });
-            const storesData = await response.json();
-            this.storesInfo = Object.fromEntries(storesData.map(v => [v.name, v]));
+            this.storesInfo = Object.fromEntries(stores.map(v => [v.name, v]));
             return this.storesInfo;
         },
         _getStoreInfo: async function(name) {

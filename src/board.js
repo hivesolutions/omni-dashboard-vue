@@ -1,4 +1,5 @@
 import { createApp } from "vue";
+import { API } from "omni-api-js";
 
 import components from "./components";
 
@@ -10,13 +11,14 @@ export const board = function() {
                 sid: null,
                 username: null,
                 instance: null,
+                api: null,
                 isLoading: false,
                 message: null
             };
         },
         computed: {
             baseUrl: function() {
-                return this.domain ? `https://${this.domain}/api/` : null;
+                return this.domain ? `https://${this.domain}/` : null;
             },
             domain: function() {
                 return this.instance ? `${this.instance}.frontdoorhd.com` : null;
@@ -93,6 +95,7 @@ export const board = function() {
                 this.sid = null;
                 this.username = null;
                 this.instance = null;
+                this.api = null;
                 this.$refs.stores.reset();
                 this.showLogin();
             },
@@ -113,6 +116,13 @@ export const board = function() {
                 this.sid = window.localStorage.sid;
                 this.username = window.localStorage.username;
                 this.instance = window.localStorage.instance;
+                if (this.sid && this.username) {
+                    this.api = new API({
+                        baseUrl: this.baseUrl,
+                        username: this.username,
+                        sessionId: this.sid
+                    });
+                }
             }
         }
     });

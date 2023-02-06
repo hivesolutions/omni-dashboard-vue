@@ -109,7 +109,9 @@ const config = {
     },
     resolve: {
         alias: {
-            vue$: isProduction ? "vue/dist/vue.esm-browser.prod.js" : "vue/dist/vue.esm-browser.js"
+            vue$: isProduction ? "vue/dist/vue.esm-browser.prod.js" : "vue/dist/vue.esm-browser.js",
+            http: false,
+            https: false
         }
     },
     devServer: {
