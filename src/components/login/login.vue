@@ -235,7 +235,6 @@ export const Login = {
                     password: this.password
                 });
                 await api.login();
-                this.$refs.button.isLoading = false;
                 this.$root.api = api;
                 this.$root.sid = api.sessionId;
                 this.$root.username = this.username;
@@ -245,6 +244,8 @@ export const Login = {
                 const message = err.message ? err.message : "Unknown error";
                 const finalMessage = message.slice(0, 1).toUpperCase() + message.slice(1);
                 this.message = finalMessage;
+            } finally {
+                this.$refs.button.isLoading = false;
             }
         }
     }
