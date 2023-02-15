@@ -206,21 +206,21 @@ export const Stores = {
                     }
                 });
             } catch (err) {
+                // removes the loading indicators and the root flag that controls
+                // the global loading state
+                this.isLoading = false;
+                this.$root.isLoading = false;
+
                 // in case there's no response element in the error then redirects
                 // the user agent immediately to the login panel
                 if (!err.response) {
-                    this.$root.showLogin();
+                    this.$root.message = "Error loading remote data";
                     return;
                 }
 
                 // unpacks the response object from the error so that it can
                 // be used for error handling purposes
                 const response = err.response;
-
-                // removes the loading indicators and the root flag that controls
-                // the global loading state
-                this.isLoading = false;
-                this.$root.isLoading = false;
 
                 // verifies if the error received may be related with authentication
                 // and if that's the case shows the login window (to escape) otherwise
@@ -229,8 +229,11 @@ export const Stores = {
                 if (isAuth) {
                     this.$root.showLogin();
                 } else {
-                    this.$root.message = "Error loading remote data";
+                    this.$root.message = err.message
+                        ? `Error loading remote data: ${err.message}`
+                        : "Error loading remote data";
                 }
+                return;
             }
 
             // updates the current store information taking into account

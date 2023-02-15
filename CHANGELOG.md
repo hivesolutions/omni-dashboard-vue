@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Small issue related to the ordering of the "Global" store
 * Issue related to the loading of the login page
+* Error handling problems
 
 ## [0.1.2] - 2022-11-09
 
