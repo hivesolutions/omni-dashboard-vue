@@ -284,7 +284,9 @@ export const Stores = {
             let stores = Object.keys(data).map(k => [k, data[k]]);
 
             // stores the complete set of stores according to their object
-            // identifier and then runs the reverse mapping
+            // identifier, then runs the reverse mapping and filters the stores
+            // that are not marked as non dashboard stores (metadata's `dashboard`
+            // value is set to `false`)
             stores = stores.sort((a, b) =>
                 this._storeNumber(a[0], a[1]) > this._storeNumber(b[0], b[1]) ? 1 : -1
             );
