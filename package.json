@@ -45,12 +45,12 @@
         "webpack": "webpack"
     },
     "dependencies": {
-        "hive-js-util": "^0.4.1",
+        "hive-js-util": "^0.5.3",
         "http-server": "^14.1.1",
         "loaders.css": "^0.1.2",
         "omni-api-js": "^0.2.0",
         "vue": "^3.2.47",
-        "vue-global-events": "^2.1.1"
+        "vue-global-events": "^2.2.0"
     },
     "devDependencies": {
         "@babel/core": "^7.20.12",
