@@ -54,6 +54,74 @@ describe("Util", function() {
         });
     });
 
+    describe("#previousDate()", function() {
+        it("should return the previous day", () => {
+            const result = util.previousDate(new Date(2026, 9, 27, 14, 35));
+            assert.strictEqual(result.getFullYear(), 2026);
+            assert.strictEqual(result.getMonth(), 9);
+            assert.strictEqual(result.getDate(), 26);
+            assert.strictEqual(util.previousDate(new Date(2026, 9, 27), "day").getDate(), 26);
+        });
+        it("should return the previous day across months and years", () => {
+            let result = util.previousDate(new Date(2028, 2, 1));
+            assert.strictEqual(result.getMonth(), 1);
+            assert.strictEqual(result.getDate(), 29);
+
+            result = util.previousDate(new Date(2027, 2, 1));
+            assert.strictEqual(result.getMonth(), 1);
+            assert.strictEqual(result.getDate(), 28);
+
+            result = util.previousDate(new Date(2026, 0, 1));
+            assert.strictEqual(result.getFullYear(), 2025);
+            assert.strictEqual(result.getMonth(), 11);
+            assert.strictEqual(result.getDate(), 31);
+        });
+        it("should step every day across daylight saving changes", () => {
+            const timezone = process.env.TZ;
+            process.env.TZ = "Europe/Lisbon";
+            try {
+                const days = (date, count) => {
+                    const result = [];
+                    for (let i = 0; i < count; i++) {
+                        date = util.previousDate(date);
+                        result.push(date.getDate());
+                    }
+                    return result;
+                };
+                assert.deepStrictEqual(days(new Date(2026, 9, 27, 23, 25), 4), [26, 25, 24, 23]);
+                assert.deepStrictEqual(days(new Date(2026, 9, 26, 0, 30), 3), [25, 24, 23]);
+                assert.deepStrictEqual(days(new Date(2026, 2, 30, 0, 30), 3), [29, 28, 27]);
+                assert.deepStrictEqual(days(new Date(2026, 2, 30, 23, 30), 3), [29, 28, 27]);
+            } finally {
+                if (timezone === undefined) delete process.env.TZ;
+                else process.env.TZ = timezone;
+            }
+        });
+        it("should return the start of the previous month", () => {
+            let result = util.previousDate(new Date(2026, 9, 27, 14, 35), "month");
+            assert.strictEqual(result.getFullYear(), 2026);
+            assert.strictEqual(result.getMonth(), 8);
+            assert.strictEqual(result.getDate(), 1);
+
+            result = util.previousDate(new Date(2026, 2, 31), "month");
+            assert.strictEqual(result.getMonth(), 1);
+            assert.strictEqual(result.getDate(), 1);
+        });
+        it("should return the start of the previous month across years", () => {
+            const result = util.previousDate(new Date(2026, 0, 15), "month");
+            assert.strictEqual(result.getFullYear(), 2025);
+            assert.strictEqual(result.getMonth(), 11);
+            assert.strictEqual(result.getDate(), 1);
+        });
+        it("should not change the provided date", () => {
+            const date = new Date(2026, 9, 27, 14, 35);
+            util.previousDate(date);
+            util.previousDate(date, "month");
+            assert.strictEqual(date.getDate(), 27);
+            assert.strictEqual(date.getMonth(), 9);
+        });
+    });
+
     describe("#measureValues()", function() {
         const store = {
             net_price_vat: [100.0, 50.0, 0.0],
