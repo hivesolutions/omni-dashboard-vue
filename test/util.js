@@ -382,4 +382,84 @@ describe("Util", function() {
             });
         });
     });
+
+    describe("#dragOffset()", function() {
+        it("should follow the drag between pages", () => {
+            assert.strictEqual(util.dragOffset(-120, 1, 5), -120);
+            assert.strictEqual(util.dragOffset(80, 1, 5), 80);
+            assert.strictEqual(util.dragOffset(80, 4, 5), 80);
+            assert.strictEqual(util.dragOffset(-80, 0, 5), -80);
+            assert.strictEqual(util.dragOffset(0, 0, 5), 0);
+        });
+        it("should damp the drag past the first and last pages", () => {
+            assert.strictEqual(util.dragOffset(100, 0, 5), 35);
+            assert.strictEqual(util.dragOffset(-100, 4, 5), -35);
+        });
+        it("should damp the drag both ways with a single page", () => {
+            assert.strictEqual(util.dragOffset(100, 0, 1), 35);
+            assert.strictEqual(util.dragOffset(-100, 0, 1), -35);
+        });
+        it("should damp the drag without pages", () => {
+            assert.strictEqual(util.dragOffset(100, 0, 0), 35);
+            assert.strictEqual(util.dragOffset(-100, 0, 0), -35);
+        });
+    });
+
+    describe("#dragPage()", function() {
+        it("should move one page after a quarter of the width", () => {
+            assert.strictEqual(util.dragPage(1, 5, -85, 340), 2);
+            assert.strictEqual(util.dragPage(1, 5, 85, 340), 0);
+            assert.strictEqual(util.dragPage(1, 5, -300, 340), 2);
+            assert.strictEqual(util.dragPage(1, 5, 700, 340), 0);
+        });
+        it("should stay on the page for short drags", () => {
+            assert.strictEqual(util.dragPage(1, 5, -84, 340), 1);
+            assert.strictEqual(util.dragPage(1, 5, 84, 340), 1);
+            assert.strictEqual(util.dragPage(1, 5, 0, 340), 1);
+            assert.strictEqual(util.dragPage(1, 5, -20, 340, 0.29), 1);
+        });
+        it("should move one page on a quick flick", () => {
+            assert.strictEqual(util.dragPage(1, 5, -20, 340, -0.3), 2);
+            assert.strictEqual(util.dragPage(1, 5, 20, 340, 0.3), 0);
+            assert.strictEqual(util.dragPage(1, 5, 0, 340, -1.5), 2);
+        });
+        it("should follow the flick over the dragged distance", () => {
+            assert.strictEqual(util.dragPage(1, 5, -200, 340, 0.6), 0);
+            assert.strictEqual(util.dragPage(1, 5, 200, 340, -0.6), 2);
+        });
+        it("should keep the page within the bounds", () => {
+            assert.strictEqual(util.dragPage(0, 5, 200, 340), 0);
+            assert.strictEqual(util.dragPage(4, 5, -200, 340), 4);
+            assert.strictEqual(util.dragPage(0, 5, 0, 340, 1.0), 0);
+            assert.strictEqual(util.dragPage(4, 5, 0, 340, -1.0), 4);
+            assert.strictEqual(util.dragPage(0, 1, -200, 340), 0);
+            assert.strictEqual(util.dragPage(0, 0, -200, 340), 0);
+        });
+        it("should stay on the page without a width", () => {
+            assert.strictEqual(util.dragPage(1, 5, -200, undefined), 1);
+            assert.strictEqual(util.dragPage(1, 5, -200, undefined, -0.5), 2);
+        });
+    });
+
+    describe("#keyPage()", function() {
+        it("should map the number keys to the pages", () => {
+            assert.strictEqual(util.keyPage("1", 5), 0);
+            assert.strictEqual(util.keyPage("3", 5), 2);
+            assert.strictEqual(util.keyPage("5", 5), 4);
+            assert.strictEqual(util.keyPage("9", 9), 8);
+        });
+        it("should ignore the number keys beyond the pages", () => {
+            assert.strictEqual(util.keyPage("6", 5), null);
+            assert.strictEqual(util.keyPage("9", 5), null);
+            assert.strictEqual(util.keyPage("1", 0), null);
+        });
+        it("should ignore the zero and other keys", () => {
+            assert.strictEqual(util.keyPage("0", 5), null);
+            assert.strictEqual(util.keyPage("a", 5), null);
+            assert.strictEqual(util.keyPage("ArrowLeft", 5), null);
+            assert.strictEqual(util.keyPage("12", 15), null);
+            assert.strictEqual(util.keyPage("", 5), null);
+            assert.strictEqual(util.keyPage(undefined, 5), null);
+        });
+    });
 });
