@@ -1,14 +1,14 @@
-import { ButtonColor } from "./button-color/button-color.vue";
-import { Carousel } from "./carousel/carousel.vue";
-import { Dot } from "./carousel/dot.vue";
-import { Dots } from "./carousel/dots.vue";
-import { Slide } from "./carousel/slide.vue";
-import { Login } from "./login/login.vue";
-import { Message } from "./message/message.vue";
-import { Notice } from "./notice/notice.vue";
-import { Overlay } from "./overlay/overlay.vue";
-import { Store } from "./store/store.vue";
-import { Stores } from "./stores/stores.vue";
+import ButtonColor from "./button-color/button-color.vue";
+import Carousel from "./carousel/carousel.vue";
+import Dot from "./carousel/dot.vue";
+import Dots from "./carousel/dots.vue";
+import Slide from "./carousel/slide.vue";
+import Login from "./login/login.vue";
+import Message from "./message/message.vue";
+import Notice from "./notice/notice.vue";
+import Overlay from "./overlay/overlay.vue";
+import Store from "./store/store.vue";
+import Stores from "./stores/stores.vue";
 
 export const install = app => {
     app.component("button-color", ButtonColor);
