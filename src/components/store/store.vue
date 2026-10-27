@@ -45,6 +45,15 @@
                     </span>
                 </div>
             </div>
+            <div class="comparison">
+                <span class="label">vs {{ store.mainSales.comparison.label }}</span>
+                <span class="value">
+                    <span class="amount">{{ store.mainSales.comparison.amount }}</span>
+                    <span class="change" v-bind:class="store.mainSales.comparison.direction">
+                        {{ store.mainSales.comparison.change }}
+                    </span>
+                </span>
+            </div>
         </div>
         <div class="results" v-for="sale in store.sales" v-bind:key="sale.key">
             <div class="left">
@@ -62,6 +71,15 @@
                         <span class="currency">{{ sale.currency }}</span>
                     </span>
                 </div>
+            </div>
+            <div class="comparison">
+                <span class="label">vs {{ sale.comparison.label }}</span>
+                <span class="value">
+                    <span class="amount">{{ sale.comparison.amount }}</span>
+                    <span class="change" v-bind:class="sale.comparison.direction">
+                        {{ sale.comparison.change }}
+                    </span>
+                </span>
             </div>
         </div>
     </div>
@@ -186,6 +204,55 @@
     font-size: 11px;
     letter-spacing: 0.2px;
 }
+
+.store .results > .comparison {
+    color: #6d6d6d;
+    display: flex;
+    font-size: 11px;
+    justify-content: space-between;
+    line-height: 16px;
+    margin-top: 6px;
+    width: 100%;
+}
+
+.store .results.results-main > .comparison {
+    margin-top: 8px;
+}
+
+.store .results > .comparison > .value {
+    white-space: nowrap;
+}
+
+.store .results > .comparison .change {
+    font-weight: 700;
+    margin-left: 8px;
+}
+
+.store .results > .comparison .change.up {
+    color: #3a7a00;
+}
+
+.store .results > .comparison .change.down {
+    color: #b84400;
+}
+
+.store .results > .comparison .change.up::before,
+.store .results > .comparison .change.down::before {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    content: "";
+    display: inline-block;
+    margin-right: 3px;
+    vertical-align: 1px;
+}
+
+.store .results > .comparison .change.up::before {
+    border-bottom: 7px solid currentcolor;
+}
+
+.store .results > .comparison .change.down::before {
+    border-top: 7px solid currentcolor;
+}
 </style>
 
 <script>
@@ -202,6 +269,12 @@ export const Store = {
                         weekday: "Week Day",
                         amount: "xx,xxx.xx",
                         currency: "EUR",
+                        comparison: {
+                            label: "Day xx/xx/xx",
+                            amount: "xx,xxx.xx",
+                            change: "+x.x%",
+                            direction: "up"
+                        },
                         direction: "up"
                     },
                     sales: [
@@ -209,7 +282,13 @@ export const Store = {
                             day: "xx/xx",
                             weekday: "Day",
                             amount: "xx,xxx.xx",
-                            currency: "EUR"
+                            currency: "EUR",
+                            comparison: {
+                                label: "Day xx/xx/xx",
+                                amount: "xx,xxx.xx",
+                                change: "+x.x%",
+                                direction: "up"
+                            }
                         }
                     ],
                     isMain: false
