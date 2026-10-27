@@ -73,7 +73,17 @@ import Carousel from "../carousel/carousel.vue";
 import Dots from "../carousel/dots.vue";
 import Slide from "../carousel/slide.vue";
 import Store from "../store/store.vue";
-import { daysOfWeek, months } from "../../util";
+import {
+    comparison,
+    dayLabel,
+    daysOfWeek,
+    lastYear,
+    measureValues,
+    monthLabel,
+    months,
+    totalStore,
+    valueAt
+} from "../../util";
 
 export const SEQUENCE = [
     "net_price_vat",
@@ -101,6 +111,8 @@ export const Stores = {
             isVisible: false,
             isLoading: true,
             data: null,
+            dataLy: null,
+            dataLyMtd: null,
             page: 0,
             timeout: null,
             timeoutInterval: 300000,
@@ -129,6 +141,8 @@ export const Stores = {
             this.isVisible = false;
             this.isLoading = true;
             this.data = null;
+            this.dataLy = null;
+            this.dataLyMtd = null;
             this.timeout = null;
         },
         show: function() {
@@ -190,8 +204,23 @@ export const Stores = {
             this.$root.message = null;
 
             // retrieves the current timestamp as it's going to be used
-            // as the basis for the remote request
-            const timestamp = parseInt(Date.parse(new Date().toUTCString()) / 1000);
+            // as the basis for the remote request, together with the one
+            // for the same date of the previous year (comparison basis)
+            const date = new Date();
+            const dateLy = lastYear(date);
+            const timestamp = parseInt(Date.parse(date.toUTCString()) / 1000);
+            const timestampLy = parseInt(Date.parse(dateLy.toUTCString()) / 1000);
+
+            // starts the remote query operations to retrieve the stores
+            // stats of the previous year, the period is one unit longer so
+            // that dates can be aligned across leap days and for the month
+            // unit the month to date of the previous year is also retrieved
+            const statsLy = Promise.all([
+                this._getStatsLy(timestampLy, this.span + 1, this.unit),
+                this.unit === "month"
+                    ? this._getStatsLy(timestampLy, dateLy.getDate(), "day")
+                    : null
+            ]);
 
             // runs the remote query operation to retrieve the complete
             // set of stores stats for the current environment
@@ -236,6 +265,10 @@ export const Stores = {
                 return;
             }
 
+            // waits for the stats of the previous year to be retrieved, as
+            // their failure is not critical they are just going to be unset
+            [this.dataLy, this.dataLyMtd] = await statsLy;
+
             // updates the current store information taking into account
             // the analytics data that has just been received
             this.isLoading = false;
@@ -245,13 +278,13 @@ export const Stores = {
             // unpacks the data an updates the current stores information
             // as expected, setting a timeout for the automatic update
             // of the sale snapshot information
-            await this.setStores(this.data);
+            await this.setStores(this.data, this.dataLy, this.dataLyMtd);
             this.timeout = setTimeout(this.refresh, this.timeoutInterval);
         },
         refreshLight: async function() {
-            await this.setStores(this.data);
+            await this.setStores(this.data, this.dataLy, this.dataLyMtd);
         },
-        setStores: async function(data) {
+        setStores: async function(data, dataLy, dataLyMtd) {
             // in case the provided data is not valid or not set returns
             // the control flow immediately (avoids invalid cases)
             if (!data) {
@@ -284,74 +317,48 @@ export const Stores = {
             let stores = Object.keys(data).map(k => [k, data[k]]);
 
             // stores the complete set of stores according to their object
-            // identifier, then runs the reverse mapping and filters the stores
-            // that are not marked as non dashboard stores (metadata's `dashboard`
-            // value is set to `false`)
+            // identifier, then filters the stores that are not marked as non
+            // dashboard stores (metadata's `dashboard` value is set to `false`)
             stores = stores.sort((a, b) =>
                 this._storeNumber(a[0], a[1]) > this._storeNumber(b[0], b[1]) ? 1 : -1
             );
-            stores = stores.map(v => v[1]);
             stores = stores.filter(v =>
                 [undefined, true].includes(
-                    ((storesInfo[v.name] || { metadata: {} }).metadata || {}).dashboard
+                    ((storesInfo[v[1].name] || { metadata: {} }).metadata || {}).dashboard
                 )
             );
 
             // iterates over the complete set of stores to update the values
             // corresponding to the associated dimension
-            stores.forEach(store => {
-                // initializes a series of local variables that are going to
-                // be used for the current store values
-                let values;
-                let currency;
-                let label;
-                let places;
-
+            stores.forEach(([objectId, store]) => {
                 // creates the initial date value to be used in the printing
-                // of the last update timestamp
+                // of the last update timestamp, together with the same date
+                // of the previous year (end of the previous year values)
                 let date = new Date();
+                const dateLy = lastYear(date);
 
-                // switches over the currently selected dimension to properly
-                // update the complete set of variables of the update operation
-                switch (this.dimension) {
-                    case "net_price_vat":
-                        values = store.net_price_vat;
-                        currency = "EUR";
-                        label = "Sales";
-                        places = 2;
-                        break;
+                // retrieves the values and the presentation details for the
+                // currently selected dimension, both for the current store and
+                // for the same store in the previous year (if available)
+                const { values, currency, label, places } = measureValues(store, this.dimension);
+                const storeLy = dataLy && dataLy[objectId];
+                const valuesLy = storeLy ? measureValues(storeLy, this.dimension).values : null;
+                const points = this.dimension === "conversion_rate";
 
-                    case "net_number_sales":
-                        values = store.net_number_sales;
-                        currency = "SAL";
-                        label = "Sales";
-                        places = 0;
-                        break;
-
-                    case "net_average_sale":
-                        values = store.net_price_vat.map(
-                            (v, i) => v / (store.net_number_sales[i] || 1.0)
-                        );
-                        currency = "EUR";
-                        label = "Avg.";
-                        places = 2;
-                        break;
-
-                    case "number_entries":
-                        values = store.number_entries;
-                        currency = "ENT";
-                        label = "Entries";
-                        places = 0;
-                        break;
-
-                    case "conversion_rate":
-                        values = store.net_number_sales.map((v, i) =>
-                            store.number_entries[i] ? (v / store.number_entries[i]) * 100.0 : 0.0
-                        );
-                        currency = "%";
-                        label = "Conv.";
-                        places = 1;
-                        break;
+                // retrieves the previous year's value to be compared against the
+                // main value, for the day unit it's the same complete day and for
+                // the month unit it's the same month up to the same day
+                let mainLy;
+                let mainLyLabel;
+                if (this.unit === "day") {
+                    mainLy = valueAt(valuesLy, dateLy, dateLy, this.unit);
+                    mainLyLabel = `${dayLabel(dateLy)}, full day`;
+                } else {
+                    const storeLyMtd = dataLyMtd && dataLyMtd[objectId];
+                    mainLy = storeLyMtd
+                        ? measureValues(totalStore(storeLyMtd), this.dimension).values[0]
+                        : null;
+                    mainLyLabel = `1-${dateLy.getDate()} ${monthLabel(dateLy)}`;
                 }
 
                 // creates the string that is going to represent the current day
@@ -367,6 +374,13 @@ export const Stores = {
                     weekday: this.unit === "day" ? "Today's " + label : "Month's " + label,
                     amount: values[values.length - 1].formatMoney(places, ".", ","),
                     currency: currency,
+                    comparison: comparison(
+                        values[values.length - 1],
+                        mainLy,
+                        mainLyLabel,
+                        places,
+                        points
+                    ),
                     direction: values[values.length - 1] > values[values.length - 2] ? "up" : "down"
                 };
 
@@ -398,6 +412,11 @@ export const Stores = {
                         const weekday = daysOfWeek[date.getDay()];
                         const yearmonth = months[date.getMonth()];
 
+                        // computes the same date of the previous year and retrieves
+                        // the value for it to be used in the year-on-year comparison
+                        const dateRowLy = lastYear(date);
+                        const valueLy = valueAt(valuesLy, dateLy, dateRowLy, this.unit);
+
                         // pushes the current sale per day structure to the list of sales
                         // note that although the name of the structure is a day it may
                         // represent other temporal units
@@ -405,7 +424,14 @@ export const Stores = {
                             day: this.unit === "day" ? dayS : monthS,
                             weekday: this.unit === "day" ? weekday : yearmonth,
                             amount: value.formatMoney(places, ".", ","),
-                            currency: currency
+                            currency: currency,
+                            comparison: comparison(
+                                value,
+                                valueLy,
+                                this.unit === "day" ? dayLabel(dateRowLy) : monthLabel(dateRowLy),
+                                places,
+                                points
+                            )
                         });
                     });
 
@@ -435,6 +461,21 @@ export const Stores = {
             });
             this.storesInfo = Object.fromEntries(stores.map(v => [v.name, v]));
             return this.storesInfo;
+        },
+        _getStatsLy: async function(date, span, unit) {
+            try {
+                return await this.$root.api.statsSaleSnapshot({
+                    params: {
+                        date: date,
+                        has_global: "True",
+                        output: "simple",
+                        span: span,
+                        unit: unit
+                    }
+                });
+            } catch (err) {
+                return null;
+            }
         },
         _getStoreInfo: async function(name) {
             const storesInfo = await this._getStoresInfo();
