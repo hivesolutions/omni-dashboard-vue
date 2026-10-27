@@ -13,10 +13,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Unit tests with coverage reports
 * Docker image builds and infra-local deployment on every push - [#7](https://github.com/hivesolutions/omni-dashboard-vue/issues/7)
 * Tests and build checked on every push across supported Node.js versions - [#9](https://github.com/hivesolutions/omni-dashboard-vue/issues/9)
+* Drag the store cards with a finger or the mouse to move between stores - [#13](https://github.com/hivesolutions/omni-dashboard-vue/issues/13)
+* Number keys 1-9 jump to the matching store card - [#13](https://github.com/hivesolutions/omni-dashboard-vue/issues/13)
 
 ### Changed
 
-*
+* Tighter spacing between the history rows of the store cards - [#13](https://github.com/hivesolutions/omni-dashboard-vue/issues/13)
 
 ### Fixed
 
