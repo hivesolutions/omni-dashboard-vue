@@ -46,6 +46,13 @@ export const lastYear = date => {
     return target;
 };
 
+export const previousDate = (date, unit = "day") => {
+    // steps by calendar day (not 24 hours) so that the days around the
+    // daylight saving changes are neither repeated nor skipped
+    if (unit === "day") return new Date(date.getFullYear(), date.getMonth(), date.getDate() - 1);
+    return new Date(date.getFullYear(), date.getMonth() - 1, 1);
+};
+
 export const measureValues = (store, dimension) => {
     switch (dimension) {
         case "net_price_vat":

@@ -83,6 +83,7 @@ import {
     measureValues,
     monthLabel,
     months,
+    previousDate,
     totalStore,
     valueAt
 } from "../../util";
@@ -404,11 +405,7 @@ export const Stores = {
                     .forEach(value => {
                         // decrements the currently defined delta from the current date
                         // depending on the unit currently in use
-                        if (this.unit === "day") {
-                            date = new Date(date - 86400000);
-                        } else {
-                            date = new Date(date.getFullYear(), date.getMonth() - 1, 1);
-                        }
+                        date = previousDate(date, this.unit);
 
                         // creates the string that is going to represent the current day
                         // as a day and month literal
