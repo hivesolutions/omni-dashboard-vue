@@ -9,6 +9,7 @@
             v-on:key-up.right="next"
             v-on:key-up.up="nextDimension"
             v-on:key-up.down="previousDimension"
+            v-on:key-up="selectPage"
         />
         <div class="loader" v-if="isLoading">
             <div class="ball-scale-multiple">
@@ -77,6 +78,7 @@ import {
     comparison,
     dayLabel,
     daysOfWeek,
+    keyPage,
     lastYear,
     measureValues,
     monthLabel,
@@ -156,6 +158,15 @@ export const Stores = {
         },
         previous: function() {
             this.$refs.carousel.previousPage();
+        },
+        selectPage: function(event) {
+            // ignores the keys typed in inputs (eg: login) and the ones
+            // with modifiers, that are left for the browser shortcuts
+            if (["INPUT", "TEXTAREA"].includes(event.target.tagName)) return;
+            if (event.ctrlKey || event.altKey || event.metaKey) return;
+            const page = keyPage(event.key, this.stores.length);
+            if (page === null) return;
+            this.page = page;
         },
         refresh: function() {
             this.remote();
