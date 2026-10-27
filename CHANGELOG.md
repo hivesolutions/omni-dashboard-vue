@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-*
+* Year-on-year comparison on every store card row - [#5](https://github.com/hivesolutions/omni-dashboard-vue/issues/5)
+* Unit tests with coverage reports
 
 ### Changed
 
@@ -17,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-*
+* Production build failing on fresh installs
 
 ## [0.2.0] - 2023-02-15
 
