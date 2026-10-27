@@ -146,4 +146,24 @@ export const comparison = (current, previous, label, places, points = false) => 
     };
 };
 
+export const dragOffset = (offset, page, count) => {
+    // dragging past the first or the last page is damped so that
+    // the panel resists and springs back on release
+    if ((page <= 0 && offset > 0) || (page >= count - 1 && offset < 0)) return offset * 0.35;
+    return offset;
+};
+
+export const dragPage = (page, count, offset, width, velocity = 0.0) => {
+    let target = page;
+    if (Math.abs(velocity) >= 0.3) target = velocity < 0 ? page + 1 : page - 1;
+    else if (Math.abs(offset) >= width * 0.25) target = offset < 0 ? page + 1 : page - 1;
+    return Math.max(Math.min(target, count - 1), 0);
+};
+
+export const keyPage = (key, count) => {
+    if (!/^[1-9]$/.test(key)) return null;
+    const page = parseInt(key) - 1;
+    return page < count ? page : null;
+};
+
 export default daysOfWeek;
