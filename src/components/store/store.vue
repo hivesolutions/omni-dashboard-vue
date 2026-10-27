@@ -138,8 +138,20 @@
     border-radius: 2px 2px 2px 2px;
     font-size: 0px;
     font-weight: 600;
-    margin: 6px 0px 6px 0px;
+    margin: 2px 0px 2px 0px;
     padding: 6px 0px 6px 0px;
+}
+
+.store .results.results-main {
+    margin: 6px 0px 6px 0px;
+}
+
+.store .results.results-main + .results {
+    margin-top: 6px;
+}
+
+.store .results:last-child {
+    margin-bottom: 6px;
 }
 
 .store .results::after {
