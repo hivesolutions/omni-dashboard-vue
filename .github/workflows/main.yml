@@ -1,0 +1,56 @@
+name: Main Workflow
+on:
+  push:
+  schedule:
+    - cron: "0 0 * * 0"
+
+concurrency:
+  group: main-${{ github.event_name }}-${{ github.ref == 'refs/heads/master' && github.run_id || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-hosted:
+    name: Build Hosted
+    timeout-minutes: 30
+    strategy:
+      matrix:
+        include:
+          - node-version: "20.x"
+            runs-on: [self-hosted, ubuntu, latest]
+          - node-version: "22.x"
+            runs-on: [self-hosted, ubuntu, latest]
+          - node-version: "24.x"
+            runs-on: [self-hosted, ubuntu, latest]
+          - node-version: "26.x"
+            runs-on: [self-hosted, ubuntu, latest]
+    runs-on: ${{ matrix.runs-on }}
+
+    steps:
+      - name: Cleanup the hosted runner
+        uses: joamag/cleanup-hosted@master
+
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Show Node.js version
+        run: node --version
+
+      - name: Install dependencies
+        run: |
+          npm install --global yarn
+          NODE_ENV=dev yarn install
+
+      - name: Check formatting
+        if: matrix.node-version == '26.x'
+        run: yarn run lint-all
+
+      - name: Run tests
+        run: yarn run test
+
+      - name: Build
+        run: yarn run build
