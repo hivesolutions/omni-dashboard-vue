@@ -23,19 +23,23 @@
                 </div>
             </div>
             <div class="column right">
-                <div class="copy">
+                <button
+                    class="copy"
+                    v-bind:aria-label="$root.translate('copyImage')"
+                    v-bind:title="$root.translate('copyImage')"
+                    v-on:click="copyImage"
+                >
                     <img src="~./assets/check.svg" v-if="$root.copyState === 'done'" />
                     <img src="~./assets/error.svg" v-else-if="$root.copyState === 'error'" />
-                    <img
-                        src="~./assets/copy.svg"
-                        v-bind:title="$root.translate('copyImage')"
-                        v-else
-                        v-on:click="copyImage"
-                    />
-                </div>
-                <div class="settings">
-                    <img src="~./assets/settings.svg" v-on:click="showSettings" />
-                </div>
+                    <img src="~./assets/copy.svg" v-else />
+                </button>
+                <button
+                    class="settings"
+                    v-bind:aria-label="$root.translate('settings')"
+                    v-on:click="showSettings"
+                >
+                    <img src="~./assets/settings.svg" />
+                </button>
                 <div class="refresh">
                     <img src="~./assets/refresh.svg" v-on:click="refresh" />
                 </div>
@@ -141,7 +145,13 @@
 
 .store .copy,
 .store .settings {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 0px;
     margin-right: 12px;
+    padding: 0px 0px 0px 0px;
+    vertical-align: middle;
 }
 
 .loading .store .logout,

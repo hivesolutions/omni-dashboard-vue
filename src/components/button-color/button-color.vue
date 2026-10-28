@@ -1,8 +1,12 @@
 <template>
     <span
         class="button button-color"
+        role="button"
+        tabindex="0"
         v-bind:class="{ loading: isLoading }"
         v-on:click="$emit('click')"
+        v-on:keydown.enter.prevent="$emit('click')"
+        v-on:keydown.space.prevent="$emit('click')"
     >
         <slot v-if="!isLoading" />
         <div class="ball-scale-multiple" v-if="isLoading">
