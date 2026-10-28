@@ -23,7 +23,7 @@
                     {{ $root.translate("done") }}
                 </ButtonColor>
             </div>
-            <div class="setting">
+            <div class="setting setting-language">
                 <div class="label">
                     <div class="name">
                         {{ $root.translate("language") }}
@@ -83,7 +83,7 @@
                     </button>
                 </div>
             </div>
-            <div class="setting">
+            <div class="setting setting-opens">
                 <div class="label">
                     <div class="name">
                         {{ $root.translate("opensWith") }}
@@ -432,6 +432,44 @@
     letter-spacing: 0.3px;
     padding: 0px 12px 0px 12px;
     text-transform: uppercase;
+}
+
+@media screen and (max-width: 420px) {
+
+    .settings > .setting.setting-opens {
+        display: block;
+        padding: 12px 0px 12px 0px;
+    }
+
+    .settings > .setting.setting-opens > .controls {
+        margin-top: 10px;
+    }
+
+    .settings > .setting.setting-opens .select {
+        flex: 1 1 auto;
+    }
+
+    .settings > .setting.setting-opens .select > select {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 359px) {
+
+    .settings > .setting.setting-language {
+        display: block;
+        padding: 12px 0px 12px 0px;
+    }
+
+    .settings > .setting.setting-language > .segments {
+        margin-top: 10px;
+    }
+
+    .settings > .setting.setting-language > .segments > button {
+        flex: 1 1 auto;
+        min-width: 0px;
+        padding: 0px 6px 0px 6px;
+    }
 }
 </style>
 
