@@ -23,6 +23,218 @@ export const months = [
     "December"
 ];
 
+export const locales = {
+    en: {
+        name: "English",
+        locale: "en",
+        daysOfWeek: daysOfWeek,
+        months: months,
+        texts: {
+            login: "Login",
+            username: "Username",
+            password: "Password",
+            instance: "Instance",
+            yourUrl: "your-url",
+            signIn: "Sign in",
+            forgotPassword: "Forgot your password?",
+            unknownError: "Unknown error",
+            logoutConfirm: "Are you sure you want to logout?",
+            errorTitle: "Oops there was an error",
+            errorTurbulence:
+                "Unfortunately the site is experiencing a bit of turbulence right now.",
+            errorSoon: "But soon we'll be up and the sun will shine again.",
+            refresh: "Refresh",
+            copyImage: "Copy as image",
+            errorLoading: "Error loading remote data",
+            errorLoadingDetail: "Error loading remote data: {message}",
+            updated: "Updated",
+            today: "Today's {label}",
+            month: "Month's {label}",
+            fullDay: "{label}, full day",
+            noData: "no data",
+            notAvailable: "n/a",
+            sales: "Sales",
+            average: "Avg.",
+            entries: "Entries",
+            conversion: "Conv.",
+            unitSales: "SAL",
+            unitEntries: "ENT",
+            savedInBrowser: "Saved in this browser",
+            settings: "Settings",
+            done: "Done",
+            language: "Language",
+            automatic: "Automatic",
+            comparison: "Year-on-year comparison",
+            comparisonDescription: "The vs line under every row",
+            numberFormat: "Number format",
+            automaticFollows: "Automatic follows {locale}",
+            opensWith: "Opens with",
+            period: "Period",
+            periodDay: "Day",
+            periodMonth: "Month",
+            measure: "Measure",
+            measureSales: "Sales (EUR)",
+            measureNumberSales: "Number of sales",
+            measureAverageSale: "Average sale",
+            measureEntries: "Entries",
+            measureConversion: "Conversion",
+            historyRows: "History rows",
+            fewerRows: "Fewer rows",
+            moreRows: "More rows",
+            refreshEvery: "Refresh every",
+            refreshInterval: "Refresh interval",
+            minutes: "{count} min",
+            resetDefaults: "Reset to defaults"
+        }
+    },
+    pt: {
+        name: "Português",
+        locale: "pt-PT",
+        daysOfWeek: [
+            "Domingo",
+            "Segunda-feira",
+            "Terça-feira",
+            "Quarta-feira",
+            "Quinta-feira",
+            "Sexta-feira",
+            "Sábado"
+        ],
+        months: [
+            "Janeiro",
+            "Fevereiro",
+            "Março",
+            "Abril",
+            "Maio",
+            "Junho",
+            "Julho",
+            "Agosto",
+            "Setembro",
+            "Outubro",
+            "Novembro",
+            "Dezembro"
+        ],
+        texts: {
+            login: "Iniciar sessão",
+            username: "Utilizador",
+            password: "Palavra-passe",
+            instance: "Instância",
+            yourUrl: "o-seu-url",
+            signIn: "Entrar",
+            forgotPassword: "Esqueceu-se da palavra-passe?",
+            unknownError: "Erro desconhecido",
+            logoutConfirm: "Tem a certeza de que quer terminar a sessão?",
+            errorTitle: "Ups, ocorreu um erro",
+            errorTurbulence:
+                "Infelizmente, o site está a passar por alguma turbulência neste momento.",
+            errorSoon: "Mas em breve voltaremos e o sol voltará a brilhar.",
+            refresh: "Atualizar",
+            copyImage: "Copiar como imagem",
+            errorLoading: "Erro ao carregar os dados remotos",
+            errorLoadingDetail: "Erro ao carregar os dados remotos: {message}",
+            updated: "Atualizado",
+            today: "{label} de hoje",
+            month: "{label} do mês",
+            fullDay: "{label}, dia completo",
+            noData: "sem dados",
+            notAvailable: "n/d",
+            sales: "Vendas",
+            average: "Média",
+            entries: "Entradas",
+            conversion: "Conv.",
+            unitSales: "VEN",
+            unitEntries: "ENT",
+            savedInBrowser: "Guardado neste navegador",
+            settings: "Definições",
+            done: "Concluído",
+            language: "Idioma",
+            automatic: "Automático",
+            comparison: "Comparação homóloga",
+            comparisonDescription: "A linha vs por baixo de cada linha",
+            numberFormat: "Formato dos números",
+            automaticFollows: "Automático segue {locale}",
+            opensWith: "Abre com",
+            period: "Período",
+            periodDay: "Dia",
+            periodMonth: "Mês",
+            measure: "Medida",
+            measureSales: "Vendas (EUR)",
+            measureNumberSales: "Número de vendas",
+            measureAverageSale: "Venda média",
+            measureEntries: "Entradas",
+            measureConversion: "Conversão",
+            historyRows: "Linhas do histórico",
+            fewerRows: "Menos linhas",
+            moreRows: "Mais linhas",
+            refreshEvery: "Atualizar a cada",
+            refreshInterval: "Intervalo de atualização",
+            minutes: "{count} min",
+            resetDefaults: "Repor predefinições"
+        }
+    }
+};
+
+export const dimensions = [
+    "net_price_vat",
+    "net_number_sales",
+    "net_average_sale",
+    "number_entries",
+    "conversion_rate"
+];
+
+export const numberFormats = {
+    auto: null,
+    point: [".", ","],
+    comma: [",", "."],
+    space: [",", "\u00a0"]
+};
+
+export const languages = ["auto"].concat(Object.keys(locales));
+
+export const intervals = [1, 5, 15, 30];
+
+export const spanRange = [3, 14];
+
+export const defaultSettings = {
+    language: "auto",
+    comparison: true,
+    format: "auto",
+    unit: "day",
+    dimension: "net_price_vat",
+    span: 7,
+    interval: 5
+};
+
+export const translate = (key, language = "en", values = {}) => {
+    const texts = localeOf(language).texts;
+    let text = key;
+    if (Object.keys(texts).includes(key)) text = texts[key];
+    else if (Object.keys(locales.en.texts).includes(key)) text = locales.en.texts[key];
+
+    // fills the placeholders (eg: {label}) with the given values, leaving
+    // the ones without a value as they are so that they're easy to spot
+    return text.replace(/\{(\w+)\}/g, (match, name) =>
+        Object.keys(values).includes(name) ? String(values[name]) : match
+    );
+};
+
+export const resolveLanguage = (language, locale) => {
+    if (Object.keys(locales).includes(language)) return language;
+
+    // the automatic language is the one of the browser when there's a
+    // translation for it (eg: pt-BR uses pt), otherwise English
+    const code = String(locale || "")
+        .split(/[-_]/)[0]
+        .toLowerCase();
+    return Object.keys(locales).includes(code) ? code : "en";
+};
+
+export const languageLocale = (language, locale) =>
+    Object.keys(locales).includes(language) ? locales[language].locale : locale;
+
+export const dayName = (date, language = "en") => localeOf(language).daysOfWeek[date.getDay()];
+
+export const monthName = (date, language = "en") => localeOf(language).months[date.getMonth()];
+
 export const fetchParams = async (urlString, params, raiseE = true) => {
     const url = new URL(urlString);
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
@@ -53,21 +265,21 @@ export const previousDate = (date, unit = "day") => {
     return new Date(date.getFullYear(), date.getMonth() - 1, 1);
 };
 
-export const measureValues = (store, dimension) => {
+export const measureValues = (store, dimension, language = "en") => {
     switch (dimension) {
         case "net_price_vat":
             return {
                 values: store.net_price_vat,
                 currency: "EUR",
-                label: "Sales",
+                label: translate("sales", language),
                 places: 2
             };
 
         case "net_number_sales":
             return {
                 values: store.net_number_sales,
-                currency: "SAL",
-                label: "Sales",
+                currency: translate("unitSales", language),
+                label: translate("sales", language),
                 places: 0
             };
 
@@ -75,15 +287,15 @@ export const measureValues = (store, dimension) => {
             return {
                 values: store.net_price_vat.map((v, i) => v / (store.net_number_sales[i] || 1.0)),
                 currency: "EUR",
-                label: "Avg.",
+                label: translate("average", language),
                 places: 2
             };
 
         case "number_entries":
             return {
                 values: store.number_entries,
-                currency: "ENT",
-                label: "Entries",
+                currency: translate("unitEntries", language),
+                label: translate("entries", language),
                 places: 0
             };
 
@@ -93,7 +305,7 @@ export const measureValues = (store, dimension) => {
                     store.number_entries[i] ? (v / store.number_entries[i]) * 100.0 : 0.0
                 ),
                 currency: "%",
-                label: "Conv.",
+                label: translate("conversion", language),
                 places: 1
             };
     }
@@ -119,35 +331,45 @@ export const valueAt = (values, end, date, unit = "day") => {
     return value === undefined ? null : value;
 };
 
-export const dayLabel = date =>
-    `${daysOfWeek[date.getDay()].slice(0, 3)} ${String(date.getDate()).padStart(2, "0")}/${String(
+export const dayLabel = (date, language = "en") =>
+    `${dayName(date, language).slice(0, 3)} ${String(date.getDate()).padStart(2, "0")}/${String(
         date.getMonth() + 1
     ).padStart(2, "0")}/${String(date.getFullYear()).slice(2, 4).padStart(2, "0")}`;
 
-export const monthLabel = date => `${months[date.getMonth()].slice(0, 3)} ${date.getFullYear()}`;
+export const monthLabel = (date, language = "en") =>
+    `${monthName(date, language).slice(0, 3)} ${date.getFullYear()}`;
 
-export const delta = (current, previous, points = false) => {
+export const delta = (current, previous, points = false, decimal = ".", language = "en") => {
     if (previous === null || previous === undefined || (!points && previous === 0)) {
-        return { change: "n/a", direction: null };
+        return { change: translate("notAvailable", language), direction: null };
     }
     const value = points ? current - previous : ((current - previous) / Math.abs(previous)) * 100.0;
     const rounded = Math.round(Math.abs(value) * 10) / 10;
     const direction = rounded === 0 ? null : value > 0 ? "up" : "down";
     const sign = direction === "up" ? "+" : direction === "down" ? "-" : "";
     return {
-        change: `${sign}${rounded.toFixed(1)}${points ? " pp" : "%"}`,
+        change: `${sign}${rounded.toFixed(1).replace(".", decimal)}${points ? " pp" : "%"}`,
         direction: direction
     };
 };
 
-export const comparison = (current, previous, label, places, points = false) => {
-    const { change, direction } = delta(current, previous, points);
+export const comparison = (
+    current,
+    previous,
+    label,
+    places,
+    points = false,
+    decimal = ".",
+    thousands = ",",
+    language = "en"
+) => {
+    const { change, direction } = delta(current, previous, points, decimal, language);
     return {
         label: label,
         amount:
             previous === null || previous === undefined
-                ? "no data"
-                : previous.formatMoney(places, ".", ","),
+                ? translate("noData", language)
+                : previous.formatMoney(places, decimal, thousands),
         change: change,
         direction: direction
     };
@@ -172,5 +394,99 @@ export const keyPage = (key, count) => {
     const page = parseInt(key) - 1;
     return page < count ? page : null;
 };
+
+export const formatSeparators = (format, locale) => {
+    if (Object.keys(numberFormats).includes(format) && numberFormats[format]) {
+        return numberFormats[format];
+    }
+
+    // the automatic format uses the separators of the browser's language,
+    // with latin digits as the amounts are always printed with them
+    let parts;
+    try {
+        parts = new Intl.NumberFormat(locale, { numberingSystem: "latn" }).formatToParts(1234567.8);
+    } catch (err) {
+        return numberFormats.point;
+    }
+    const decimal = parts.find(part => part.type === "decimal");
+    const group = parts.find(part => part.type === "group");
+    return [decimal ? decimal.value : ".", group ? group.value : ","];
+};
+
+export const parseSettings = value => {
+    const settings = { ...defaultSettings };
+
+    // the stored value may be missing or corrupted, in which case the
+    // defaults are used, as they are for any invalid individual setting
+    let stored;
+    try {
+        stored = JSON.parse(value);
+    } catch (err) {
+        return settings;
+    }
+    if (!stored || typeof stored !== "object" || Array.isArray(stored)) return settings;
+
+    if (languages.includes(stored.language)) settings.language = stored.language;
+    if (typeof stored.comparison === "boolean") settings.comparison = stored.comparison;
+    if (Object.keys(numberFormats).includes(stored.format)) settings.format = stored.format;
+    if (["day", "month"].includes(stored.unit)) settings.unit = stored.unit;
+    if (dimensions.includes(stored.dimension)) settings.dimension = stored.dimension;
+    if (
+        Number.isInteger(stored.span) &&
+        stored.span >= spanRange[0] &&
+        stored.span <= spanRange[1]
+    ) {
+        settings.span = stored.span;
+    }
+    if (intervals.includes(stored.interval)) settings.interval = stored.interval;
+    return settings;
+};
+
+export const imageName = (name, date) => {
+    // the store name is turned into a plain slug (eg: São João becomes
+    // sao-joao) so that the file name works in every system
+    const slug =
+        String(name || "")
+            .normalize("NFKD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/^-+|-+$/g, "") || "store";
+    const day = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(
+        date.getDate()
+    ).padStart(2, "0")}`;
+    return `omni-${slug}-${day}.png`;
+};
+
+export const canCopyImage = (navigator, ClipboardItem) => {
+    if (!navigator || !navigator.clipboard || !navigator.clipboard.write || !ClipboardItem) {
+        return false;
+    }
+    return ClipboardItem.supports ? ClipboardItem.supports("image/png") : true;
+};
+
+export const canShareFile = (navigator, file) => {
+    if (!navigator || !navigator.share || !navigator.canShare) return false;
+    try {
+        return navigator.canShare({ files: [file] });
+    } catch (err) {
+        return false;
+    }
+};
+
+export const wrapFocus = (elements, active, backwards = false) => {
+    // returns the element that gets the focus when tabbing past the first
+    // or the last of the elements, so that the focus stays among them, or
+    // null when the browser can move the focus by itself
+    if (!elements.length) return null;
+    const first = elements[0];
+    const last = elements[elements.length - 1];
+    if (backwards && (active === first || !elements.includes(active))) return last;
+    if (!backwards && (active === last || !elements.includes(active))) return first;
+    return null;
+};
+
+const localeOf = language =>
+    Object.keys(locales).includes(language) ? locales[language] : locales.en;
 
 export default daysOfWeek;

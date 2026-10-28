@@ -52,6 +52,28 @@
     }
 }
 
+@-webkit-keyframes slide-up {
+
+    from {
+        transform: translateY(100%);
+    }
+
+    to {
+        transform: translateY(0px);
+    }
+}
+
+@keyframes slide-up {
+
+    from {
+        transform: translateY(100%);
+    }
+
+    to {
+        transform: translateY(0px);
+    }
+}
+
 html {
     height: 100%;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;

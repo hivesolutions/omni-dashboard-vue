@@ -1,8 +1,12 @@
 <template>
     <span
         class="button button-color"
+        role="button"
+        tabindex="0"
         v-bind:class="{ loading: isLoading }"
         v-on:click="$emit('click')"
+        v-on:keydown.enter.prevent="$emit('click')"
+        v-on:keydown.space.prevent="$emit('click')"
     >
         <slot v-if="!isLoading" />
         <div class="ball-scale-multiple" v-if="isLoading">
@@ -14,6 +18,28 @@
 </template>
 
 <style scoped>
+.button.button-color {
+    background-color: #2d2d2d;
+    border-radius: 22px 22px 22px 22px;
+    box-sizing: border-box;
+    font-size: 13px;
+    font-weight: 700;
+    height: 44px;
+    letter-spacing: 0px;
+    line-height: 44px;
+    padding: 0px 24px 0px 24px;
+    text-align: center;
+    text-transform: none;
+}
+
+.button.button-color:hover {
+    background-color: #4d4d4d;
+}
+
+.button.button-color:active {
+    background-color: #1d1d1d;
+}
+
 .button > * {
     display: inline-block;
     vertical-align: middle;

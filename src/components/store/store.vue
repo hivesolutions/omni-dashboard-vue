@@ -23,6 +23,23 @@
                 </div>
             </div>
             <div class="column right">
+                <button
+                    class="copy"
+                    v-bind:aria-label="$root.translate('copyImage')"
+                    v-bind:title="$root.translate('copyImage')"
+                    v-on:click="copyImage"
+                >
+                    <img src="~./assets/check.svg" v-if="$root.copyState === 'done'" />
+                    <img src="~./assets/error.svg" v-else-if="$root.copyState === 'error'" />
+                    <img src="~./assets/copy.svg" v-else />
+                </button>
+                <button
+                    class="settings"
+                    v-bind:aria-label="$root.translate('settings')"
+                    v-on:click="showSettings"
+                >
+                    <img src="~./assets/settings.svg" />
+                </button>
                 <div class="refresh">
                     <img src="~./assets/refresh.svg" v-on:click="refresh" />
                 </div>
@@ -45,7 +62,7 @@
                     </span>
                 </div>
             </div>
-            <div class="comparison">
+            <div class="comparison" v-if="$root.settings.comparison">
                 <span class="label">vs {{ store.mainSales.comparison.label }}</span>
                 <span class="value">
                     <span class="amount">{{ store.mainSales.comparison.amount }}</span>
@@ -72,7 +89,7 @@
                     </span>
                 </div>
             </div>
-            <div class="comparison">
+            <div class="comparison" v-if="$root.settings.comparison">
                 <span class="label">vs {{ sale.comparison.label }}</span>
                 <span class="value">
                     <span class="amount">{{ sale.comparison.amount }}</span>
@@ -114,22 +131,47 @@
 }
 
 .store .logout,
+.store .copy,
+.store .settings,
 .store .refresh {
     transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
+.store .copy,
+.store .settings,
+.store .refresh {
+    display: inline-block;
+}
+
+.store .copy,
+.store .settings {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 0px;
+    margin-right: 12px;
+    padding: 0px 0px 0px 0px;
+    vertical-align: middle;
+}
+
 .loading .store .logout,
+.loading .store .copy,
+.loading .store .settings,
 .loading .store .refresh {
     opacity: 0;
 }
 
 .store .logout > img,
+.store .copy > img,
+.store .settings > img,
 .store .refresh > img {
     cursor: pointer;
     vertical-align: middle;
 }
 
 .store .logout > img:hover,
+.store .copy > img:hover,
+.store .settings > img:hover,
 .store .refresh > img:hover {
     filter: invert(0.5) sepia(1) hue-rotate(12deg);
 }
@@ -314,6 +356,12 @@ export const Store = {
         },
         refresh: function() {
             this.$root.refresh();
+        },
+        showSettings: function() {
+            this.$root.showSettings();
+        },
+        copyImage: function() {
+            this.$root.copyImage();
         },
         changeUnit: function(mode) {
             this.$root.changeUnit();

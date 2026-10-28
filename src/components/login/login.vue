@@ -1,48 +1,63 @@
 <template>
     <div class="login-container" v-bind:class="{ visible: isVisible }">
         <div class="login container">
-            <h1>{{ title }}</h1>
+            <div class="icon">
+                <img src="~./assets/lock.svg" />
+            </div>
+            <div class="caption">
+                Omni Dashboard
+            </div>
+            <h1>{{ title || $root.translate("login") }}</h1>
             <p class="extra error" v-if="message">
                 {{ message }}
             </p>
             <p class="extra">
-                <input
-                    type="text"
-                    placeholder="Username"
-                    autocapitalize="none"
-                    ref="username"
-                    v-model="username"
-                    v-on:keyup.enter="submit"
-                />
+                <label>
+                    <span class="label">{{ $root.translate("username") }}</span>
+                    <input
+                        type="text"
+                        autocapitalize="none"
+                        ref="username"
+                        v-model="username"
+                        v-on:keyup.enter="submit"
+                    />
+                </label>
             </p>
             <p class="extra">
-                <input
-                    type="password"
-                    placeholder="Password"
-                    autocapitalize="none"
-                    ref="password"
-                    v-model="password"
-                    v-on:keyup.enter="submit"
-                />
+                <label>
+                    <span class="label">{{ $root.translate("password") }}</span>
+                    <input
+                        type="password"
+                        autocapitalize="none"
+                        ref="password"
+                        v-model="password"
+                        v-on:keyup.enter="submit"
+                    />
+                </label>
             </p>
             <p class="extra instance">
-                <input
-                    type="text"
-                    placeholder="your-url"
-                    autocapitalize="none"
-                    ref="instance"
-                    v-model="instance"
-                    v-on:keyup.enter="submit"
-                />
-                <span>.frontdoorhd.com</span>
+                <label>
+                    <span class="label">{{ $root.translate("instance") }}</span>
+                    <span class="field">
+                        <input
+                            type="text"
+                            v-bind:placeholder="$root.translate('yourUrl')"
+                            autocapitalize="none"
+                            ref="instance"
+                            v-model="instance"
+                            v-on:keyup.enter="submit"
+                        />
+                        <span class="domain">.frontdoorhd.com</span>
+                    </span>
+                </label>
             </p>
             <p class="extra buttons">
                 <ButtonColor ref="button" v-on:click="submit">
-                    Signin
+                    {{ $root.translate("signIn") }}
                 </ButtonColor>
             </p>
             <p class="extra forgot">
-                <a href="#">Forgot your password?</a>
+                <a href="#">{{ $root.translate("forgotPassword") }}</a>
             </p>
         </div>
     </div>
@@ -50,11 +65,13 @@
 
 <style scoped>
 .login-container {
-    align-items: center;
+    box-sizing: border-box;
     display: none;
     height: 100%;
     justify-content: center;
     left: 0px;
+    overflow-y: auto;
+    padding: 12px 0px 12px 0px;
     position: fixed;
     text-align: center;
     top: 0px;
@@ -69,65 +86,119 @@
 .login {
     box-sizing: border-box;
     display: none;
-    max-width: 320px;
-    min-width: 320px;
-    width: 320px;
+    max-width: 340px;
+    min-width: 300px;
+    text-align: left;
+    width: 100%;
 }
 
 .container.login {
-    padding: 20px 24px 20px 24px;
+    padding: 24px 24px 12px 24px;
 }
 
 .login-container.visible .login {
     display: block;
+    margin: auto auto auto auto;
     opacity: 1;
 }
 
+.login > .icon {
+    align-items: center;
+    border: 1px solid #e2e2e2;
+    border-radius: 32px 32px 32px 32px;
+    box-shadow: 0px 0px 8px rgba(180, 180, 180, 0.4);
+    display: flex;
+    height: 64px;
+    justify-content: center;
+    margin: 12px auto 20px auto;
+    width: 64px;
+}
+
+.login > .caption,
+.login .label {
+    color: #6d6d6d;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
 .login h1 {
-    font-size: 30px;
-    line-height: 32px;
-    margin-bottom: 24px;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 18px;
+    margin: 4px 0px 0px 0px;
 }
 
 .login .error {
     color: #c9273f;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
 }
 
-.login .instance {
-    text-align: left;
+.login .instance > label > .field {
+    align-items: center;
+    border: 1px solid #e2e2e2;
+    border-radius: 22px 22px 22px 22px;
+    box-sizing: border-box;
+    display: flex;
+    height: 44px;
+    margin-top: 6px;
+    padding: 0px 16px 0px 16px;
+    transition: border-color 0.1s linear;
 }
 
-.login .instance > input {
-    width: 128px;
+.login .instance > label > .field:focus-within {
+    border-color: #2d2d2d;
 }
 
-.login .instance > span {
-    font-size: 12px;
-    font-weight: 600;
+.login .instance > label > .field > input {
+    border: none;
+    flex: 1;
+    height: 40px;
+    margin-top: 0px;
+    min-width: 0px;
+    padding: 0px 0px 0px 0px;
+}
+
+.login .instance > label > .field > .domain {
+    color: #4d4d4d;
+    font-size: 11px;
+    font-weight: 700;
     letter-spacing: 0.4px;
     text-transform: uppercase;
-    vertical-align: bottom;
 }
 
 .login > .buttons {
-    margin-top: 32px;
+    margin-top: 24px;
+}
+
+.login > .buttons > .button {
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.login > .forgot {
+    margin-top: 6px;
+    text-align: center;
 }
 
 .login > .forgot > a {
-    color: #31acd4;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.2px;
+    color: #4d4d4d;
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    line-height: 44px;
+    padding: 0px 12px 0px 12px;
+    text-transform: uppercase;
 }
 
 input[type="text"],
 input[type="password"] {
-    border: none;
-    border-bottom: 1px solid #2d9fc4;
-    border-radius: 0px 0px 0px 0px;
+    border: 1px solid #e2e2e2;
+    border-radius: 22px 22px 22px 22px;
     box-sizing: border-box;
+    color: #2d2d2d;
     font-family: -apple-system,
         BlinkMacSystemFont,
         "Segoe UI",
@@ -136,25 +207,25 @@ input[type="password"] {
         "Helvetica",
         "Arial",
         sans-serif;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
-    height: 30px;
+    height: 44px;
     line-height: 16px;
-    margin-top: 12px;
+    margin-top: 6px;
     outline: none;
-    padding: 0px 2px 0px 2px;
+    padding: 0px 16px 0px 16px;
     transition: border-color 0.1s linear;
     width: 100%;
 }
 
 input[type="text"]:focus,
 input[type="password"]:focus {
-    border-bottom-color: #2d2d2d;
+    border-color: #2d2d2d;
 }
 
 input[type="text"]::placeholder,
 input[type="password"]::placeholder {
-    color: #6baec4;
+    color: #767676;
     font-size: 12px;
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -179,7 +250,7 @@ export const Login = {
     props: {
         title: {
             type: String,
-            default: "Login"
+            default: null
         }
     },
     data: function() {
@@ -241,7 +312,7 @@ export const Login = {
                 this.$root.instance = this.instance;
                 this.$root.refresh();
             } catch (err) {
-                const message = err.message ? err.message : "Unknown error";
+                const message = err.message ? err.message : this.$root.translate("unknownError");
                 const finalMessage = message.slice(0, 1).toUpperCase() + message.slice(1);
                 this.message = finalMessage;
             } finally {
