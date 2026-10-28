@@ -1027,4 +1027,35 @@ describe("Util", function() {
             assert.strictEqual(util.canShareFile(undefined, file), false);
         });
     });
+
+    describe("#wrapFocus()", function() {
+        const elements = ["switch", "format", "measure", "reset"];
+
+        it("should wrap to the first element after the last one", () => {
+            assert.strictEqual(util.wrapFocus(elements, "reset"), "switch");
+            assert.strictEqual(util.wrapFocus(elements, "reset", false), "switch");
+        });
+        it("should wrap to the last element before the first one", () => {
+            assert.strictEqual(util.wrapFocus(elements, "switch", true), "reset");
+        });
+        it("should let the focus move between the elements", () => {
+            assert.strictEqual(util.wrapFocus(elements, "switch"), null);
+            assert.strictEqual(util.wrapFocus(elements, "format"), null);
+            assert.strictEqual(util.wrapFocus(elements, "measure", true), null);
+            assert.strictEqual(util.wrapFocus(elements, "reset", true), null);
+        });
+        it("should bring back the focus from outside the elements", () => {
+            assert.strictEqual(util.wrapFocus(elements, "sheet"), "switch");
+            assert.strictEqual(util.wrapFocus(elements, "sheet", true), "reset");
+            assert.strictEqual(util.wrapFocus(elements, null), "switch");
+        });
+        it("should keep a single element focused", () => {
+            assert.strictEqual(util.wrapFocus(["done"], "done"), "done");
+            assert.strictEqual(util.wrapFocus(["done"], "done", true), "done");
+        });
+        it("should do nothing without elements", () => {
+            assert.strictEqual(util.wrapFocus([], "sheet"), null);
+            assert.strictEqual(util.wrapFocus([], null, true), null);
+        });
+    });
 });
