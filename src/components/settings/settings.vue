@@ -2,10 +2,14 @@
     <div class="settings-container" v-bind:class="{ visible: isVisible }" v-on:click.self="hide">
         <div
             class="settings"
+            role="dialog"
+            aria-modal="true"
             tabindex="-1"
+            v-bind:aria-label="$root.translate('settings')"
             ref="settings"
             v-on:keyup.stop
             v-on:keyup.esc="hide"
+            v-on:keydown.tab="trapFocus"
         >
             <div class="handle" />
             <div class="header">
@@ -199,8 +203,10 @@
     border-radius: 16px 16px 0px 0px;
     box-shadow: 0px -8px 24px rgba(10, 10, 10, 0.3);
     box-sizing: border-box;
+    max-height: 100%;
     max-width: 420px;
     outline: none;
+    overflow-y: auto;
     padding: 10px 24px 20px 24px;
     text-align: left;
     user-select: none;
@@ -439,7 +445,8 @@ import {
     languages,
     locales,
     numberFormats,
-    spanRange
+    spanRange,
+    wrapFocus
 } from "../../util";
 
 export const MEASURES = {
@@ -457,6 +464,7 @@ export const Settings = {
     data: function() {
         return {
             isVisible: false,
+            opener: null,
             intervals: intervals,
             spanRange: spanRange
         };
@@ -506,13 +514,29 @@ export const Settings = {
     },
     methods: {
         show: function() {
+            this.opener = document.activeElement;
             this.isVisible = true;
             setTimeout(() => {
                 this.$refs.settings.focus();
             });
         },
         hide: function() {
+            // gives the focus back to the control that opened the sheet,
+            // so that keyboard users carry on from where they were
+            if (this.isVisible && this.opener && this.opener.focus) this.opener.focus();
             this.isVisible = false;
+            this.opener = null;
+        },
+        trapFocus: function(event) {
+            // keeps the focus within the sheet while it's open, wrapping
+            // around its first and last controls
+            const elements = [
+                ...this.$refs.settings.querySelectorAll("button, select, [tabindex='0']")
+            ].filter(element => !element.disabled);
+            const target = wrapFocus(elements, document.activeElement, event.shiftKey);
+            if (!target) return;
+            event.preventDefault();
+            target.focus();
         },
         setSetting: function(name, value) {
             this.$root.setSetting(name, value);

@@ -474,6 +474,18 @@ export const canShareFile = (navigator, file) => {
     }
 };
 
+export const wrapFocus = (elements, active, backwards = false) => {
+    // returns the element that gets the focus when tabbing past the first
+    // or the last of the elements, so that the focus stays among them, or
+    // null when the browser can move the focus by itself
+    if (!elements.length) return null;
+    const first = elements[0];
+    const last = elements[elements.length - 1];
+    if (backwards && (active === first || !elements.includes(active))) return last;
+    if (!backwards && (active === last || !elements.includes(active))) return first;
+    return null;
+};
+
 const localeOf = language =>
     Object.keys(locales).includes(language) ? locales[language] : locales.en;
 
