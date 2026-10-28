@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 * Tighter spacing between the history rows of the store cards - [#13](https://github.com/hivesolutions/omni-dashboard-vue/issues/13)
+* Every deploy loads fresh copies of the scripts and icons - [#19](https://github.com/hivesolutions/omni-dashboard-vue/issues/19)
 
 ### Fixed
 
@@ -28,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * New deployments taking up to a day to reach browsers - [#17](https://github.com/hivesolutions/omni-dashboard-vue/issues/17)
 * Multi-platform Docker image build failing on 32-bit ARM - [#10](https://github.com/hivesolutions/omni-dashboard-vue/issues/10)
 * Repeated and skipped day rows around daylight saving changes - [#14](https://github.com/hivesolutions/omni-dashboard-vue/issues/14)
+* Icons not picking up changes from new deploys - [#19](https://github.com/hivesolutions/omni-dashboard-vue/issues/19)
 
 ## [0.2.0] - 2023-02-15
 
