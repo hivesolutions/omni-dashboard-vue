@@ -397,6 +397,24 @@ describe("Util", function() {
                 direction: null
             });
         });
+        it("should use the decimal separator", () => {
+            assert.deepStrictEqual(util.delta(2964.1, 2488.3, false, ","), {
+                change: "+19,1%",
+                direction: "up"
+            });
+            assert.deepStrictEqual(util.delta(18.4, 21.0, true, ","), {
+                change: "-2,6 pp",
+                direction: "down"
+            });
+            assert.deepStrictEqual(util.delta(3000.0, 100.0, false, ","), {
+                change: "+2900,0%",
+                direction: "up"
+            });
+            assert.deepStrictEqual(util.delta(100.0, null, false, ","), {
+                change: "n/a",
+                direction: null
+            });
+        });
     });
 
     describe("#comparison()", function() {
@@ -448,6 +466,40 @@ describe("Util", function() {
                 change: "n/a",
                 direction: null
             });
+        });
+        it("should format the amount and change with the separators", () => {
+            assert.deepStrictEqual(
+                util.comparison(2964.1, 2488.3, "Sun 26/10/25", 2, false, ",", "."),
+                {
+                    label: "Sun 26/10/25",
+                    amount: "2.488,30",
+                    change: "+19,1%",
+                    direction: "up"
+                }
+            );
+            assert.deepStrictEqual(
+                util.comparison(58420.35, 1254980.1, "1-27 Oct 2025", 2, false, ",", "\u00a0"),
+                {
+                    label: "1-27 Oct 2025",
+                    amount: "1\u00a0254\u00a0980,10",
+                    change: "-95,3%",
+                    direction: "down"
+                }
+            );
+            assert.deepStrictEqual(util.comparison(18.4, 21.0, "Mon 27/10/25", 1, true, ",", "."), {
+                label: "Mon 27/10/25",
+                amount: "21,0",
+                change: "-2,6 pp",
+                direction: "down"
+            });
+            assert.strictEqual(
+                util.comparison(12, 1234, "Sep 2025", 0, false, ",", ".").amount,
+                "1.234"
+            );
+            assert.strictEqual(
+                util.comparison(100.0, null, "Wed 22/10/25", 2, false, ",", ".").amount,
+                "no data"
+            );
         });
     });
 
@@ -528,6 +580,132 @@ describe("Util", function() {
             assert.strictEqual(util.keyPage("12", 15), null);
             assert.strictEqual(util.keyPage("", 5), null);
             assert.strictEqual(util.keyPage(undefined, 5), null);
+        });
+    });
+
+    describe("#formatSeparators()", function() {
+        it("should return the separators of the presets", () => {
+            assert.deepStrictEqual(util.formatSeparators("point", "de-DE"), [".", ","]);
+            assert.deepStrictEqual(util.formatSeparators("comma", "en-US"), [",", "."]);
+            assert.deepStrictEqual(util.formatSeparators("space", "en-US"), [",", "\u00a0"]);
+        });
+        it("should use the separators of the language for the automatic format", () => {
+            assert.deepStrictEqual(util.formatSeparators("auto", "en-US"), [".", ","]);
+            assert.deepStrictEqual(util.formatSeparators("auto", "en-GB"), [".", ","]);
+            assert.deepStrictEqual(util.formatSeparators("auto", "de-DE"), [",", "."]);
+            assert.deepStrictEqual(util.formatSeparators("auto", "pt-PT"), [",", "\u00a0"]);
+            assert.deepStrictEqual(util.formatSeparators("auto", "fr-FR"), [",", "\u202f"]);
+            assert.deepStrictEqual(util.formatSeparators("auto", "es-ES"), [",", "."]);
+        });
+        it("should use latin separators for languages with other digits", () => {
+            assert.deepStrictEqual(util.formatSeparators("auto", "ar-EG"), [".", ","]);
+            assert.deepStrictEqual(util.formatSeparators("auto", "hi-IN"), [".", ","]);
+        });
+        it("should fall back to the point format for invalid languages", () => {
+            assert.deepStrictEqual(util.formatSeparators("auto", "not a language"), [".", ","]);
+            assert.deepStrictEqual(util.formatSeparators("auto", ""), [".", ","]);
+        });
+        it("should fall back when the language has no separators", () => {
+            const formatToParts = Intl.NumberFormat.prototype.formatToParts;
+            Intl.NumberFormat.prototype.formatToParts = () => [
+                { type: "integer", value: "1234567" }
+            ];
+            try {
+                assert.deepStrictEqual(util.formatSeparators("auto", "de-DE"), [".", ","]);
+            } finally {
+                Intl.NumberFormat.prototype.formatToParts = formatToParts;
+            }
+            assert.deepStrictEqual(util.formatSeparators("auto", "de-DE"), [",", "."]);
+        });
+        it("should treat unknown formats as automatic", () => {
+            assert.deepStrictEqual(util.formatSeparators("unknown", "de-DE"), [",", "."]);
+            assert.deepStrictEqual(util.formatSeparators(undefined, "de-DE"), [",", "."]);
+            assert.deepStrictEqual(util.formatSeparators("toString", "de-DE"), [",", "."]);
+            assert.deepStrictEqual(util.formatSeparators("constructor", "en-US"), [".", ","]);
+        });
+    });
+
+    describe("#parseSettings()", function() {
+        it("should return the defaults when nothing is stored", () => {
+            assert.deepStrictEqual(util.parseSettings(undefined), util.defaultSettings);
+            assert.deepStrictEqual(util.parseSettings(null), util.defaultSettings);
+            assert.deepStrictEqual(util.parseSettings(""), util.defaultSettings);
+        });
+        it("should keep the default settings valid", () => {
+            assert.deepStrictEqual(util.defaultSettings, {
+                comparison: true,
+                format: "auto",
+                unit: "day",
+                dimension: "net_price_vat",
+                span: 7,
+                interval: 5
+            });
+            assert.deepStrictEqual(
+                util.parseSettings(JSON.stringify(util.defaultSettings)),
+                util.defaultSettings
+            );
+        });
+        it("should return a copy of the defaults", () => {
+            const settings = util.parseSettings(undefined);
+            assert.notStrictEqual(settings, util.defaultSettings);
+            settings.span = 14;
+            assert.strictEqual(util.defaultSettings.span, 7);
+        });
+        it("should parse the stored settings", () => {
+            const settings = {
+                comparison: false,
+                format: "space",
+                unit: "month",
+                dimension: "conversion_rate",
+                span: 14,
+                interval: 30
+            };
+            assert.deepStrictEqual(util.parseSettings(JSON.stringify(settings)), settings);
+            assert.deepStrictEqual(util.parseSettings(JSON.stringify({ span: 3, interval: 1 })), {
+                ...util.defaultSettings,
+                span: 3,
+                interval: 1
+            });
+        });
+        it("should return the defaults for corrupted values", () => {
+            assert.deepStrictEqual(util.parseSettings("{"), util.defaultSettings);
+            assert.deepStrictEqual(util.parseSettings("undefined"), util.defaultSettings);
+            assert.deepStrictEqual(util.parseSettings("null"), util.defaultSettings);
+            assert.deepStrictEqual(util.parseSettings("12"), util.defaultSettings);
+            assert.deepStrictEqual(util.parseSettings('"month"'), util.defaultSettings);
+            assert.deepStrictEqual(util.parseSettings("true"), util.defaultSettings);
+            assert.deepStrictEqual(util.parseSettings('["month"]'), util.defaultSettings);
+        });
+        it("should replace invalid settings with their defaults", () => {
+            const settings = util.parseSettings(
+                JSON.stringify({
+                    comparison: "false",
+                    format: "toString",
+                    unit: "week",
+                    dimension: "net_price",
+                    span: 7.5,
+                    interval: "5"
+                })
+            );
+            assert.deepStrictEqual(settings, util.defaultSettings);
+            assert.deepStrictEqual(
+                util.parseSettings(JSON.stringify({ comparison: 0, span: "7", interval: 60 })),
+                util.defaultSettings
+            );
+        });
+        it("should keep the history rows within their range", () => {
+            assert.strictEqual(util.parseSettings(JSON.stringify({ span: 2 })).span, 7);
+            assert.strictEqual(util.parseSettings(JSON.stringify({ span: 3 })).span, 3);
+            assert.strictEqual(util.parseSettings(JSON.stringify({ span: 14 })).span, 14);
+            assert.strictEqual(util.parseSettings(JSON.stringify({ span: 15 })).span, 7);
+            assert.strictEqual(util.parseSettings(JSON.stringify({ span: -7 })).span, 7);
+            assert.strictEqual(util.parseSettings(JSON.stringify({ span: null })).span, 7);
+        });
+        it("should ignore unknown settings", () => {
+            assert.deepStrictEqual(
+                util.parseSettings(JSON.stringify({ unit: "month", theme: "dark" })),
+                { ...util.defaultSettings, unit: "month" }
+            );
         });
     });
 });
