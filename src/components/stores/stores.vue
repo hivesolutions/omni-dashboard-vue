@@ -120,6 +120,7 @@ export const Stores = {
             dataLyMtd: null,
             page: 0,
             timeout: null,
+            request: 0,
             copyTimeout: null,
             storesInfo: null
         };
@@ -233,6 +234,12 @@ export const Stores = {
                 clearTimeout(this.timeout);
             }
 
+            // numbers the request so that, when another one starts before
+            // this one is done (eg: quick changes in the settings), only the
+            // latest one updates the stores and schedules the next refresh
+            this.request += 1;
+            const request = this.request;
+
             // sets the current component as loading as a remote request
             // is going to be executed (as expected)
             this.isLoading = true;
@@ -263,8 +270,9 @@ export const Stores = {
 
             // runs the remote query operation to retrieve the complete
             // set of stores stats for the current environment
+            let data;
             try {
-                this.data = await this.$root.api.statsSaleSnapshot({
+                data = await this.$root.api.statsSaleSnapshot({
                     params: {
                         date: timestamp,
                         has_global: "True",
@@ -274,6 +282,9 @@ export const Stores = {
                     }
                 });
             } catch (err) {
+                // a newer request is the one to report its result
+                if (request !== this.request) return;
+
                 // removes the loading indicators and the root flag that controls
                 // the global loading state
                 this.isLoading = false;
@@ -306,7 +317,14 @@ export const Stores = {
 
             // waits for the stats of the previous year to be retrieved, as
             // their failure is not critical they are just going to be unset
-            [this.dataLy, this.dataLyMtd] = await statsLy;
+            const [dataLy, dataLyMtd] = await statsLy;
+
+            // a newer request is the one to update the stores, so the data
+            // of this one is dropped
+            if (request !== this.request) return;
+            this.data = data;
+            this.dataLy = dataLy;
+            this.dataLyMtd = dataLyMtd;
 
             // updates the current store information taking into account
             // the analytics data that has just been received
@@ -318,6 +336,7 @@ export const Stores = {
             // as expected, setting a timeout for the automatic update
             // of the sale snapshot information
             await this.setStores(this.data, this.dataLy, this.dataLyMtd);
+            if (request !== this.request) return;
             this.timeout = setTimeout(this.refresh, this.timeoutInterval);
         },
         refreshLight: async function() {
