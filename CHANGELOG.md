@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Production build failing on fresh installs
 * Docker image build failing on the unsupported Node.js 14 repository - [#7](https://github.com/hivesolutions/omni-dashboard-vue/issues/7)
 * Blank page in production builds - [#10](https://github.com/hivesolutions/omni-dashboard-vue/issues/10)
+* New deployments taking up to a day to reach browsers - [#17](https://github.com/hivesolutions/omni-dashboard-vue/issues/17)
 * Multi-platform Docker image build failing on 32-bit ARM - [#10](https://github.com/hivesolutions/omni-dashboard-vue/issues/10)
 * Repeated and skipped day rows around daylight saving changes - [#14](https://github.com/hivesolutions/omni-dashboard-vue/issues/14)
 
