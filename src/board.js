@@ -2,7 +2,7 @@ import { createApp } from "vue";
 import { API } from "omni-api-js";
 
 import components from "./components";
-import { defaultSettings, parseSettings } from "./util";
+import { defaultSettings, parseSettings, resolveLanguage, translate } from "./util";
 
 export const board = function() {
     const app = createApp({
@@ -15,6 +15,7 @@ export const board = function() {
                 api: null,
                 isLoading: false,
                 message: null,
+                copyState: null,
                 settings: { ...defaultSettings }
             };
         },
@@ -24,6 +25,9 @@ export const board = function() {
             },
             domain: function() {
                 return this.instance ? `${this.instance}.frontdoorhd.com` : null;
+            },
+            language: function() {
+                return resolveLanguage(this.settings.language, navigator.language);
             }
         },
         watch: {
@@ -68,10 +72,14 @@ export const board = function() {
                     return;
                 }
                 window.localStorage.settings = JSON.stringify(val);
+            },
+            language: function(val) {
+                document.documentElement.lang = val;
             }
         },
         created: function() {
             this.loadSettings();
+            document.documentElement.lang = this.language;
         },
         mounted: function() {
             this.loadData();
@@ -108,7 +116,7 @@ export const board = function() {
                 this.hideSettings();
             },
             logout: function() {
-                const result = confirm("Are you sure you want to logout?");
+                const result = confirm(this.translate("logoutConfirm"));
                 if (!result) return;
                 this.sid = null;
                 this.username = null;
@@ -127,8 +135,14 @@ export const board = function() {
             changeDimension: function(dimension) {
                 this.$refs.stores.changeDimension(dimension);
             },
+            copyImage: function() {
+                this.$refs.stores.copyImage();
+            },
             setSetting: function(name, value) {
                 this.settings = { ...this.settings, [name]: value };
+            },
+            translate: function(key, values) {
+                return translate(key, this.language, values);
             },
             loadData: function() {
                 if (window.localStorage === undefined) {

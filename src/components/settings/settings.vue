@@ -11,27 +11,44 @@
             <div class="header">
                 <div class="title">
                     <div class="caption">
-                        Saved in this browser
+                        {{ $root.translate("savedInBrowser") }}
                     </div>
-                    <h2>Settings</h2>
+                    <h2>{{ $root.translate("settings") }}</h2>
                 </div>
                 <ButtonColor v-on:click="hide">
-                    Done
+                    {{ $root.translate("done") }}
                 </ButtonColor>
             </div>
             <div class="setting">
                 <div class="label">
                     <div class="name">
-                        Year-on-year comparison
+                        {{ $root.translate("language") }}
+                    </div>
+                </div>
+                <div class="segments" role="group" v-bind:aria-label="$root.translate('language')">
+                    <button
+                        v-bind:aria-pressed="String(settings.language === language.name)"
+                        v-for="language in languages"
+                        v-bind:key="language.name"
+                        v-on:click="setSetting('language', language.name)"
+                    >
+                        {{ language.label }}
+                    </button>
+                </div>
+            </div>
+            <div class="setting">
+                <div class="label">
+                    <div class="name">
+                        {{ $root.translate("comparison") }}
                     </div>
                     <div class="description">
-                        The vs line under every row
+                        {{ $root.translate("comparisonDescription") }}
                     </div>
                 </div>
                 <button
                     class="switch"
                     role="switch"
-                    aria-label="Year-on-year comparison"
+                    v-bind:aria-label="$root.translate('comparison')"
                     v-bind:aria-checked="String(settings.comparison)"
                     v-on:click="setSetting('comparison', !settings.comparison)"
                 >
@@ -41,13 +58,17 @@
             <div class="setting setting-column">
                 <div class="label">
                     <div class="name">
-                        Number format
+                        {{ $root.translate("numberFormat") }}
                     </div>
                     <div class="description">
-                        Automatic follows {{ language }}
+                        {{ $root.translate("automaticFollows", { locale: locale }) }}
                     </div>
                 </div>
-                <div class="segments" role="group" aria-label="Number format">
+                <div
+                    class="segments"
+                    role="group"
+                    v-bind:aria-label="$root.translate('numberFormat')"
+                >
                     <button
                         v-bind:aria-pressed="String(settings.format === format.name)"
                         v-for="format in formats"
@@ -61,11 +82,15 @@
             <div class="setting">
                 <div class="label">
                     <div class="name">
-                        Opens with
+                        {{ $root.translate("opensWith") }}
                     </div>
                 </div>
                 <div class="controls">
-                    <div class="segments" role="group" aria-label="Period">
+                    <div
+                        class="segments"
+                        role="group"
+                        v-bind:aria-label="$root.translate('period')"
+                    >
                         <button
                             v-bind:aria-pressed="String(settings.unit === unit.name)"
                             v-for="unit in units"
@@ -77,7 +102,7 @@
                     </div>
                     <span class="select">
                         <select
-                            aria-label="Measure"
+                            v-bind:aria-label="$root.translate('measure')"
                             v-bind:value="settings.dimension"
                             v-on:change="setDimension($event.target.value)"
                         >
@@ -96,12 +121,16 @@
             <div class="setting">
                 <div class="label">
                     <div class="name">
-                        History rows
+                        {{ $root.translate("historyRows") }}
                     </div>
                 </div>
-                <div class="stepper" role="group" aria-label="History rows">
+                <div
+                    class="stepper"
+                    role="group"
+                    v-bind:aria-label="$root.translate('historyRows')"
+                >
                     <button
-                        aria-label="Fewer rows"
+                        v-bind:aria-label="$root.translate('fewerRows')"
                         v-bind:disabled="settings.span <= spanRange[0]"
                         v-on:click="setSetting('span', settings.span - 1)"
                     >
@@ -109,7 +138,7 @@
                     </button>
                     <span class="value">{{ settings.span }}</span>
                     <button
-                        aria-label="More rows"
+                        v-bind:aria-label="$root.translate('moreRows')"
                         v-bind:disabled="settings.span >= spanRange[1]"
                         v-on:click="setSetting('span', settings.span + 1)"
                     >
@@ -120,23 +149,27 @@
             <div class="setting setting-column">
                 <div class="label">
                     <div class="name">
-                        Refresh every
+                        {{ $root.translate("refreshEvery") }}
                     </div>
                 </div>
-                <div class="segments" role="group" aria-label="Refresh interval">
+                <div
+                    class="segments"
+                    role="group"
+                    v-bind:aria-label="$root.translate('refreshInterval')"
+                >
                     <button
                         v-bind:aria-pressed="String(settings.interval === interval)"
                         v-for="interval in intervals"
                         v-bind:key="interval"
                         v-on:click="setSetting('interval', interval)"
                     >
-                        {{ interval }} min
+                        {{ $root.translate("minutes", { count: interval }) }}
                     </button>
                 </div>
             </div>
             <div class="reset">
                 <button v-on:click="reset">
-                    Reset to defaults
+                    {{ $root.translate("resetDefaults") }}
                 </button>
             </div>
         </div>
@@ -238,7 +271,13 @@
 .settings > .setting.setting-column > .label {
     align-items: baseline;
     display: flex;
+    flex-wrap: wrap;
+    gap: 0px 8px;
     justify-content: space-between;
+}
+
+.settings > .setting.setting-column > .label > .description {
+    white-space: nowrap;
 }
 
 .settings .name {
@@ -298,8 +337,6 @@
 }
 
 .settings > .setting-column .segments {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0px, 1fr));
     margin-top: 10px;
 }
 
@@ -313,8 +350,9 @@
 }
 
 .settings > .setting-column .segments > button {
+    flex: 1 1 auto;
     min-width: 0px;
-    padding: 0px 2px 0px 2px;
+    padding: 0px 6px 0px 6px;
 }
 
 .settings .segments > button[aria-pressed="true"] {
@@ -393,14 +431,23 @@
 
 <script>
 import ButtonColor from "../button-color/button-color.vue";
-import { defaultSettings, dimensions, intervals, numberFormats, spanRange } from "../../util";
+import {
+    defaultSettings,
+    dimensions,
+    intervals,
+    languageLocale,
+    languages,
+    locales,
+    numberFormats,
+    spanRange
+} from "../../util";
 
 export const MEASURES = {
-    net_price_vat: "Sales (EUR)",
-    net_number_sales: "Number of sales",
-    net_average_sale: "Average sale",
-    number_entries: "Entries",
-    conversion_rate: "Conversion"
+    net_price_vat: "measureSales",
+    net_number_sales: "measureNumberSales",
+    net_average_sale: "measureAverageSale",
+    number_entries: "measureEntries",
+    conversion_rate: "measureConversion"
 };
 
 export const Settings = {
@@ -411,30 +458,41 @@ export const Settings = {
         return {
             isVisible: false,
             intervals: intervals,
-            spanRange: spanRange,
-            units: [
-                { name: "day", label: "Day" },
-                { name: "month", label: "Month" }
-            ]
+            spanRange: spanRange
         };
     },
     computed: {
         settings: function() {
             return this.$root.settings;
         },
+        languages: function() {
+            return languages.map(name => ({
+                name: name,
+                label: locales[name] ? locales[name].name : this.$root.translate("automatic")
+            }));
+        },
         formats: function() {
             return Object.keys(numberFormats).map(name => ({
                 name: name,
                 label: numberFormats[name]
                     ? (1234.56).formatMoney(2, numberFormats[name][0], numberFormats[name][1])
-                    : "Automatic"
+                    : this.$root.translate("automatic")
             }));
         },
-        measures: function() {
-            return dimensions.map(name => ({ name: name, label: MEASURES[name] }));
+        units: function() {
+            return [
+                { name: "day", label: this.$root.translate("periodDay") },
+                { name: "month", label: this.$root.translate("periodMonth") }
+            ];
         },
-        language: function() {
-            return navigator.language;
+        measures: function() {
+            return dimensions.map(name => ({
+                name: name,
+                label: this.$root.translate(MEASURES[name])
+            }));
+        },
+        locale: function() {
+            return languageLocale(this.settings.language, navigator.language);
         }
     },
     watch: {

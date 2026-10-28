@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Drag the store cards with a finger or the mouse to move between stores - [#13](https://github.com/hivesolutions/omni-dashboard-vue/issues/13)
 * Number keys 1-9 jump to the matching store card - [#13](https://github.com/hivesolutions/omni-dashboard-vue/issues/13)
 * Settings for the comparison, number format, opening view, history rows and refresh - [#25](https://github.com/hivesolutions/omni-dashboard-vue/issues/25)
+* Language setting with a Portuguese translation - [#27](https://github.com/hivesolutions/omni-dashboard-vue/issues/27)
+* Copy a store card as an image to share - [#29](https://github.com/hivesolutions/omni-dashboard-vue/issues/29)
 
 ### Changed
 

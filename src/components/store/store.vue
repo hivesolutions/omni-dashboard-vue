@@ -23,6 +23,16 @@
                 </div>
             </div>
             <div class="column right">
+                <div class="copy">
+                    <img src="~./assets/check.svg" v-if="$root.copyState === 'done'" />
+                    <img src="~./assets/error.svg" v-else-if="$root.copyState === 'error'" />
+                    <img
+                        src="~./assets/copy.svg"
+                        v-bind:title="$root.translate('copyImage')"
+                        v-else
+                        v-on:click="copyImage"
+                    />
+                </div>
                 <div class="settings">
                     <img src="~./assets/settings.svg" v-on:click="showSettings" />
                 </div>
@@ -117,27 +127,32 @@
 }
 
 .store .logout,
+.store .copy,
 .store .settings,
 .store .refresh {
     transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
+.store .copy,
 .store .settings,
 .store .refresh {
     display: inline-block;
 }
 
+.store .copy,
 .store .settings {
-    margin-right: 14px;
+    margin-right: 12px;
 }
 
 .loading .store .logout,
+.loading .store .copy,
 .loading .store .settings,
 .loading .store .refresh {
     opacity: 0;
 }
 
 .store .logout > img,
+.store .copy > img,
 .store .settings > img,
 .store .refresh > img {
     cursor: pointer;
@@ -145,6 +160,7 @@
 }
 
 .store .logout > img:hover,
+.store .copy > img:hover,
 .store .settings > img:hover,
 .store .refresh > img:hover {
     filter: invert(0.5) sepia(1) hue-rotate(12deg);
@@ -333,6 +349,9 @@ export const Store = {
         },
         showSettings: function() {
             this.$root.showSettings();
+        },
+        copyImage: function() {
+            this.$root.copyImage();
         },
         changeUnit: function(mode) {
             this.$root.changeUnit();
