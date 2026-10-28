@@ -353,14 +353,6 @@ export const Stores = {
             // to be used in the latter operation
             const page = this.page;
 
-            // retrieves the decimal and thousands separators of the number
-            // format that is currently selected in the settings
-            const [decimal, thousands] = this.separators;
-
-            // resets the list of stores currently associated to the
-            // component as new ones are going to be used
-            this.stores = [];
-
             // builds the string that is going to display the date of the
             // latest update of the stores list
             const lastUpdateDate = new Date();
@@ -373,6 +365,14 @@ export const Stores = {
             // gathers the complete set of information about the stores
             // present at the back-end Omni instance
             const storesInfo = await this._getStoresInfo();
+
+            // a newer refresh replaced the data while the stores information
+            // was being retrieved, so it's the one to build the cards
+            if (data !== this.data) return;
+
+            // retrieves the decimal and thousands separators of the number
+            // format that is currently selected in the settings
+            const [decimal, thousands] = this.separators;
 
             // converts the received object into a sequence of tuples
             // containing both the object id and the name of the store
@@ -389,6 +389,11 @@ export const Stores = {
                     ((storesInfo[v[1].name] || { metadata: {} }).metadata || {}).dashboard
                 )
             );
+
+            // builds the cards in a list of their own, replacing the ones
+            // shown at once, so that refreshes running at the same time (eg:
+            // the language and the separators changing together) don't mix
+            const cards = [];
 
             // iterates over the complete set of stores to update the values
             // corresponding to the associated dimension
@@ -511,12 +516,13 @@ export const Stores = {
 
                 // adds the new stores values to the list of stores that
                 // are going to be presented in the screen
-                this.stores.push({
+                cards.push({
                     name: store.name,
                     mainSales: mainSales,
                     sales: sales
                 });
             });
+            this.stores = cards;
 
             // sets the current panel as visible as the stores are being
             // set (so we have a valid panel) and restores the page that
