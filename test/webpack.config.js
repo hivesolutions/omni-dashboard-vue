@@ -4,6 +4,7 @@ const fileLoader = require("file-loader");
 
 const root = path.join(__dirname, "..");
 const assets = path.join(root, "src", "components", "store", "assets");
+const fonts = path.join(root, "node_modules", "typeface-open-sans", "files");
 
 const build = function(timestamp) {
     const now = Date.now;
@@ -90,6 +91,29 @@ describe("Webpack Config", function() {
                 assetUrl(build(1793257662000), resourcePath),
                 "refresh.svg?1793257662000"
             );
+        });
+        it("should keep the fonts out of the webpack asset modules", () => {
+            const config = build(1793171262000);
+            const rule = config.module.rules.find(rule =>
+                rule.test.test("open-sans-latin-400.woff2")
+            );
+            assert.strictEqual(rule.loader, "file-loader");
+            assert.strictEqual(rule.type, "javascript/auto");
+        });
+        it("should add the build timestamp to the font URLs", () => {
+            const config = build(1793171262000);
+            const woff2 = assetUrl(config, path.join(fonts, "open-sans-latin-400.woff2"));
+            const woff = assetUrl(config, path.join(fonts, "open-sans-latin-700italic.woff"));
+            assert.strictEqual(/^[0-9a-f]{32}\.woff2\?1793171262000$/.test(woff2), true);
+            assert.strictEqual(/^[0-9a-f]{32}\.woff\?1793171262000$/.test(woff), true);
+        });
+        it("should change the font URLs on every build", () => {
+            const resourcePath = path.join(fonts, "open-sans-latin-400.woff2");
+            const url = assetUrl(build(1793171262000), resourcePath);
+            const nextUrl = assetUrl(build(1793257662000), resourcePath);
+            assert.strictEqual(url.split("?")[1], "1793171262000");
+            assert.strictEqual(nextUrl.split("?")[1], "1793257662000");
+            assert.strictEqual(nextUrl.split("?")[0], url.split("?")[0]);
         });
     });
 });
