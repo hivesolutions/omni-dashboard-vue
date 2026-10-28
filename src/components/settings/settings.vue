@@ -199,6 +199,10 @@
     margin-bottom: 8px;
 }
 
+.settings > .header > .button {
+    min-width: 88px;
+}
+
 .settings .caption,
 .settings .description {
     color: #6d6d6d;
@@ -306,6 +310,11 @@
     min-width: 52px;
     padding: 0px 8px 0px 8px;
     white-space: nowrap;
+}
+
+.settings > .setting-column .segments > button {
+    min-width: 0px;
+    padding: 0px 2px 0px 2px;
 }
 
 .settings .segments > button[aria-pressed="true"] {
