@@ -5,16 +5,16 @@ LABEL maintainer="Hive Solutions <development@hive.pt>"
 
 EXPOSE 8080
 
-ENV LEVEL INFO
-ENV ENCODING gzip
-ENV HOST 0.0.0.0
-ENV PORT 8080
-ENV CACHE 0
-ENV INDEX_FILES index.html
-ENV LIST_DIRS 0
-ENV CORS 1
-ENV BASE_PATH /app/dist
-ENV NODE_ENV production
+ENV LEVEL=INFO
+ENV ENCODING=gzip
+ENV HOST=0.0.0.0
+ENV PORT=8080
+ENV CACHE=0
+ENV INDEX_FILES=index.html
+ENV LIST_DIRS=0
+ENV CORS=1
+ENV BASE_PATH=/app/dist
+ENV NODE_ENV=production
 
 ADD .eslintrc.js /app/
 ADD index.html.tpl /app/

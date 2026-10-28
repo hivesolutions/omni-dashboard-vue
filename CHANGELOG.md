@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Repeated and skipped day rows around daylight saving changes - [#14](https://github.com/hivesolutions/omni-dashboard-vue/issues/14)
 * Icons not picking up changes from new deploys - [#19](https://github.com/hivesolutions/omni-dashboard-vue/issues/19)
 * Open Sans web fonts failing to load - [#20](https://github.com/hivesolutions/omni-dashboard-vue/issues/20)
+* Warnings in the Docker image builds - [#23](https://github.com/hivesolutions/omni-dashboard-vue/issues/23)
 
 ## [0.2.0] - 2023-02-15
 
