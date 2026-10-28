@@ -3,6 +3,153 @@ require("hive-js-util");
 const util = require("../src/util");
 
 describe("Util", function() {
+    describe("#locales", function() {
+        it("should have the same texts in every language", () => {
+            const keys = Object.keys(util.locales.en.texts).sort();
+            Object.keys(util.locales).forEach(language => {
+                assert.deepStrictEqual(Object.keys(util.locales[language].texts).sort(), keys);
+            });
+        });
+        it("should have the same placeholders in every language", () => {
+            const placeholders = text => (text.match(/\{\w+\}/g) || []).sort();
+            Object.keys(util.locales).forEach(language => {
+                Object.keys(util.locales.en.texts).forEach(key => {
+                    assert.deepStrictEqual(
+                        placeholders(util.locales[language].texts[key]),
+                        placeholders(util.locales.en.texts[key]),
+                        `${language}.${key}`
+                    );
+                });
+            });
+        });
+        it("should have distinct short day and month names", () => {
+            Object.keys(util.locales).forEach(language => {
+                const { daysOfWeek, months } = util.locales[language];
+                assert.strictEqual(daysOfWeek.length, 7);
+                assert.strictEqual(months.length, 12);
+                assert.strictEqual(new Set(daysOfWeek.map(v => v.slice(0, 3))).size, 7);
+                assert.strictEqual(new Set(months.map(v => v.slice(0, 3))).size, 12);
+            });
+        });
+        it("should offer the automatic language and every locale", () => {
+            assert.deepStrictEqual(util.languages, ["auto", "en", "pt"]);
+            assert.strictEqual(util.locales.en.locale, "en");
+            assert.strictEqual(util.locales.pt.locale, "pt-PT");
+        });
+    });
+
+    describe("#translate()", function() {
+        it("should return the text in the language", () => {
+            assert.strictEqual(util.translate("refresh", "en"), "Refresh");
+            assert.strictEqual(util.translate("refresh", "pt"), "Atualizar");
+            assert.strictEqual(util.translate("settings", "pt"), "Definições");
+        });
+        it("should use English by default", () => {
+            assert.strictEqual(util.translate("refresh"), "Refresh");
+        });
+        it("should fill the placeholders", () => {
+            assert.strictEqual(util.translate("today", "en", { label: "Sales" }), "Today's Sales");
+            assert.strictEqual(
+                util.translate("today", "pt", { label: "Vendas" }),
+                "Vendas de hoje"
+            );
+            assert.strictEqual(util.translate("minutes", "pt", { count: 15 }), "15 min");
+            assert.strictEqual(util.translate("minutes", "en", { count: 0 }), "0 min");
+        });
+        it("should keep the placeholders without values", () => {
+            assert.strictEqual(util.translate("fullDay", "pt"), "{label}, dia completo");
+            assert.strictEqual(
+                util.translate("today", "en", { other: "Sales" }),
+                "Today's {label}"
+            );
+        });
+        it("should insert the values as they are", () => {
+            assert.strictEqual(
+                util.translate("errorLoadingDetail", "en", { message: "$& 50% {label}" }),
+                "Error loading remote data: $& 50% {label}"
+            );
+        });
+        it("should fall back to English for unknown languages", () => {
+            assert.strictEqual(util.translate("refresh", "fr"), "Refresh");
+            assert.strictEqual(util.translate("refresh", undefined), "Refresh");
+            assert.strictEqual(util.translate("refresh", "toString"), "Refresh");
+        });
+        it("should fall back to English for missing texts", () => {
+            const text = util.locales.pt.texts.updated;
+            delete util.locales.pt.texts.updated;
+            try {
+                assert.strictEqual(util.translate("updated", "pt"), "Updated");
+            } finally {
+                util.locales.pt.texts.updated = text;
+            }
+            assert.strictEqual(util.translate("updated", "pt"), "Atualizado");
+        });
+        it("should return the key for unknown texts", () => {
+            assert.strictEqual(util.translate("unknown", "pt"), "unknown");
+            assert.strictEqual(util.translate("toString", "pt"), "toString");
+            assert.strictEqual(util.translate("constructor", "en"), "constructor");
+        });
+    });
+
+    describe("#resolveLanguage()", function() {
+        it("should keep a chosen language", () => {
+            assert.strictEqual(util.resolveLanguage("en", "pt-PT"), "en");
+            assert.strictEqual(util.resolveLanguage("pt", "en-US"), "pt");
+        });
+        it("should use Portuguese for Portuguese browsers", () => {
+            assert.strictEqual(util.resolveLanguage("auto", "pt-PT"), "pt");
+            assert.strictEqual(util.resolveLanguage("auto", "pt-BR"), "pt");
+            assert.strictEqual(util.resolveLanguage("auto", "pt"), "pt");
+            assert.strictEqual(util.resolveLanguage("auto", "PT-pt"), "pt");
+            assert.strictEqual(util.resolveLanguage("auto", "pt_PT"), "pt");
+        });
+        it("should use English for other browsers", () => {
+            assert.strictEqual(util.resolveLanguage("auto", "en-US"), "en");
+            assert.strictEqual(util.resolveLanguage("auto", "de-DE"), "en");
+            assert.strictEqual(util.resolveLanguage("auto", "ptx"), "en");
+            assert.strictEqual(util.resolveLanguage("auto", ""), "en");
+            assert.strictEqual(util.resolveLanguage("auto", undefined), "en");
+            assert.strictEqual(util.resolveLanguage("auto", null), "en");
+        });
+        it("should treat unknown languages as automatic", () => {
+            assert.strictEqual(util.resolveLanguage("fr", "pt-PT"), "pt");
+            assert.strictEqual(util.resolveLanguage(undefined, "en-US"), "en");
+            assert.strictEqual(util.resolveLanguage("toString", "de-DE"), "en");
+        });
+    });
+
+    describe("#languageLocale()", function() {
+        it("should return the locale of a chosen language", () => {
+            assert.strictEqual(util.languageLocale("pt", "en-US"), "pt-PT");
+            assert.strictEqual(util.languageLocale("en", "pt-PT"), "en");
+        });
+        it("should keep the browser's locale for the automatic language", () => {
+            assert.strictEqual(util.languageLocale("auto", "de-DE"), "de-DE");
+            assert.strictEqual(util.languageLocale("auto", undefined), undefined);
+            assert.strictEqual(util.languageLocale("toString", "fr-FR"), "fr-FR");
+        });
+    });
+
+    describe("#dayName()", function() {
+        it("should return the name of the day in the language", () => {
+            assert.strictEqual(util.dayName(new Date(2026, 9, 28)), "Wednesday");
+            assert.strictEqual(util.dayName(new Date(2026, 9, 28), "pt"), "Quarta-feira");
+            assert.strictEqual(util.dayName(new Date(2026, 9, 31), "pt"), "Sábado");
+            assert.strictEqual(util.dayName(new Date(2026, 10, 1), "pt"), "Domingo");
+            assert.strictEqual(util.dayName(new Date(2026, 9, 28), "fr"), "Wednesday");
+        });
+    });
+
+    describe("#monthName()", function() {
+        it("should return the name of the month in the language", () => {
+            assert.strictEqual(util.monthName(new Date(2026, 9, 28)), "October");
+            assert.strictEqual(util.monthName(new Date(2026, 9, 28), "pt"), "Outubro");
+            assert.strictEqual(util.monthName(new Date(2026, 2, 1), "pt"), "Março");
+            assert.strictEqual(util.monthName(new Date(2026, 11, 31), "pt"), "Dezembro");
+            assert.strictEqual(util.monthName(new Date(2026, 9, 28), "fr"), "October");
+        });
+    });
+
     describe("#lastYear()", function() {
         it("should return the same date of the previous year", () => {
             const result = util.lastYear(new Date(2026, 9, 27, 14, 35, 10));
@@ -174,6 +321,17 @@ describe("Util", function() {
                 places: 1
             });
         });
+        it("should use the labels and units of the language", () => {
+            const labels = dimension => {
+                const { currency, label } = util.measureValues(store, dimension, "pt");
+                return `${label} ${currency}`;
+            };
+            assert.strictEqual(labels("net_price_vat"), "Vendas EUR");
+            assert.strictEqual(labels("net_number_sales"), "Vendas VEN");
+            assert.strictEqual(labels("net_average_sale"), "Média EUR");
+            assert.strictEqual(labels("number_entries"), "Entradas ENT");
+            assert.strictEqual(labels("conversion_rate"), "Conv. %");
+        });
     });
 
     describe("#totalStore()", function() {
@@ -304,6 +462,11 @@ describe("Util", function() {
             assert.strictEqual(util.dayLabel(new Date(2025, 1, 1)), "Sat 01/02/25");
             assert.strictEqual(util.dayLabel(new Date(2005, 0, 9)), "Sun 09/01/05");
         });
+        it("should format the day in the language", () => {
+            assert.strictEqual(util.dayLabel(new Date(2025, 9, 26), "pt"), "Dom 26/10/25");
+            assert.strictEqual(util.dayLabel(new Date(2025, 9, 28), "pt"), "Ter 28/10/25");
+            assert.strictEqual(util.dayLabel(new Date(2025, 10, 1), "pt"), "Sáb 01/11/25");
+        });
     });
 
     describe("#monthLabel()", function() {
@@ -311,6 +474,11 @@ describe("Util", function() {
             assert.strictEqual(util.monthLabel(new Date(2025, 8, 1)), "Sep 2025");
             assert.strictEqual(util.monthLabel(new Date(2025, 0, 31)), "Jan 2025");
             assert.strictEqual(util.monthLabel(new Date(2025, 11, 1)), "Dec 2025");
+        });
+        it("should format the month in the language", () => {
+            assert.strictEqual(util.monthLabel(new Date(2025, 8, 1), "pt"), "Set 2025");
+            assert.strictEqual(util.monthLabel(new Date(2025, 2, 1), "pt"), "Mar 2025");
+            assert.strictEqual(util.monthLabel(new Date(2025, 11, 1), "pt"), "Dez 2025");
         });
     });
 
@@ -395,6 +563,20 @@ describe("Util", function() {
             assert.deepStrictEqual(util.delta(15.0, null, true), {
                 change: "n/a",
                 direction: null
+            });
+        });
+        it("should use the language when there's no change", () => {
+            assert.deepStrictEqual(util.delta(100.0, null, false, ",", "pt"), {
+                change: "n/d",
+                direction: null
+            });
+            assert.deepStrictEqual(util.delta(100.0, 0.0, false, ".", "en"), {
+                change: "n/a",
+                direction: null
+            });
+            assert.deepStrictEqual(util.delta(2964.1, 2488.3, false, ",", "pt"), {
+                change: "+19,1%",
+                direction: "up"
             });
         });
         it("should use the decimal separator", () => {
@@ -499,6 +681,26 @@ describe("Util", function() {
             assert.strictEqual(
                 util.comparison(100.0, null, "Wed 22/10/25", 2, false, ",", ".").amount,
                 "no data"
+            );
+        });
+        it("should build the comparison in the language", () => {
+            assert.deepStrictEqual(
+                util.comparison(100.0, null, "Qua 22/10/25", 2, false, ",", "\u00a0", "pt"),
+                {
+                    label: "Qua 22/10/25",
+                    amount: "sem dados",
+                    change: "n/d",
+                    direction: null
+                }
+            );
+            assert.deepStrictEqual(
+                util.comparison(2964.1, 2488.3, "Dom 26/10/25", 2, false, ",", "\u00a0", "pt"),
+                {
+                    label: "Dom 26/10/25",
+                    amount: "2\u00a0488,30",
+                    change: "+19,1%",
+                    direction: "up"
+                }
             );
         });
     });
@@ -633,6 +835,7 @@ describe("Util", function() {
         });
         it("should keep the default settings valid", () => {
             assert.deepStrictEqual(util.defaultSettings, {
+                language: "auto",
                 comparison: true,
                 format: "auto",
                 unit: "day",
@@ -653,6 +856,7 @@ describe("Util", function() {
         });
         it("should parse the stored settings", () => {
             const settings = {
+                language: "pt",
                 comparison: false,
                 format: "space",
                 unit: "month",
@@ -691,6 +895,28 @@ describe("Util", function() {
             assert.deepStrictEqual(
                 util.parseSettings(JSON.stringify({ comparison: 0, span: "7", interval: 60 })),
                 util.defaultSettings
+            );
+        });
+        it("should parse the language", () => {
+            assert.strictEqual(
+                util.parseSettings(JSON.stringify({ language: "pt" })).language,
+                "pt"
+            );
+            assert.strictEqual(
+                util.parseSettings(JSON.stringify({ language: "en" })).language,
+                "en"
+            );
+            assert.strictEqual(
+                util.parseSettings(JSON.stringify({ language: "fr" })).language,
+                "auto"
+            );
+            assert.strictEqual(
+                util.parseSettings(JSON.stringify({ language: "PT" })).language,
+                "auto"
+            );
+            assert.strictEqual(
+                util.parseSettings(JSON.stringify({ language: 1 })).language,
+                "auto"
             );
         });
         it("should keep the history rows within their range", () => {
