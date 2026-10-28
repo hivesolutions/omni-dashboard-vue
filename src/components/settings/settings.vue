@@ -198,7 +198,7 @@
 }
 
 .settings {
-    animation: fade-into 0.35s ease-in-out;
+    animation: slide-up 0.28s cubic-bezier(0.16, 1, 0.3, 1);
     background-color: #fefefe;
     border-radius: 16px 16px 0px 0px;
     box-shadow: 0px -8px 24px rgba(10, 10, 10, 0.3);
