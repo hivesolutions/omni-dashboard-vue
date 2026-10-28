@@ -2,6 +2,7 @@ import { createApp } from "vue";
 import { API } from "omni-api-js";
 
 import components from "./components";
+import { defaultSettings, parseSettings } from "./util";
 
 export const board = function() {
     const app = createApp({
@@ -13,7 +14,8 @@ export const board = function() {
                 instance: null,
                 api: null,
                 isLoading: false,
-                message: null
+                message: null,
+                settings: { ...defaultSettings }
             };
         },
         computed: {
@@ -60,7 +62,16 @@ export const board = function() {
                 if (val) {
                     this.hideAll();
                 }
+            },
+            settings: function(val) {
+                if (window.localStorage === undefined) {
+                    return;
+                }
+                window.localStorage.settings = JSON.stringify(val);
             }
+        },
+        created: function() {
+            this.loadSettings();
         },
         mounted: function() {
             this.loadData();
@@ -85,9 +96,16 @@ export const board = function() {
             hideLogin: function() {
                 this.$refs.login.hide();
             },
+            showSettings: function() {
+                this.$refs.settings.show();
+            },
+            hideSettings: function() {
+                this.$refs.settings.hide();
+            },
             hideAll: function() {
                 this.hideStores();
                 this.hideLogin();
+                this.hideSettings();
             },
             logout: function() {
                 const result = confirm("Are you sure you want to logout?");
@@ -103,11 +121,14 @@ export const board = function() {
                 this.hideLogin();
                 this.$refs.stores.refresh();
             },
-            changeUnit: function() {
-                this.$refs.stores.changeUnit();
+            changeUnit: function(unit) {
+                this.$refs.stores.changeUnit(unit);
             },
-            changeDimension: function() {
-                this.$refs.stores.changeDimension();
+            changeDimension: function(dimension) {
+                this.$refs.stores.changeDimension(dimension);
+            },
+            setSetting: function(name, value) {
+                this.settings = { ...this.settings, [name]: value };
             },
             loadData: function() {
                 if (window.localStorage === undefined) {
@@ -123,6 +144,12 @@ export const board = function() {
                         sessionId: this.sid
                     });
                 }
+            },
+            loadSettings: function() {
+                if (window.localStorage === undefined) {
+                    return;
+                }
+                this.settings = parseSettings(window.localStorage.settings);
             }
         }
     });
