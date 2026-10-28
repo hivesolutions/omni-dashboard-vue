@@ -934,4 +934,97 @@ describe("Util", function() {
             );
         });
     });
+
+    describe("#imageName()", function() {
+        it("should name the image after the store and the day", () => {
+            assert.strictEqual(
+                util.imageName("global", new Date(2026, 9, 28, 23, 59)),
+                "omni-global-2026-10-28.png"
+            );
+            assert.strictEqual(
+                util.imageName("3-Downtown", new Date(2026, 0, 5)),
+                "omni-3-downtown-2026-01-05.png"
+            );
+        });
+        it("should turn the store name into a plain slug", () => {
+            const date = new Date(2026, 9, 28);
+            assert.strictEqual(util.imageName("São João", date), "omni-sao-joao-2026-10-28.png");
+            assert.strictEqual(
+                util.imageName("  Baixa / Chiado!  ", date),
+                "omni-baixa-chiado-2026-10-28.png"
+            );
+            assert.strictEqual(
+                util.imageName("Loja_Nº 12", date),
+                "omni-loja-no-12-2026-10-28.png"
+            );
+            assert.strictEqual(util.imageName("1ª Loja", date), "omni-1a-loja-2026-10-28.png");
+            assert.strictEqual(util.imageName("Ｂａｉｘａ", date), "omni-baixa-2026-10-28.png");
+        });
+        it("should use a generic name for stores without one", () => {
+            const date = new Date(2026, 9, 28);
+            assert.strictEqual(util.imageName("", date), "omni-store-2026-10-28.png");
+            assert.strictEqual(util.imageName(undefined, date), "omni-store-2026-10-28.png");
+            assert.strictEqual(util.imageName(null, date), "omni-store-2026-10-28.png");
+            assert.strictEqual(util.imageName("---", date), "omni-store-2026-10-28.png");
+        });
+    });
+
+    describe("#canCopyImage()", function() {
+        const navigator = { clipboard: { write: () => Promise.resolve() } };
+
+        it("should copy when the clipboard takes images", () => {
+            const ClipboardItem = function() {};
+            assert.strictEqual(util.canCopyImage(navigator, ClipboardItem), true);
+            ClipboardItem.supports = type => type === "image/png";
+            assert.strictEqual(util.canCopyImage(navigator, ClipboardItem), true);
+        });
+        it("should not copy when the clipboard doesn't take images", () => {
+            const ClipboardItem = function() {};
+            ClipboardItem.supports = type => type === "text/plain";
+            assert.strictEqual(util.canCopyImage(navigator, ClipboardItem), false);
+        });
+        it("should not copy without the clipboard", () => {
+            const ClipboardItem = function() {};
+            assert.strictEqual(util.canCopyImage(navigator, undefined), false);
+            assert.strictEqual(util.canCopyImage({}, ClipboardItem), false);
+            assert.strictEqual(util.canCopyImage({ clipboard: {} }, ClipboardItem), false);
+            assert.strictEqual(util.canCopyImage(undefined, ClipboardItem), false);
+        });
+    });
+
+    describe("#canShareFile()", function() {
+        const file = { name: "omni-global-2026-10-28.png", type: "image/png" };
+
+        it("should share when the browser can share the file", () => {
+            let shared = null;
+            const navigator = {
+                share: () => Promise.resolve(),
+                canShare: data => {
+                    shared = data;
+                    return true;
+                }
+            };
+            assert.strictEqual(util.canShareFile(navigator, file), true);
+            assert.deepStrictEqual(shared, { files: [file] });
+        });
+        it("should not share when the browser can't share the file", () => {
+            const navigator = { share: () => Promise.resolve(), canShare: () => false };
+            assert.strictEqual(util.canShareFile(navigator, file), false);
+        });
+        it("should not share when checking the file fails", () => {
+            const navigator = {
+                share: () => Promise.resolve(),
+                canShare: () => {
+                    throw new TypeError("Invalid data");
+                }
+            };
+            assert.strictEqual(util.canShareFile(navigator, file), false);
+        });
+        it("should not share without the share sheet", () => {
+            assert.strictEqual(util.canShareFile({ canShare: () => true }, file), false);
+            assert.strictEqual(util.canShareFile({ share: () => Promise.resolve() }, file), false);
+            assert.strictEqual(util.canShareFile({}, file), false);
+            assert.strictEqual(util.canShareFile(undefined, file), false);
+        });
+    });
 });
