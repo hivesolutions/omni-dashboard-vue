@@ -23,6 +23,34 @@ export const months = [
     "December"
 ];
 
+export const dimensions = [
+    "net_price_vat",
+    "net_number_sales",
+    "net_average_sale",
+    "number_entries",
+    "conversion_rate"
+];
+
+export const numberFormats = {
+    auto: null,
+    point: [".", ","],
+    comma: [",", "."],
+    space: [",", "\u00a0"]
+};
+
+export const intervals = [1, 5, 15, 30];
+
+export const spanRange = [3, 14];
+
+export const defaultSettings = {
+    comparison: true,
+    format: "auto",
+    unit: "day",
+    dimension: "net_price_vat",
+    span: 7,
+    interval: 5
+};
+
 export const fetchParams = async (urlString, params, raiseE = true) => {
     const url = new URL(urlString);
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
@@ -126,7 +154,7 @@ export const dayLabel = date =>
 
 export const monthLabel = date => `${months[date.getMonth()].slice(0, 3)} ${date.getFullYear()}`;
 
-export const delta = (current, previous, points = false) => {
+export const delta = (current, previous, points = false, decimal = ".") => {
     if (previous === null || previous === undefined || (!points && previous === 0)) {
         return { change: "n/a", direction: null };
     }
@@ -135,19 +163,27 @@ export const delta = (current, previous, points = false) => {
     const direction = rounded === 0 ? null : value > 0 ? "up" : "down";
     const sign = direction === "up" ? "+" : direction === "down" ? "-" : "";
     return {
-        change: `${sign}${rounded.toFixed(1)}${points ? " pp" : "%"}`,
+        change: `${sign}${rounded.toFixed(1).replace(".", decimal)}${points ? " pp" : "%"}`,
         direction: direction
     };
 };
 
-export const comparison = (current, previous, label, places, points = false) => {
-    const { change, direction } = delta(current, previous, points);
+export const comparison = (
+    current,
+    previous,
+    label,
+    places,
+    points = false,
+    decimal = ".",
+    thousands = ","
+) => {
+    const { change, direction } = delta(current, previous, points, decimal);
     return {
         label: label,
         amount:
             previous === null || previous === undefined
                 ? "no data"
-                : previous.formatMoney(places, ".", ","),
+                : previous.formatMoney(places, decimal, thousands),
         change: change,
         direction: direction
     };
@@ -171,6 +207,52 @@ export const keyPage = (key, count) => {
     if (!/^[1-9]$/.test(key)) return null;
     const page = parseInt(key) - 1;
     return page < count ? page : null;
+};
+
+export const formatSeparators = (format, locale) => {
+    if (Object.keys(numberFormats).includes(format) && numberFormats[format]) {
+        return numberFormats[format];
+    }
+
+    // the automatic format uses the separators of the browser's language,
+    // with latin digits as the amounts are always printed with them
+    let parts;
+    try {
+        parts = new Intl.NumberFormat(locale, { numberingSystem: "latn" }).formatToParts(1234567.8);
+    } catch (err) {
+        return numberFormats.point;
+    }
+    const decimal = parts.find(part => part.type === "decimal");
+    const group = parts.find(part => part.type === "group");
+    return [decimal ? decimal.value : ".", group ? group.value : ","];
+};
+
+export const parseSettings = value => {
+    const settings = { ...defaultSettings };
+
+    // the stored value may be missing or corrupted, in which case the
+    // defaults are used, as they are for any invalid individual setting
+    let stored;
+    try {
+        stored = JSON.parse(value);
+    } catch (err) {
+        return settings;
+    }
+    if (!stored || typeof stored !== "object" || Array.isArray(stored)) return settings;
+
+    if (typeof stored.comparison === "boolean") settings.comparison = stored.comparison;
+    if (Object.keys(numberFormats).includes(stored.format)) settings.format = stored.format;
+    if (["day", "month"].includes(stored.unit)) settings.unit = stored.unit;
+    if (dimensions.includes(stored.dimension)) settings.dimension = stored.dimension;
+    if (
+        Number.isInteger(stored.span) &&
+        stored.span >= spanRange[0] &&
+        stored.span <= spanRange[1]
+    ) {
+        settings.span = stored.span;
+    }
+    if (intervals.includes(stored.interval)) settings.interval = stored.interval;
+    return settings;
 };
 
 export default daysOfWeek;
