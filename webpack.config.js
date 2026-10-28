@@ -102,7 +102,9 @@ const config = {
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/,
                 loader: "file-loader",
+                type: "javascript/auto",
                 options: {
+                    name: `[contenthash].[ext]?${timestamp}`,
                     esModule: false
                 }
             }
