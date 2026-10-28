@@ -65,11 +65,13 @@
 
 <style scoped>
 .login-container {
-    align-items: center;
+    box-sizing: border-box;
     display: none;
     height: 100%;
     justify-content: center;
     left: 0px;
+    overflow-y: auto;
+    padding: 12px 0px 12px 0px;
     position: fixed;
     text-align: center;
     top: 0px;
@@ -96,6 +98,7 @@
 
 .login-container.visible .login {
     display: block;
+    margin: auto auto auto auto;
     opacity: 1;
 }
 
