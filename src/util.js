@@ -44,6 +44,7 @@ export const locales = {
                 "Unfortunately the site is experiencing a bit of turbulence right now.",
             errorSoon: "But soon we'll be up and the sun will shine again.",
             refresh: "Refresh",
+            copyImage: "Copy as image",
             errorLoading: "Error loading remote data",
             errorLoadingDetail: "Error loading remote data: {message}",
             updated: "Updated",
@@ -127,6 +128,7 @@ export const locales = {
                 "Infelizmente, o site está a passar por alguma turbulência neste momento.",
             errorSoon: "Mas em breve voltaremos e o sol voltará a brilhar.",
             refresh: "Atualizar",
+            copyImage: "Copiar como imagem",
             errorLoading: "Erro ao carregar os dados remotos",
             errorLoadingDetail: "Erro ao carregar os dados remotos: {message}",
             updated: "Atualizado",
@@ -438,6 +440,38 @@ export const parseSettings = value => {
     }
     if (intervals.includes(stored.interval)) settings.interval = stored.interval;
     return settings;
+};
+
+export const imageName = (name, date) => {
+    // the store name is turned into a plain slug (eg: São João becomes
+    // sao-joao) so that the file name works in every system
+    const slug =
+        String(name || "")
+            .normalize("NFKD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/^-+|-+$/g, "") || "store";
+    const day = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(
+        date.getDate()
+    ).padStart(2, "0")}`;
+    return `omni-${slug}-${day}.png`;
+};
+
+export const canCopyImage = (navigator, ClipboardItem) => {
+    if (!navigator || !navigator.clipboard || !navigator.clipboard.write || !ClipboardItem) {
+        return false;
+    }
+    return ClipboardItem.supports ? ClipboardItem.supports("image/png") : true;
+};
+
+export const canShareFile = (navigator, file) => {
+    if (!navigator || !navigator.share || !navigator.canShare) return false;
+    try {
+        return navigator.canShare({ files: [file] });
+    } catch (err) {
+        return false;
+    }
 };
 
 const localeOf = language =>

@@ -27,10 +27,12 @@
         <div class="footer" v-if="isVisible && lastUpdate">
             <span>{{ $root.translate("updated") }}&nbsp;</span>
             <span class="date">{{ lastUpdate }}</span>
-            <br />
-            <span class="username">{{ $root.username }}</span>
-            <span>@</span>
-            <span class="domain">{{ $root.domain }}</span>
+            <span class="user">
+                <br />
+                <span class="username">{{ $root.username }}</span>
+                <span>@</span>
+                <span class="domain">{{ $root.domain }}</span>
+            </span>
         </div>
     </div>
 </template>
@@ -69,17 +71,21 @@
 <script>
 import { nextTick } from "vue";
 import { GlobalEvents } from "vue-global-events";
+import { toBlob } from "html-to-image";
 
 import Carousel from "../carousel/carousel.vue";
 import Dots from "../carousel/dots.vue";
 import Slide from "../carousel/slide.vue";
 import Store from "../store/store.vue";
 import {
+    canCopyImage,
+    canShareFile,
     comparison,
     dayLabel,
     dayName,
     dimensions,
     formatSeparators,
+    imageName,
     keyPage,
     languageLocale,
     lastYear,
@@ -90,6 +96,8 @@ import {
     totalStore,
     valueAt
 } from "../../util";
+
+export const IMAGE_HIDDEN = ["logout", "copy", "settings", "refresh", "dots", "user"];
 
 export const Stores = {
     components: {
@@ -112,6 +120,7 @@ export const Stores = {
             dataLyMtd: null,
             page: 0,
             timeout: null,
+            copyTimeout: null,
             storesInfo: null
         };
     },
@@ -497,6 +506,84 @@ export const Stores = {
                 this.page = page;
                 this.isVisible = true;
             });
+        },
+        copyImage: async function() {
+            // the image is made from the card of the current store, so it
+            // can only be copied once the stores are loaded
+            const store = this.stores[this.page];
+            if (!store || this.isLoading) return;
+
+            // starts rendering the image right away and, when the clipboard
+            // takes images, writes it while still in the click as some
+            // browsers (eg: Safari) only allow it there, the image coming later
+            const name = imageName(store.name, new Date());
+            const image = this._renderImage();
+            try {
+                if (canCopyImage(navigator, window.ClipboardItem)) {
+                    try {
+                        await navigator.clipboard.write([
+                            new window.ClipboardItem({ "image/png": image })
+                        ]);
+                        this._setCopyState("done");
+                        return;
+                    } catch (err) {
+                        // the copy was refused, so the image is shared or
+                        // downloaded below instead
+                    }
+                }
+
+                // otherwise opens the share sheet (eg: phones) or, as the last
+                // resort, downloads the image so that it can still be posted
+                const file = new File([await image], name, { type: "image/png" });
+                if (canShareFile(navigator, file)) {
+                    await navigator.share({ files: [file] });
+                } else {
+                    const link = document.createElement("a");
+                    link.href = URL.createObjectURL(file);
+                    link.download = name;
+                    link.click();
+                    setTimeout(() => URL.revokeObjectURL(link.href), 10000);
+                }
+                this._setCopyState("done");
+            } catch (err) {
+                // closing the share sheet without sharing is not an error
+                this._setCopyState(err.name === "AbortError" ? null : "error");
+            }
+        },
+        _renderImage: async function() {
+            // clones the card into a frame with the gradient of the page and
+            // out of sight, leaving out the actions, the dots and the user
+            const frame = document.createElement("div");
+            const card = this.$el.cloneNode(true);
+            frame.style.backgroundImage = getComputedStyle(document.body).backgroundImage;
+            frame.style.boxSizing = "border-box";
+            frame.style.left = "-10000px";
+            frame.style.padding = "40px 40px 40px 40px";
+            frame.style.position = "fixed";
+            frame.style.top = "0px";
+            frame.style.width = `${this.$el.offsetWidth + 80}px`;
+            card.style.animation = "none";
+            card.style.margin = "0px";
+            card.querySelectorAll(IMAGE_HIDDEN.map(name => `.${name}`).join(",")).forEach(node =>
+                node.remove()
+            );
+            frame.appendChild(card);
+            document.body.appendChild(frame);
+            try {
+                return await toBlob(frame, {
+                    pixelRatio: 2,
+                    style: { left: "0px", position: "static" }
+                });
+            } finally {
+                document.body.removeChild(frame);
+            }
+        },
+        _setCopyState: function(state) {
+            // shows the result on the copy icon for a moment, before it
+            // goes back to the icon itself
+            this.$root.copyState = state;
+            if (this.copyTimeout) clearTimeout(this.copyTimeout);
+            this.copyTimeout = state ? setTimeout(() => (this.$root.copyState = null), 1500) : null;
         },
         _getStoresInfo: async function() {
             if (this.storesInfo !== null) return this.storesInfo;

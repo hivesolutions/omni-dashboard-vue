@@ -15,6 +15,7 @@ export const board = function() {
                 api: null,
                 isLoading: false,
                 message: null,
+                copyState: null,
                 settings: { ...defaultSettings }
             };
         },
@@ -133,6 +134,9 @@ export const board = function() {
             },
             changeDimension: function(dimension) {
                 this.$refs.stores.changeDimension(dimension);
+            },
+            copyImage: function() {
+                this.$refs.stores.copyImage();
             },
             setSetting: function(name, value) {
                 this.settings = { ...this.settings, [name]: value };
