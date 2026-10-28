@@ -12,13 +12,14 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPl
 const VueLoaderPlugin = vueLoader.VueLoaderPlugin;
 
 const isProduction = process.env.NODE_ENV === "production";
+const timestamp = Date.now();
 
 const config = {
     entry: ["babel-polyfill", "./src/app.js"],
     mode: isProduction ? "production" : "development",
     output: {
         path: path.join(__dirname, "dist"),
-        filename: "bundle.js?[fullhash]",
+        filename: `bundle.js?${timestamp}`,
         library: "OmniDashboard"
     },
     plugins: [
@@ -71,7 +72,7 @@ const config = {
                     {
                         loader: "file-loader",
                         options: {
-                            name: "[name].[ext]?[fullhash]",
+                            name: `[name].[ext]?${timestamp}`,
                             esModule: false
                         }
                     },
@@ -94,7 +95,7 @@ const config = {
                 test: /\.(png|jpg|gif|svg|ico)$/,
                 loader: "file-loader",
                 options: {
-                    name: "[name].[ext]?[fullhash]",
+                    name: `[name].[ext]?${timestamp}`,
                     esModule: false
                 }
             },
