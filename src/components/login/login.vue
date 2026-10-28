@@ -7,13 +7,13 @@
             <div class="caption">
                 Omni Dashboard
             </div>
-            <h1>{{ title }}</h1>
+            <h1>{{ title || $root.translate("login") }}</h1>
             <p class="extra error" v-if="message">
                 {{ message }}
             </p>
             <p class="extra">
                 <label>
-                    <span class="label">Username</span>
+                    <span class="label">{{ $root.translate("username") }}</span>
                     <input
                         type="text"
                         autocapitalize="none"
@@ -25,7 +25,7 @@
             </p>
             <p class="extra">
                 <label>
-                    <span class="label">Password</span>
+                    <span class="label">{{ $root.translate("password") }}</span>
                     <input
                         type="password"
                         autocapitalize="none"
@@ -37,11 +37,11 @@
             </p>
             <p class="extra instance">
                 <label>
-                    <span class="label">Instance</span>
+                    <span class="label">{{ $root.translate("instance") }}</span>
                     <span class="field">
                         <input
                             type="text"
-                            placeholder="your-url"
+                            v-bind:placeholder="$root.translate('yourUrl')"
                             autocapitalize="none"
                             ref="instance"
                             v-model="instance"
@@ -53,11 +53,11 @@
             </p>
             <p class="extra buttons">
                 <ButtonColor ref="button" v-on:click="submit">
-                    Sign in
+                    {{ $root.translate("signIn") }}
                 </ButtonColor>
             </p>
             <p class="extra forgot">
-                <a href="#">Forgot your password?</a>
+                <a href="#">{{ $root.translate("forgotPassword") }}</a>
             </p>
         </div>
     </div>
@@ -247,7 +247,7 @@ export const Login = {
     props: {
         title: {
             type: String,
-            default: "Login"
+            default: null
         }
     },
     data: function() {
@@ -309,7 +309,7 @@ export const Login = {
                 this.$root.instance = this.instance;
                 this.$root.refresh();
             } catch (err) {
-                const message = err.message ? err.message : "Unknown error";
+                const message = err.message ? err.message : this.$root.translate("unknownError");
                 const finalMessage = message.slice(0, 1).toUpperCase() + message.slice(1);
                 this.message = finalMessage;
             } finally {

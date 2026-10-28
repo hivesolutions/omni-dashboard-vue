@@ -3,14 +3,14 @@
         <p>
             <img src="~./assets/superman.svg" />
         </p>
-        <h1>{{ title }}</h1>
+        <h1>{{ title || $root.translate("errorTitle") }}</h1>
         <p class="text">
-            Unfortunately the site is experiencing a bit of turbulence right now.<br />
-            But soon we'll be up and the sun will shine again.<br />
+            {{ $root.translate("errorTurbulence") }}<br />
+            {{ $root.translate("errorSoon") }}<br />
             <span class="error-message">{{ text }}</span>
         </p>
         <ButtonColor v-on:click="refresh">
-            {{ refreshText }}
+            {{ refreshText || $root.translate("refresh") }}
         </ButtonColor>
     </div>
 </template>
@@ -57,11 +57,11 @@ export const Message = {
     props: {
         title: {
             type: String,
-            default: "Oops there was an error"
+            default: null
         },
         refreshText: {
             type: String,
-            default: "Refresh"
+            default: null
         }
     },
     data: function() {

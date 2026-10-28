@@ -25,7 +25,7 @@
         </Carousel>
         <Dots v-bind:count="stores.length" v-model="page" />
         <div class="footer" v-if="isVisible && lastUpdate">
-            <span>Updated </span>
+            <span>{{ $root.translate("updated") }}&nbsp;</span>
             <span class="date">{{ lastUpdate }}</span>
             <br />
             <span class="username">{{ $root.username }}</span>
@@ -77,14 +77,15 @@ import Store from "../store/store.vue";
 import {
     comparison,
     dayLabel,
-    daysOfWeek,
+    dayName,
     dimensions,
     formatSeparators,
     keyPage,
+    languageLocale,
     lastYear,
     measureValues,
     monthLabel,
-    months,
+    monthName,
     previousDate,
     totalStore,
     valueAt
@@ -122,7 +123,13 @@ export const Stores = {
             return this.$root.settings.interval * 60000;
         },
         separators: function() {
-            return formatSeparators(this.$root.settings.format, navigator.language);
+            return formatSeparators(
+                this.$root.settings.format,
+                languageLocale(this.$root.settings.language, navigator.language)
+            );
+        },
+        language: function() {
+            return this.$root.language;
         }
     },
     watch: {
@@ -139,6 +146,9 @@ export const Stores = {
             this.refresh();
         },
         separators: function(val) {
+            this.refreshLight();
+        },
+        language: function(val) {
             this.refreshLight();
         }
     },
@@ -263,7 +273,7 @@ export const Stores = {
                 // in case there's no response element in the error then redirects
                 // the user agent immediately to the login panel
                 if (!err.response) {
-                    this.$root.message = "Error loading remote data";
+                    this.$root.message = this.$root.translate("errorLoading");
                     return;
                 }
 
@@ -279,8 +289,8 @@ export const Stores = {
                     this.$root.showLogin();
                 } else {
                     this.$root.message = err.message
-                        ? `Error loading remote data: ${err.message}`
-                        : "Error loading remote data";
+                        ? this.$root.translate("errorLoadingDetail", { message: err.message })
+                        : this.$root.translate("errorLoading");
                 }
                 return;
             }
@@ -364,7 +374,11 @@ export const Stores = {
                 // retrieves the values and the presentation details for the
                 // currently selected dimension, both for the current store and
                 // for the same store in the previous year (if available)
-                const { values, currency, label, places } = measureValues(store, this.dimension);
+                const { values, currency, label, places } = measureValues(
+                    store,
+                    this.dimension,
+                    this.language
+                );
                 const storeLy = dataLy && dataLy[objectId];
                 const valuesLy = storeLy ? measureValues(storeLy, this.dimension).values : null;
                 const points = this.dimension === "conversion_rate";
@@ -376,13 +390,15 @@ export const Stores = {
                 let mainLyLabel;
                 if (this.unit === "day") {
                     mainLy = valueAt(valuesLy, dateLy, dateLy, this.unit);
-                    mainLyLabel = `${dayLabel(dateLy)}, full day`;
+                    mainLyLabel = this.$root.translate("fullDay", {
+                        label: dayLabel(dateLy, this.language)
+                    });
                 } else {
                     const storeLyMtd = dataLyMtd && dataLyMtd[objectId];
                     mainLy = storeLyMtd
                         ? measureValues(totalStore(storeLyMtd), this.dimension).values[0]
                         : null;
-                    mainLyLabel = `1-${dateLy.getDate()} ${monthLabel(dateLy)}`;
+                    mainLyLabel = `1-${dateLy.getDate()} ${monthLabel(dateLy, this.language)}`;
                 }
 
                 // creates the string that is going to represent the current day
@@ -395,7 +411,9 @@ export const Stores = {
                 // this is considered to be a "special value"
                 const mainSales = {
                     day: dayS,
-                    weekday: this.unit === "day" ? "Today's " + label : "Month's " + label,
+                    weekday: this.$root.translate(this.unit === "day" ? "today" : "month", {
+                        label: label
+                    }),
                     amount: values[values.length - 1].formatMoney(places, decimal, thousands),
                     currency: currency,
                     comparison: comparison(
@@ -405,7 +423,8 @@ export const Stores = {
                         places,
                         points,
                         decimal,
-                        thousands
+                        thousands,
+                        this.language
                     ),
                     direction: values[values.length - 1] > values[values.length - 2] ? "up" : "down"
                 };
@@ -431,8 +450,8 @@ export const Stores = {
                         )
                             .slice(2, 4)
                             .padStart(2, "0")}`;
-                        const weekday = daysOfWeek[date.getDay()];
-                        const yearmonth = months[date.getMonth()];
+                        const weekday = dayName(date, this.language);
+                        const yearmonth = monthName(date, this.language);
 
                         // computes the same date of the previous year and retrieves
                         // the value for it to be used in the year-on-year comparison
@@ -450,11 +469,14 @@ export const Stores = {
                             comparison: comparison(
                                 value,
                                 valueLy,
-                                this.unit === "day" ? dayLabel(dateRowLy) : monthLabel(dateRowLy),
+                                this.unit === "day"
+                                    ? dayLabel(dateRowLy, this.language)
+                                    : monthLabel(dateRowLy, this.language),
                                 places,
                                 points,
                                 decimal,
-                                thousands
+                                thousands,
+                                this.language
                             )
                         });
                     });
