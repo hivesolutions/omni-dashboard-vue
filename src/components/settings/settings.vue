@@ -122,7 +122,7 @@
                     </span>
                 </div>
             </div>
-            <div class="setting">
+            <div class="setting setting-history">
                 <div class="label">
                     <div class="name">
                         {{ $root.translate("historyRows") }}
@@ -456,12 +456,14 @@
 
 @media screen and (max-width: 359px) {
 
-    .settings > .setting.setting-language {
+    .settings > .setting.setting-language,
+    .settings > .setting.setting-history {
         display: block;
         padding: 12px 0px 12px 0px;
     }
 
-    .settings > .setting.setting-language > .segments {
+    .settings > .setting.setting-language > .segments,
+    .settings > .setting.setting-history > .stepper {
         margin-top: 10px;
     }
 
