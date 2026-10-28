@@ -23,6 +23,9 @@
                 </div>
             </div>
             <div class="column right">
+                <div class="settings">
+                    <img src="~./assets/settings.svg" v-on:click="showSettings" />
+                </div>
                 <div class="refresh">
                     <img src="~./assets/refresh.svg" v-on:click="refresh" />
                 </div>
@@ -45,7 +48,7 @@
                     </span>
                 </div>
             </div>
-            <div class="comparison">
+            <div class="comparison" v-if="$root.settings.comparison">
                 <span class="label">vs {{ store.mainSales.comparison.label }}</span>
                 <span class="value">
                     <span class="amount">{{ store.mainSales.comparison.amount }}</span>
@@ -72,7 +75,7 @@
                     </span>
                 </div>
             </div>
-            <div class="comparison">
+            <div class="comparison" v-if="$root.settings.comparison">
                 <span class="label">vs {{ sale.comparison.label }}</span>
                 <span class="value">
                     <span class="amount">{{ sale.comparison.amount }}</span>
@@ -114,22 +117,35 @@
 }
 
 .store .logout,
+.store .settings,
 .store .refresh {
     transition: opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
+.store .settings,
+.store .refresh {
+    display: inline-block;
+}
+
+.store .settings {
+    margin-right: 14px;
+}
+
 .loading .store .logout,
+.loading .store .settings,
 .loading .store .refresh {
     opacity: 0;
 }
 
 .store .logout > img,
+.store .settings > img,
 .store .refresh > img {
     cursor: pointer;
     vertical-align: middle;
 }
 
 .store .logout > img:hover,
+.store .settings > img:hover,
 .store .refresh > img:hover {
     filter: invert(0.5) sepia(1) hue-rotate(12deg);
 }
@@ -314,6 +330,9 @@ export const Store = {
         },
         refresh: function() {
             this.$root.refresh();
+        },
+        showSettings: function() {
+            this.$root.showSettings();
         },
         changeUnit: function(mode) {
             this.$root.changeUnit();

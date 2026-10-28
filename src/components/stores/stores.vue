@@ -78,6 +78,8 @@ import {
     comparison,
     dayLabel,
     daysOfWeek,
+    dimensions,
+    formatSeparators,
     keyPage,
     lastYear,
     measureValues,
@@ -87,14 +89,6 @@ import {
     totalStore,
     valueAt
 } from "../../util";
-
-export const SEQUENCE = [
-    "net_price_vat",
-    "net_number_sales",
-    "net_average_sale",
-    "number_entries",
-    "conversion_rate"
-];
 
 export const Stores = {
     components: {
@@ -108,9 +102,8 @@ export const Stores = {
         return {
             stores: [],
             lastUpdate: null,
-            span: 7,
-            unit: "day",
-            dimension: "net_price_vat",
+            unit: this.$root.settings.unit,
+            dimension: this.$root.settings.dimension,
             isVisible: false,
             isLoading: true,
             data: null,
@@ -118,9 +111,19 @@ export const Stores = {
             dataLyMtd: null,
             page: 0,
             timeout: null,
-            timeoutInterval: 300000,
             storesInfo: null
         };
+    },
+    computed: {
+        span: function() {
+            return this.$root.settings.span;
+        },
+        timeoutInterval: function() {
+            return this.$root.settings.interval * 60000;
+        },
+        separators: function() {
+            return formatSeparators(this.$root.settings.format, navigator.language);
+        }
     },
     watch: {
         span: function(val) {
@@ -131,6 +134,12 @@ export const Stores = {
         },
         dimension: function(val) {
             this.refreshLight();
+        },
+        timeoutInterval: function(val) {
+            this.refresh();
+        },
+        separators: function(val) {
+            this.refreshLight();
         }
     },
     methods: {
@@ -138,9 +147,8 @@ export const Stores = {
             this.timeout && clearTimeout(this.timeout);
             this.stores = [];
             this.lastUpdate = null;
-            this.span = 7;
-            this.unit = "day";
-            this.dimension = "net_price_vat";
+            this.unit = this.$root.settings.unit;
+            this.dimension = this.$root.settings.dimension;
             this.isVisible = false;
             this.isLoading = true;
             this.data = null;
@@ -183,14 +191,14 @@ export const Stores = {
             }
         },
         nextDimension: function() {
-            const currentIndex = SEQUENCE.indexOf(this.dimension);
-            const targetIndex = currentIndex === SEQUENCE.length - 1 ? 0 : currentIndex + 1;
-            this.dimension = SEQUENCE[targetIndex];
+            const currentIndex = dimensions.indexOf(this.dimension);
+            const targetIndex = currentIndex === dimensions.length - 1 ? 0 : currentIndex + 1;
+            this.dimension = dimensions[targetIndex];
         },
         previousDimension: function() {
-            const currentIndex = SEQUENCE.indexOf(this.dimension);
-            const targetIndex = currentIndex === 0 ? SEQUENCE.length - 1 : currentIndex - 1;
-            this.dimension = SEQUENCE[targetIndex];
+            const currentIndex = dimensions.indexOf(this.dimension);
+            const targetIndex = currentIndex === 0 ? dimensions.length - 1 : currentIndex - 1;
+            this.dimension = dimensions[targetIndex];
         },
         remote: async function() {
             // in case we don't have a valid base URL the control flow is
@@ -307,6 +315,10 @@ export const Stores = {
             // to be used in the latter operation
             const page = this.page;
 
+            // retrieves the decimal and thousands separators of the number
+            // format that is currently selected in the settings
+            const [decimal, thousands] = this.separators;
+
             // resets the list of stores currently associated to the
             // component as new ones are going to be used
             this.stores = [];
@@ -384,14 +396,16 @@ export const Stores = {
                 const mainSales = {
                     day: dayS,
                     weekday: this.unit === "day" ? "Today's " + label : "Month's " + label,
-                    amount: values[values.length - 1].formatMoney(places, ".", ","),
+                    amount: values[values.length - 1].formatMoney(places, decimal, thousands),
                     currency: currency,
                     comparison: comparison(
                         values[values.length - 1],
                         mainLy,
                         mainLyLabel,
                         places,
-                        points
+                        points,
+                        decimal,
+                        thousands
                     ),
                     direction: values[values.length - 1] > values[values.length - 2] ? "up" : "down"
                 };
@@ -431,14 +445,16 @@ export const Stores = {
                         sales.push({
                             day: this.unit === "day" ? dayS : monthS,
                             weekday: this.unit === "day" ? weekday : yearmonth,
-                            amount: value.formatMoney(places, ".", ","),
+                            amount: value.formatMoney(places, decimal, thousands),
                             currency: currency,
                             comparison: comparison(
                                 value,
                                 valueLy,
                                 this.unit === "day" ? dayLabel(dateRowLy) : monthLabel(dateRowLy),
                                 places,
-                                points
+                                points,
+                                decimal,
+                                thousands
                             )
                         });
                     });
