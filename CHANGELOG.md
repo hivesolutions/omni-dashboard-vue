@@ -37,6 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Open Sans web fonts failing to load - [#20](https://github.com/hivesolutions/omni-dashboard-vue/issues/20)
 * Warnings in the Docker image builds - [#23](https://github.com/hivesolutions/omni-dashboard-vue/issues/23)
 * Settings rows losing their spacing on phones - [#31](https://github.com/hivesolutions/omni-dashboard-vue/issues/31)
+* Login errors such as a wrong password never showing a message - [#33](https://github.com/hivesolutions/omni-dashboard-vue/issues/33)
 
 ## [0.2.0] - 2023-02-15
 
