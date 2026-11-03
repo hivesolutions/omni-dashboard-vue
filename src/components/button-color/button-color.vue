@@ -54,6 +54,7 @@
 
 <script>
 export const ButtonColor = {
+    emits: ["click"],
     data: function() {
         return {
             isLoading: false

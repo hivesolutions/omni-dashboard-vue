@@ -300,12 +300,13 @@ export const Login = {
             if (!this.baseUrl) return;
             this.$refs.button.isLoading = true;
             try {
+                // the password is only given to the login call, as the API
+                // retries a failed request by logging in again with the
+                // password it holds, looping forever on a wrong password
                 const api = new API({
-                    baseUrl: this.baseUrl,
-                    username: this.username,
-                    password: this.password
+                    baseUrl: this.baseUrl
                 });
-                await api.login();
+                await api.login(this.username, this.password);
                 this.$root.api = api;
                 this.$root.sid = api.sessionId;
                 this.$root.username = this.username;
