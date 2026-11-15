@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Tighter spacing between the history rows of the store cards - [#13](https://github.com/hivesolutions/omni-dashboard-vue/issues/13)
 * Every deploy loads fresh copies of the scripts and icons - [#19](https://github.com/hivesolutions/omni-dashboard-vue/issues/19)
 * Login restyled to match the settings - [#25](https://github.com/hivesolutions/omni-dashboard-vue/issues/25)
+* Tests and build no longer checked on Node.js 20, which has reached end of life
 
 ### Fixed
 
